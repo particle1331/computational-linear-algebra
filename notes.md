@@ -51,7 +51,8 @@
     <p align="center">
     <img src="img/4_polar_decomposition.png" title="drawing" width="600" />
     </p> <br>
-    **Remark.** This gives us the intuition that the matrix $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently positive semidefinite, it has a unique *positive semidefinite* square root $\sqrt{\bold A^\top \bold A}$ [[Thm 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. (Multiple square roots exist up to multiplication by an orthogonal matrix, but only one is positive semidefinite!)<br><br>
+    
+    **Remark**. This gives us the intuition that the matrix $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently positive semidefinite, it has a unique *positive semidefinite* square root $\sqrt{\bold A^\top \bold A}$ [[Thm 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. (Multiple square roots exist up to multiplication by an orthogonal matrix, but only one is positive semidefinite!)<br><br>
 * 
 
 <!--- Template
