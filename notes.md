@@ -52,8 +52,7 @@
     <img src="img/4_polar_decomposition.png" title="drawing" width="600" />
     </p> <br>
     
-    **Remarks**. This gives us the intuition that $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently positive semidefinite, it has a unique positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. (Multiple square roots exist, e.g. we can multiply the principal root by an orthogonal matrix to a square root, but the theorem tells us that precisely one is positive semidefinite!) 
-    Thus, we can write the polar decomposition as $\bold A = \bold U \sqrt{\bold A^\top \bold A}$ for some orthogonal matrix $\bold U$. The principal (i.e. positive semidefinite) square root can be easily computed using the SVD. 
+    **Remarks**. This gives us the intuition that $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently positive semidefinite, it has a unique positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. The matrix $\bold U$ is only unique if $\bold A$ is nonsingular. For instance if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation.
     <br><br>
 
 * 
