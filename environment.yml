@@ -1,0 +1,64 @@
+name: dmlm
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2020.12.5=h5b45459_0
+  - certifi=2020.12.5=py38haa244fe_1
+  - cycler=0.10.0=py_2
+  - freetype=2.10.4=h546665d_1
+  - icu=68.1=h0e60522_0
+  - intel-openmp=2020.3=h57928b3_311
+  - joblib=1.0.0=pyhd8ed1ab_0
+  - jpeg=9d=h8ffe710_0
+  - kiwisolver=1.3.1=py38hbd9d945_1
+  - libblas=3.9.0=7_mkl
+  - libcblas=3.9.0=7_mkl
+  - libclang=11.0.1=default_h5c34c98_1
+  - liblapack=3.9.0=7_mkl
+  - libpng=1.6.37=h1d00b33_2
+  - libtiff=4.2.0=hc10be44_0
+  - lz4-c=1.9.3=h8ffe710_0
+  - m2w64-gcc-libgfortran=5.3.0=6
+  - m2w64-gcc-libs=5.3.0=7
+  - m2w64-gcc-libs-core=5.3.0=7
+  - m2w64-gmp=6.1.0=2
+  - m2w64-libwinpthread-git=5.0.0.4634.697f757=2
+  - matplotlib=3.3.3=py38haa244fe_0
+  - matplotlib-base=3.3.3=py38h34ddff4_0
+  - mkl=2020.4=hb70f87d_311
+  - msys2-conda-epoch=20160418=1
+  - numpy=1.19.5=py38h0cc643e_1
+  - olefile=0.46=pyh9f0ad1d_1
+  - openssl=1.1.1i=h8ffe710_0
+  - pandas=1.2.0=py38h4c96930_1
+  - pillow=8.1.0=py38hf7ce48b_1
+  - pip=20.3.3=pyhd8ed1ab_0
+  - pyparsing=2.4.7=pyh9f0ad1d_0
+  - pyqt=5.12.3=py38haa244fe_7
+  - pyqt-impl=5.12.3=py38h885f38d_7
+  - pyqt5-sip=4.19.18=py38h885f38d_7
+  - pyqtchart=5.12=py38h885f38d_7
+  - pyqtwebengine=5.12.1=py38h885f38d_7
+  - python=3.8.6=h7840368_4_cpython
+  - python-dateutil=2.8.1=py_0
+  - python_abi=3.8=1_cp38
+  - pytz=2020.5=pyhd8ed1ab_0
+  - qt=5.12.9=h5909a2a_3
+  - scikit-learn=0.24.1=py38ha09990b_0
+  - scipy=1.6.0=py38h5f893b4_0
+  - setuptools=49.6.0=py38haa244fe_3
+  - six=1.15.0=pyh9f0ad1d_0
+  - sqlite=3.34.0=h8ffe710_0
+  - threadpoolctl=2.1.0=pyh5ca1d4c_0
+  - tk=8.6.10=h8ffe710_1
+  - tornado=6.1=py38h294d835_1
+  - vc=14.2=hb210afc_2
+  - vs2015_runtime=14.28.29325=h5e1d092_0
+  - wheel=0.36.2=pyhd3deb0d_0
+  - wincertstore=0.2=py38haa244fe_1006
+  - xz=5.2.5=h62dcd97_1
+  - zlib=1.2.11=h62dcd97_1010
+  - zstd=1.4.8=h4e2f164_1
+prefix: C:\Users\BrewCrew\anaconda3\envs\dmlm
+
