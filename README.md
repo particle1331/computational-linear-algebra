@@ -5,7 +5,6 @@ https://www.udemy.com/course/linear-algebra-theory-and-implementation/
 <br>
 
 ## Topics
----
 ### 2. Vectors
 Algebraic and gemetric interpretations. Vector addition and subtraction. Vector-scalar multiplication. Dot product and its properties. Vector length. Dot product geometry: sign and orthogonality. Vector Hadamard multiplication. Outer product. Cross product. Vectors with complex numbers. Hermitian transpose (a.k.a. conjugate transpose). Interpreting and creating unit vectors. Dimensions and fields in linear algebrra. Subspaces. Span. Linear independence. Basis. 
 
