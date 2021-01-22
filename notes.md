@@ -53,6 +53,7 @@
     </p> <br>
     
     **Remarks**. This gives us the intuition that $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently positive semidefinite, it has a unique positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. The matrix $\bold U$ is only unique if $\bold A$ is nonsingular. For instance if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation.
+    **Remarks**. This gives us the intuition that $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently symmetric  positive semidefinite, it has a unique symmetric positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. The matrix $\bold U$ is only unique if $\bold A$ is nonsingular. For instance if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation.
     <br><br>
 
 * 
