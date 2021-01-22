@@ -55,8 +55,6 @@
     **Remarks**
     This gives us the intuition that $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently symmetric  positive semidefinite, it has a unique symmetric positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Theorem 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. It follows that the polar decomposition can be written as $\bold A = \bold U \sqrt{\bold A^\top \bold A}$ for some orthogonal matrix $\bold U$ (c.f. [[Lemma 9.6]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf) which restates the polar decomposition as the assertion that such an [isometry](https://math.stackexchange.com/questions/169923/proving-that-a-linear-isometry-on-mathbbrn-is-an-orthogonal-matrix) $\bold U$ exists). <br><br>
     The matrix $\bold U$ is only unique if $\bold A$ is nonsingular. For instance, if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation.<br><br> 
-    <br><br>
-
 
 
 <!--- Template
