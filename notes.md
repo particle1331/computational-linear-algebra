@@ -53,6 +53,7 @@
     </p> <br>
     
     **Remark**. This gives us the intuition that $\bold P$ in the polar decomposition must be unique. Indeed, $\bold P^2 = \bold A^\top \bold A$. Since $\bold A^\top \bold A$ is evidently positive semidefinite, it has a unique *positive semidefinite* square root $\sqrt{\bold A^\top \bold A}$ [[Thm 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Then, $\bold P = \sqrt{\bold A ^\top \bold A}$ by uniqueness. (Multiple square roots exist, e.g. we can multiply the principal root by an orthogonal matrix to a square root, but the theorem tells us that precisely one is positive semidefinite!)<br><br>
+    
 * 
 
 <!--- Template
