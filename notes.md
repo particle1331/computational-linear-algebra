@@ -75,3 +75,6 @@
   <img src="img/bb.jpg" alt="drawing" width="200"/>
   <br><br>
 --->
+
+
+* http://www-users.math.umn.edu/~rylai/docs1/teaching/math4242/S2020_M4242/Lecture32.pdf
