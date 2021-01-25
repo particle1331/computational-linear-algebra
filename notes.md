@@ -78,7 +78,7 @@
     ```     
 <br>
 
-* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The *Frobenius dot product* between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F = {\sum_{i=1}^m}{\sum_{j=1}^n} {{(\bold A \odot \bold B)}_{ij}}$ i.e. simply sum the element-wise product of the two matrices. We can recover this from matrix multiplication using the trace: $\text{tr}(\bold A^\top \bold B).$ The *Frobenius norm* norm is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F}$ which is equal to $\sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{{\sum_{ij}} {a_{ij}^2}}.$  <br>
+* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The *Frobenius dot product* between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F = {\sum_{i=1}^m}{\sum_{j=1}^n} {(\bold A \odot \bold B)_{ij}}$. This can be computed in two other ways (1) reshape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which makes a lot of unnecessary computation! The *Frobenius norm* is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F}$ which, of course, is equal to $\sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{{\sum_{ij}}{a_{ij}^2}}.$  <br>
     
     The fastest way to calculate this in NumPy is the straightforward `(A * B).sum()`. Other ways of calculating (shown in the video) are slower: (1) `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` where `order='F'` means Fortran-like indexing or along the columns, and (2) `np.trace(A @ B)`. <br>
     ```
@@ -92,7 +92,7 @@
     3.73 µs ± 185 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
     ```
     
-    **Remark.** As usual for complex matrices: $\langle \bold A, \bold B\rangle_F =\text{tr}(\bold A^* \bold B)$ and $\lVert \bold A \rVert_F= \sqrt{\text{tr} (\bold A^* \bold A)} = \sqrt{{\sum_{ij}} |a_{ij}|^2}.$ The Frobenius dot product is an inner product on $\mathbb R^{m \times n}$ (resp. $\mathbb C^{m \times n}$) in the same way that the usual dot product is an inner product in $\mathbb R^{mn}$. It follows that the Frobenius norm $\lVert \cdot \rVert_F$ is a norm as it is induced by the inner product $\langle \cdot, \cdot \rangle_F$ [[Prop. 6]](https://ai.stanford.edu/~gwthomas/notes/norms-inner-products.pdf). 
+    **Remark.** As usual for complex matrices we replace the transpose with the conjugate transpose: $\langle \bold A, \bold B\rangle_F =\text{tr}(\bold A^* \bold B)$ and $\lVert \bold A \rVert_F= \sqrt{\text{tr} (\bold A^* \bold A)} = \sqrt{{\sum_{ij}} |a_{ij}|^2}.$ The Frobenius dot product is an inner product on $\mathbb R^{m \times n}$ (resp. $\mathbb C^{m \times n}$) in the same way that the usual dot product is an inner product in $\mathbb R^{mn}$. It follows that the Frobenius norm $\lVert \cdot \rVert_F$ is a norm as it is induced by the inner product $\langle \cdot, \cdot \rangle_F$ [[Prop. 6]](https://ai.stanford.edu/~gwthomas/notes/norms-inner-products.pdf). 
 
 
 
