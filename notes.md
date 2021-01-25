@@ -78,7 +78,7 @@
     ```     
 <br>
 
-* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The *Frobenius dot product* between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F = \text{tr}(\bold A^\top \bold B).$ Note that this is equal to ${\sum_{i=1}}^m {\sum_{j=1}}^n (\bold A \odot \bold B)$ which can be calculated as the dot product of the two matrices *vectorized*, i.e. reshaped into two long vectors along the columns. In Numpy, we can compute this using `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` in NumPy; `order='F'` means Fortran-like indexing. The *Frobenius norm* is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr} (\bold A^\top \bold A) = \sqrt{{\sum_{i=1}}^m}}$
+* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The *Frobenius dot product* between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F = \text{tr}(\bold A^\top \bold B).$ Note that this is equal to ${\sum_{i=1}^m} {\sum_{j=1}^n} (\bold A \odot \bold B)$ which can be calculated as the dot product of the two matrices *vectorized*, i.e. reshaped into two long vectors along the columns. In Numpy, we can compute this using `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` in NumPy; `order='F'` means Fortran-like indexing. The *Frobenius norm* is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr} (\bold A^\top \bold A) = \sqrt{{\sum_{i=1}^m}}}$
   
   
   
