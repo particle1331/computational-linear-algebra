@@ -78,7 +78,7 @@
     ```     
 <br>
 
-* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The *Frobenius dot product* between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F = {\sum_{i=1}^m}{\sum_{j=1}^n} {(\bold A \odot \bold B)}_{ij}$ i.e. simply sum the element-wise product of the two matrices. We can recover this from matrix multiplication using the trace: $\text{tr}(\bold A^\top \bold B).$ The *Frobenius norm* norm is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F}$ which is equal to $\sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{{\sum_{ij}} {a_{ij}}^2}.$  <br>
+* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The *Frobenius dot product* between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F = {\sum_{i=1}^m}{\sum_{j=1}^n} {(\bold A \odot \bold B)}_{ij}$ i.e. simply sum the element-wise product of the two matrices. We can recover this from matrix multiplication using the trace: $\text{tr}(\bold A^\top \bold B).$ The *Frobenius norm* norm is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F}$ which is equal to $\sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{{\sum_{ij}}{a_{ij}^2}}.$  <br>
     
     The fastest way to calculate this in NumPy is the straightforward `(A * B).sum()`. Other ways of calculating (shown in the video) are slower: (1) `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` where `order='F'` means Fortran-like indexing or along the columns, and (2) `np.trace(A @ B)`. <br>
     ```
