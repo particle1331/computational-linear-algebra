@@ -65,7 +65,27 @@
 
 * **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$ <br><br>
 
-* (4.56) The product of two symmetric matrices $\bold S$ and $\bold T$ is symmetric if $S_{ii}$ 
+* (4.56) **Symmetric product of two symmetric matrices.** Suppose $\bold S$ and $\bold T$ are symmetric matrices. What is the condition so that their product $\bold S \bold T$ is symmetric? Observe that $(\bold S \bold T)^\top = \bold T ^\top \bold S ^\top = \bold T \bold S.$ Thus, the product of two symmetric matrices is symmetric if and only if the matrices commute. In the case of $2 \times 2$ matrices, the most natural way to satisfy this is to have matrices with constant diagonal entries. <br><br>
+
+* (4.57) Hadamard and standard multiplications are equivalent for diagonal matrices. This can have consequences in practice. The following code in IPython shows how Hadamard multiplication is 3 times faster than standard multiplication in NumPy.
+    ```
+    In [1]: import numpy as np
+    In [2]: D = np.diag([1, 2, 3, 4, 5])
+    In [3]: %timeit D @ D
+    2.21 µs ± 369 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+    In [4]: %timeit D * D
+    717 ns ± 47.9 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+    ```     
+<br>
+
+* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The *Frobenius dot product* between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F = \text{tr}(\bold A^\top \bold B).$ Note that this is equal to $\sum_{i=1}^m \sum_{j=1}^n (\bold A \odot \bold B)_{ij}$ which can be calculated as the dot product of the two matrices *vectorized*, i.e. reshaped into two long vectors along the columns. In Numpy, we can compute this using `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` in NumPy; `order='F'` means Fortran-like indexing. The *Frobenius norm* is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr}(\bold A^\top \bold A)} = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {a_{ij}}^2}.$ For complex matrices, the Frobenius dot product is defined in terms of the Hermitian transpose as $\langle \bold A, \bold B\rangle_F =\text{tr}(\bold A^* \bold B)$. So that $\lVert \bold A \rVert_F=\sqrt{\sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2}$ where $|\cdot |$ is the magnitude of the complex number $a_{ij}$. <br><br>
+**Remark.** That the Frobenius norm is a norm is precisely the proof that the Euclidean norm for vectors in $\mathbb R^n$ is a norm.<br><br>
+
+* 
+
+
+
+
 
 
 <!--- Template
