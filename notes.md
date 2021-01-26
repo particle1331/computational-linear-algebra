@@ -23,16 +23,16 @@
 * (4.44) Cool way of writing the four ways of matrix multiplication: 
 
   - **Outer product perspective** <br> 
-    ```python
+    ```
     AB[i, j] = sum(k, A[i, k] B[k, j]) 
              = sum(k, outer(A[:, k], B[k, :])[i, j]
     ```
   - **Row perspective**: <br> 
-    ```python
+    ```
     AB[i, :] = sum(k, A[i, k] B[k, :]) 
     ```
   - **Column perspective**: <br> 
-    ```python
+    ```
     AB[:, j] = sum(k, A[:, k] B[k, j]) 
     ```
   <br>
@@ -65,7 +65,7 @@
 
 * **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$ <br><br>
 
-* (4.56) **Symmetric product of two symmetric matrices.** Suppose $\bold S$ and $\bold T$ are symmetric matrices. What is the condition so that their product $\bold S \bold T$ is symmetric? Observe that $(\bold S \bold T)^\top = \bold T ^\top \bold S ^\top = \bold T \bold S.$ Thus, the product of two symmetric matrices is symmetric if and only if the matrices commute. This is a very small class of matrices, such as zeros or constant diagonal matrices. 
+* (4.56) **Symmetric product of two symmetric matrices.** Suppose $\bold S$ and $\bold T$ are symmetric matrices. What is the condition so that their product $\bold S \bold T$ is symmetric? Observe that $(\bold S \bold T)^\top = \bold T ^\top \bold S ^\top = \bold T \bold S.$ Thus, the product of two symmetric matrices is symmetric if and only if the matrices commute. This works for a very small class of matrices, such as zeros or constant diagonal matrices. 
 In the case of $2 \times 2$ matrices, this is satisfied most naturally by  matrices with constant diagonal entries &mdash; this is just a quirk that does not generalize to higher dimensional matrices.
 The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to be extremely important in machine-learning, multivariate statistics, and signal processing, and is a core part of the reason why linear classifiers are so successful [[Lec 56, Q&A]](https://www.udemy.com/course/linear-algebra-theory-and-implementation/learn/lecture/10738628#questions/13889570/): 
     >  "The lack of symmetry means that $\bold C=\bold B^{-1} \bold A$ is not symmetric, which means that $\bold C$ has non-orthogonal eigenvectors. In stats/data science/ML, most linear classifiers work by using generalized eigendecomposition on two data covariance matrices $\bold B$ and $\bold A$, and the lack of symmetry in $\bold C$ turns a compression problem into a separation problem. I talk about this briefly in lecture 153, which you can skip forwards to if you're curious. But if you are not familiar with eigendecomposition, then it might not make sense until you get to that point linearly."
@@ -73,7 +73,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
 <br>
 
 * (4.57) Hadamard and standard multiplications are equivalent for diagonal matrices. This can have consequences in practice. The following code in IPython shows that Hadamard multiplication is 3 times faster than standard multiplication in NumPy.
-    ```
+    ```python
     In [1]: import numpy as np
     In [2]: D = np.diag([1, 2, 3, 4, 5])
     In [3]: %timeit D @ D
@@ -85,7 +85,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
 
 * (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The **Frobenius dot product** between two matrices $\bold A$ and $\bold B$ is defined as 
   $$
-  \langle \bold A, \bold B \rangle_F =  \sum \sum (\bold A \odot \bold B).
+  {\langle \bold A, \bold B \rangle} =  {\sum \sum (\bold A \odot \bold B)}.
   $$ 
   This can be computed in two other ways (1) reshsape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which should be nice for the sake of theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as 
   $$
@@ -95,7 +95,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
     The fastest way to calculate this in NumPy is the straightforward `(A * B).sum()`. Other ways of calculating (shown in the video) are slower: (1) `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` where `order='F'` means Fortran-like indexing or along the columns, and (2) `np.trace(A @ B)`. 
     
     
-    ```
+    ```python
     In [14]: A = np.random.randn(2, 2)
     In [15]: B = np.random.randn(2, 2)
     In [17]: %timeit np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))
@@ -112,7 +112,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
 <br><br>
 
 * (4.60) **Calculating the operator norm.** Here we approximate $\sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_p$ which is equivalent. Recall that the unit circle is transformed $\bold A$ to an ellipse whose length of axes are the singular values of $\bold A$. Thus, geometrically, we can guess that $\lVert \bold A \rVert_{p} = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_p = \sigma_1$ where $\sigma_1$ is the largest singular value of $\bold A$. We test this in `src/4_operator_norm.py` with the following results:
-  ```
+   ```
     approx:  1.8594375168610568
     numpy:   1.8594432066519955
     svd:     1.8594432066519957
