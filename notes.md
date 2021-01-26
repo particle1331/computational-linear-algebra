@@ -23,16 +23,16 @@
 * (4.44) Cool way of writing the four ways of matrix multiplication: 
 
   - **Outer product perspective** <br> 
-    ```
+    ```python
     AB[i, j] = sum(k, A[i, k] B[k, j]) 
              = sum(k, outer(A[:, k], B[k, :])[i, j]
     ```
   - **Row perspective**: <br> 
-    ```
+    ```python
     AB[i, :] = sum(k, A[i, k] B[k, :]) 
     ```
   - **Column perspective**: <br> 
-    ```
+    ```python
     AB[:, j] = sum(k, A[:, k] B[k, j]) 
     ```
   <br>
