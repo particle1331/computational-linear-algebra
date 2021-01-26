@@ -85,7 +85,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
 
 * (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The **Frobenius dot product** between two matrices $\bold A$ and $\bold B$ is defined as 
   $$
-  {\langle \bold A, \bold B \rangle} =  {\sum \sum (\bold A \odot \bold B)}_{ij}.
+  {\langle \bold A, \bold B \rangle}_F =  \sum_{i=1}^m \sum_{j=1}^n {(\bold A \odot \bold B)}_{ij}.
   $$ 
   This can be computed in two other ways (1) reshsape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which should be nice for the sake of theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as 
   $$
