@@ -30,7 +30,7 @@ def plot_circle_transformation(A, ax, use_svd=False):
     eig_vecs = np.linalg.eig(P)[1]
     ax.arrow(0, 0, eig_vals[0]*(U @ eig_vecs[:, 0])[0], eig_vals[0]*(U @ eig_vecs[:, 0])[1]) # rotate v1
     ax.arrow(0, 0, eig_vals[1]*(U @ eig_vecs[:, 1])[0], eig_vals[1]*(U @ eig_vecs[:, 1])[1]) # rotate v2
-        
+    return U, P
 
 
 if __name__ == '__main__':
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     fig, ax = plt.subplots(1, 2, figsize=(8, 6))
     for i in [0, 1]:
         A = matrices[i]
-        plot_circle_transformation(A, ax[i], use_svd=use_svd)
+        U, P = plot_circle_transformation(A, ax[i], use_svd=use_svd)
         ax[i].set_title(f'A={A.tolist()}')
 
     if use_svd:

@@ -66,7 +66,8 @@
 * **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$ <br><br>
 
 * (4.56) **Symmetric product of two symmetric matrices.** Suppose $\bold S$ and $\bold T$ are symmetric matrices. What is the condition so that their product $\bold S \bold T$ is symmetric? Observe that $(\bold S \bold T)^\top = \bold T ^\top \bold S ^\top = \bold T \bold S.$ Thus, the product of two symmetric matrices is symmetric if and only if the matrices commute. 
-In the case of $2 \times 2$ matrices, the most natural way to satisfy this is to have matrices with constant diagonal entries &mdash; this is just a quirk that does not generalize to higher dimensional matrices. The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to be extremely important in machine-learning, multivariate statistics, and signal processing, and is a core part of the reason why linear classifiers are so successful [[Lec 56, Q&A]](https://www.udemy.com/course/linear-algebra-theory-and-implementation/learn/lecture/10738628#questions/13889570/).
+In the case of $2 \times 2$ matrices, the most natural way to satisfy this is to have matrices with constant diagonal entries &mdash; this is just a quirk that does not generalize to higher dimensional matrices.  
+The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to be extremely important in machine-learning, multivariate statistics, and signal processing, and is a core part of the reason why linear classifiers are so successful [[Lec 56, Q&A]](https://www.udemy.com/course/linear-algebra-theory-and-implementation/learn/lecture/10738628#questions/13889570/).
 <br><br>
 
 * (4.57) Hadamard and standard multiplications are equivalent for diagonal matrices. This can have consequences in practice. The following code in IPython shows that Hadamard multiplication is 3 times faster than standard multiplication in NumPy.
@@ -80,7 +81,7 @@ In the case of $2 \times 2$ matrices, the most natural way to satisfy this is to
     ```     
 <br>
 
-* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The **Frobenius dot product** between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B\rangle_F =  \sum \sum (\bold A \odot \bold B)_{ij}.$ This can be computed in two other ways (1) reshape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which should be nice for the sake of theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F}$ which, of course, is equal to $\sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{\sum\sum {a_{ij}}^2}.$  <br>
+* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The **Frobenius dot product** between two matrices $\bold A$ and $\bold B$ is defined as $\langle \bold A, \bold B \rangle_F =  \sum \sum (\bold A \odot \bold B)_{ij}.$ This can be computed in two other ways (1) reshape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which should be nice for the sake of theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as $\lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F}$ which, of course, is equal to $\sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{\sum\sum {a_{ij}}^2}.$  <br>
     
     The fastest way to calculate this in NumPy is the straightforward `(A * B).sum()`. Other ways of calculating (shown in the video) are slower: (1) `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` where `order='F'` means Fortran-like indexing or along the columns, and (2) `np.trace(A @ B)`. <br>
     ```
@@ -96,19 +97,17 @@ In the case of $2 \times 2$ matrices, the most natural way to satisfy this is to
     
     **Remark.** The Frobenius dot product is an inner product on $\mathbb R^{m \times n}$ in the same way that the usual dot product is an inner product on $\mathbb R^{mn}$. It follows that the Frobenius norm $\lVert \cdot \rVert_F$ is a norm as it is induced by the inner product $\langle \cdot, \cdot \rangle_F$ [[Prop. 6]](https://ai.stanford.edu/~gwthomas/notes/norms-inner-products.pdf). As usual for complex matrices we replace the transpose with the conjugate transpose: $\langle \bold A, \bold B\rangle_F =\text{tr}(\bold A^* \bold B)$ and $\lVert \bold A \rVert_F= \sqrt{\text{tr} (\bold A^* \bold A)} = \sqrt{\sum\sum |a_{ij}|^2}.$ These are an inner product and a norm on $\mathbb C^{m \times n}$, as in the real case.  <br><br>
 
-* (4.60) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_p = \sup_{\bold x \neq \bold 0} \lVert \bold A \bold x \rVert_p / \lVert \bold x \rVert_p$ where we use the $p$-norm for vectors with $1 \leq p \leq \infty$. This just measures how much $\bold A$ scales the space, e.g. for isometries $\lVert \bold A \rVert_{p} = 1$. Another matrix norm, which unfortunately uses the same notation, is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left( \sum_{i=1}^r \sigma_i^p \right)^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that
+* (4.60) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_p = \sup_{\bold x \neq \bold 0} \lVert \bold A \bold x \rVert_p / \lVert \bold x \rVert_p$ where we use the $p$-norm for vectors with $1 \leq p \leq \infty$. This just measures how much $\bold A$ scales the space, e.g. for isometries $\lVert \bold A \rVert_{p} = 1$. Another matrix norm, which unfortunately uses the same notation, is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left( \sum_{i=1}^r \sigma_i^p \right)^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
 <br><br>
 
+* (4.60) **Calculating the operator norm.** Here we approximate $\sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_p$ which is equivalent. Recall that the unit circle is transformed $\bold A$ to an ellipse whose length of axes are the singular values of $\bold A$. Thus, geometrically, we can guess that $\lVert \bold A \rVert_{p} = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_p = \sigma_1$ where $\sigma_1$ is the largest singular value of $\bold A$. We test this in `src/4_operator_norm.py` with the following results:
+  ```
+    approx:  1.8594375168610568
+    numpy:   1.8594432066519955
+    svd:     1.8594432066519957
+   ```
+    Awesome! Although, interestingly if we sample more than 100 equidistant points on the cicle, we get a worse approximation. (???)  
 
-* (4.60) Calculating the operator norm:
-  ```
-  In [32]: t = np.linspace(-1, 1, 100)                                                                                                                                  
-  In [33]: arrows = np.stack([np.cos(2*np.pi*t), np.sin(2*np.pi*t)], axis=0)                                                                                            
-  In [34]: max([np.linalg.norm(A @ arrows[:, i]) for i in range(100)])                                                                                                  
-  Out[34]: 1.7299861346634995
-  In [35]: np.linalg.norm(A, 2) # operator norm                                                                                                            
-  Out[35]: 1.729988653277816
-  ```
 
 
 
