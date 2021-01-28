@@ -81,11 +81,11 @@ We prove the SVD exists by construction. Let $\text{rank }\bold A = r \leq \min(
   </p>
   <br><br>
 
-  Another important characterization of the singular vectors is in terms of eigenvalues of $\bold A^\top \bold A$ and $\bold A \bold A^\top$ is that $\bold v_1, \ldots, \bold v_n$ are eigenvectors of $\bold A^\top \bold A$ with eigenvalues ${\sigma_i}^2$. On the other hand, $\bold u_1, \ldots, \bold u_r$ are eigenvectors of $\bold A \bold A^\top$. The former is true by construction. To show the latter, calculate
+  Another important characterization of the singular vectors is in terms of eigenvalues of $\bold A^\top \bold A$ and $\bold A \bold A^\top.$ By construction, $\bold v_1, \ldots, \bold v_n$ are eigenvectors of $\bold A^\top \bold A$ with eigenvalues ${\sigma_i}^2$. On the other hand,
   $$
-  \bold A \bold A^\top \bold u_i = \frac{1}{\sigma_i} \bold A \bold A^\top \bold A \bold v_i = \frac{1}{\sigma_i} {\sigma_i}^2 \bold A \bold v_i = {\sigma_i}^2 \bold u_i.
+  \bold A \bold A^\top \bold u_i = \frac{1}{\sigma_i} \bold A \bold A^\top \bold A \bold v_i = \frac{1}{\sigma_i} {\sigma_i}^2 \bold A \bold v_i = {\sigma_i}^2 \bold u_i
   $$
-  for $i = 1, \ldots, r.$
+  for $i = 1, \ldots, r$ so that $\bold u_1, \ldots, \bold u_r$ are eigenvectors of $\bold A \bold A^\top$.
   <br><br>
 
 
