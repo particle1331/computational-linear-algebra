@@ -24,3 +24,8 @@ Introduction to standard matrix multiplication. Four ways to think about matrix 
 **Code challenges.**
 Matrix multiplication by layering (iterating over outer products). Pure and impure rotation matrices. Geometric transformations via matrix multiplication. Symmetry of combined symmetric matrices. Standard and Hadamard multiplication for diagonal matrices. Fourier transform via matrix multiplication! Conditions for self-adjoint.
 
+<br>
+
+## Readings
+* [Cleve Moler. *Numerical Computing with MATLAB* (2013)](https://www.mathworks.com/moler/index_ncm.html)
+* [Sheldon Axler. *Down With Determinants!* (1996)](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf)
