@@ -5,11 +5,11 @@
   Suppose $n \leq m.$ What is the time complexity of showing n vectors in $\mathbb R^m$ are linearly independent? i.e. solving for nonzero solutions to $\bold A\bold x = \bold 0$. For instance, we have $\mathcal{O}(\frac{2}{3} mn^2)$ using Gaussian elimination assuming $\mathcal{O}(1)$ arithmetic which is a naive assumption as careless implementation can easily create numbers with with [exponentially many bits](https://cstheory.stackexchange.com/questions/3921/what-is-the-actual-time-complexity-of-gaussian-elimination)! In practice, the best way to compute the rank of $\bold A$ is through its SVD. This is, for example, how `numpy.linalg.matrix_rank` is implemented.
   <br><br>
 
-  - (2.30) **Basis are non-unique**.
+  - (2.30) **Basis are non-unique.**
   Non-unique, but gives unique coordinate for each vector when the choice of basis is fixed. Some basis are better than others for a particular task, e.g. describing a dataset better. There are algorithms such as PCA & ICA that try to minimize some objective function.<br><br>
 
-  - (3.34) **Shifting a matrix away from degeneracy**:
-  $\bold A + \lambda \bold I = \bold C.$ 
+  - (3.34) **Shifting a matrix away from degeneracy:**
+  $\bold A + \lambda \bold I = \tilde\bold A.$ 
   Geometric interpretation: inflate a matrix from a degenerate plane towards being a sphere. This is a form of regularization.  See (4.51) which shows how linear maps transform the unit circle to an ellipse. A singular matrix $\bold A$ maps the unit circle to a degenerate (flat) ellipse.
   <br><br>
 
@@ -61,16 +61,21 @@ We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. 
 = \delta_{ij}$ where $\delta_{ij}$ is the Kronecker delta or $\bold A^\top\bold A = \bold I$. This tells us that length preserving matrices in $\mathbb R^n$ are necessarily orthogonal. Orthogonal matrices in $\mathbb R^2$ are either rotations or reflections &mdash; both of these are length preserving. The more surprising result is that these are the only length preserving matrices in $\mathbb R^2$!
 <br><br> 
 
-* **Proving the singular value decomposition.** The SVD states that any real matrix $\bold A \in \mathbb R^{m \times n}$ can be decomposed as $\bold A = \bold U \bold \Sigma \bold V^\top$ where $\bold U \in \mathbb R^{m \times m}$ and $\bold V \in \mathbb R^{n \times n}$ are orthonogonal matrices and $\bold\Sigma  \in \mathbb R^{m \times n}$ is a diagonal matrix with nonnegative real numbers on the diagonal. The diagonal entries $\sigma_i$ of $\bold \Sigma$ are called the **singular values** of $\bold A$. The number $r$ of nonzero singular values is equal to the rank of $\bold A$ as we will show shortly. 
+* **SVD Proof.** The SVD states that any real matrix $\bold A \in \mathbb R^{m \times n}$ can be decomposed as $\bold A = \bold U \bold \Sigma \bold V^\top$ where $\bold U \in \mathbb R^{m \times m}$ and $\bold V \in \mathbb R^{n \times n}$ are orthonogonal matrices and $\bold\Sigma  \in \mathbb R^{m \times n}$ is a diagonal matrix with nonnegative real numbers on the diagonal. The diagonal entries $\sigma_i$ of $\bold \Sigma$ are called the **singular values** of $\bold A$. The number $r$ of nonzero singular values is equal to the rank of $\bold A$ as we will show shortly. 
 <br><br>
-We prove the SVD exists by construction. The proof proceeds in two parts which construct the two sets of singular vectors in the domain and the codomain of $\bold A.$ Let $\text{rank }\bold A = r \leq \min(m, n)$. Observe that $\bold A^\top \bold A \in \mathbb R^{n\times n}$ is symmetric positive semidefinite. It follows that there exists an eigendecomposition $\bold A^\top \bold A = \bold V \bold \Lambda \bold V^\top$ where $\bold V$ is an orthogonal matrix and $\bold \Lambda$ is a diagonal matrix of real eigenvalues of $\bold A^\top \bold A$ [[Theorem 8.3]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf) (self-adjoint = symmetric). Moreover, since $\bold A^\top \bold A$ is positive semidefinite, the entries of $\bold\Lambda$ are all nonnegative. Thus, we can write $\bold A^\top \bold A = \bold V \bold \Sigma^2 \bold V^\top$ where $\bold\Sigma^2 = \bold\Lambda$, and $\sigma_i = \bold \Sigma_{ii}$ such that $\sigma_1 \geq \sigma_2 \geq \ldots \sigma_r > 0.$
-It can be shown that $\text{rank }(\bold A ^\top \bold A) = \text{rank }\bold A = r$ so $\bold\Sigma$ has exactly $r$ nonzero diagonal entries. The vectors $\bold v_1, \ldots, \bold v_n$ form an orthonormal basis for $\mathbb R^n$ which we call **right singular vectors.** Now that we are done with the domain of $\bold A$, we proceed to its codomain. 
+The following proof of the SVD is constructive, i.e. we construct the singular values, and left and right singular vectors of $\bold A.$
+Let $r = \text{rank }\bold A$, then $r \leq \min(m, n)$. 
+Observe that $\bold A^\top \bold A \in \mathbb R^{n\times n}$ is symmetric positive semidefinite. 
+It follows that the eigenvalues of $\bold A^\top \bold A$ are nonnegative. 
+Thus, there exists an eigendecomposition $\bold A^\top \bold A = \bold V \bold \Sigma^2 \bold V^\top$ where $\bold V$ is an orthogonal matrix and $\bold \Sigma^2$ is a diagonal matrix of real eigenvalues of $\bold A^\top \bold A$ [[Theorem 8.3]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf). Here we let $\sigma_i = \bold \Sigma_{ii}$ such that $\sigma_1 \geq \sigma_2 \geq \ldots \sigma_r > 0.$
+Here we use the fact that $\text{rank }\bold A ^\top \bold A = \text{rank }\bold A = r,$ and $\bold A^\top \bold A$ is similar to $\bold\Sigma^2,$ so that the first $r$ singular values of $\bold A$ are nonzero while the rest are zero. The singular values characterize the geometry of $\bold A$. For instance if $0 \leq r < m$, then the hyperellipse image of $\bold A$ collapses to have zero volume. The vectors $\bold v_1, \ldots, \bold v_n$ form an orthonormal basis for $\mathbb R^n$ which we call **right singular vectors.** Now that we are done with the domain of $\bold A,$ we proceed to its codomain.
 <br><br> 
-We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A.$ For $i = 1, 2, \ldots, r$, it can be shown that $\lVert \bold A \bold v_i \rVert = \sigma_i.$ Since the first $r$ singular values are nonzero, we can define unit vectors $\bold u_i = \frac{1}{\sigma_i}\bold A \bold v_i \in \mathbb R^m.$ These are called the **left singular vectors.** It follows that $\bold A \bold v_i = \sigma_i \bold u_i$ for $i = 1, 2, \ldots, r.$ Observe that the vectors $\bold u_i$ are orthogonal 
+We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A.$ For $i = 1, 2, \ldots, r$, it can be shown that $\lVert \bold A \bold v_i \rVert = \sigma_i.$ Since the first $r$ singular values are nonzero, we can define unit vectors $\bold u_i = {\sigma_i}^{-1}\bold A \bold v_i \in \mathbb R^m$ for $i = 1, \ldots, r.$ These are the **left singular vectors** of $\bold A.$ It follows that $\bold A \bold v_i = \sigma_i \bold u_i$ for $i = 1, \ldots, r.$ Observe that the vectors $\bold u_i$ are orthogonal 
   $$
   \bold u_i^\top \bold u_j = \frac{1}{\sigma_i\sigma_j}\bold v_i^\top\bold A^\top \bold A \bold v_j = \frac{1}{\sigma_i\sigma_j}\bold v_i^\top {\sigma_j}^2 \bold v_j = \delta_{ij} \frac{{\sigma_j}^2}{\sigma_i\sigma_j} = \delta_{ij}.
   $$
-  It follows that the vectors $\bold u_1, \ldots \bold u_r$ is an orthonormal basis for the image of $\bold A$ in $\mathbb R^m.$ Let $\bold U = [\bold u_1, \ldots, \bold u_r] \in \mathbb R^{m \times r}$ We can extend this to an orthonormal basis of $\mathbb R^m$ by Gram-Schmidt so that $\bold U \in \mathbb R^{m \times m}$ (see fig. below). We also reshape $\bold\Sigma$ to be $m \times n$ either by padding zeros ($m > n$) or by removing zero rows ($m < n$). Finally, $\bold U \bold \Sigma = \bold A \bold V$ so that $\bold U \bold \Sigma \bold V^\top = \bold A$ and we're done! $\square$  
+  Thus, $\bold u_1, \ldots \bold u_r$ is an orthonormal basis for the image of $\bold A$ in $\mathbb R^m.$ Let $\bold U_r = [\bold u_1, \ldots, \bold u_r] \in \mathbb R^{m \times r}.$ From here we can already obtain the compact SVD which already contains all necessary information: $\bold A = \bold U_r \bold \Sigma_r \bold V_r^\top$ (illustrated in the bottom part of Figure 10.1 below). Here $\bold\Sigma_r = \bold\Sigma[:r, :r]$ and $\bold V^\top_r = \bold V^\top[:r, :] = \bold V[:, :r]^\top.$ To get the full SVD, we extend $\bold U_r$ to an orthonormal basis of $\mathbb R^m$ by Gram-Schmidt obtaining $\bold U = [\bold U_r | \bold U_{m-r}] \in \mathbb R^{m \times m}.$ The matrix $\bold\Sigma$ is either padded by zeros ($m > n$) or trimmed by removing zero rows ($m < n$) to get an $m \times n$ diagonal matrix. Finally, $\bold A \bold V = \bold U \bold \Sigma$ so that $\bold A = \bold U \bold \Sigma \bold V^\top$ where the factors have the properties stated in the SVD. And we're done! $\square$
+
 <br>
 
   <p align="center">
@@ -104,7 +109,7 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
     &= \sum_{i=1}^r \sum_{j=1}^r \bold u_j (\delta_{ij} \sigma_i) \bold v_i^\top \bold x. \\
     \end{aligned}
     $$
-    The matrix in the middle is precisely $\bold\Sigma[:r, :r]$ (pad with zeros to get the full matrix). Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $r \times r$ diagonal matrix of singular values where $r=\text{rank }\bold A$. We can think of the singular values as $n$ weights for the importance of the singular vectors of $\bold A$. Here is a lucid account of the analogy with diagonalization in [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of Moler's *Numerical Computing with MATLAB*:
+    The matrix in the middle is precisely $\bold\Sigma_r = \bold\Sigma[:r, :r]$ (pad with zeros to get the full matrix). Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $r \times r$ diagonal matrix of singular values where $r=\text{rank }\bold A$. We can think of the singular values as $n$ weights for the importance of the singular vectors of $\bold A$. Here is a lucid account of the analogy with diagonalization in [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of Moler's *Numerical Computing with MATLAB*:
   > In abstract linear algebra terms, eigenvalues are relevant if a square, $n$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-dimensional space onto itself. We try to find a basis for the space so that the matrix becomes diagonal. This basis might be complex even if $\bold A$ is real. In fact, if the eigenvectors are not linearly independent, such a basis does not even exist. The SVD is relevant if a possibly rectangular, $m$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-space onto $m$-space. We try to find one change of basis in the domain and a usually different change of basis in the range so that the matrix becomes diagonal. Such bases always exist and are always real if $\bold A$ is real. In fact, the transforming matrices are orthogonal or unitary, so they preserve lengths and angles and do not magnify errors.
   
   <br>
@@ -138,6 +143,27 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
     ```     
 <br>
 
+
+
+* (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The **Frobenius inner product** between two matrices $\bold A$ and $\bold B$ is defined as 
+
+  This can be computed in two other ways: (1) reshape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which should be nice for theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as 
+  $$
+  \lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{\sum\sum {a_{ij}}^2}.
+  $$ 
+    The fastest way to calculate this in NumPy is the straightforward `(A * B).sum()`. Other ways of calculating (shown in the video) are slower: (1) `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` where `order='F'` means Fortran-like indexing or along the columns, and (2) `np.trace(A @ B)`. 
+    ```
+    In [14]: A = np.random.randn(2, 2)
+    In [15]: B = np.random.randn(2, 2)
+    In [17]: %timeit np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))
+    5.57 µs ± 515 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+    In [18]: %timeit np.trace(A.T @ B)
+    7.79 µs ± 742 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+    In [25]: %timeit (A * B).sum()
+    3.73 µs ± 185 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+    ```
+    **Remark.** The Frobenius inner product is an inner product on $\mathbb R^{m \times n}$ in the same way that the usual dot product is an inner product on $\mathbb R^{mn}$. It follows that the Frobenius norm $\lVert \cdot \rVert_F$ is a norm as it is induced by the inner product $\langle \cdot, \cdot \rangle_F$ [[Prop. 6]](https://ai.stanford.edu/~gwthomas/notes/norms-inner-products.pdf). As usual for complex matrices we replace the transpose with the conjugate transpose: $\langle \bold A, \bold B\rangle_F =\text{tr}(\bold A^* \bold B)$ and $\lVert \bold A \rVert_F= \sqrt{\text{tr} (\bold A^* \bold A)} = \sqrt{\sum\sum |a_{ij}|^2}.$ These are an inner product and a norm on $\mathbb C^{m \times n}$, as in the real case.  <br><br>
+
 * (4.59) **Frobenius norm.** Let $\bold A$ and $\bold B$ be $m \times n$ matrices. The **Frobenius inner product** between two matrices $\bold A$ and $\bold B$ is defined as 
   $$
   {\langle \bold A, \bold B \rangle}_F =  \sum_{i=1}^m \sum_{j=1}^n a_{ij}b_{ij} =  \sum_{i=1}^m \sum_{j=1}^n {(\bold A \odot \bold B)}_{ij}.
@@ -170,6 +196,33 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
     ```
 
 <br>
+
+* (5.64) **Rank as dimensionality of information.** The rank of $\bold A$ is the number of maximal linearly independent columns of $\bold A.$ Any matrix $\bold A$ has a rank $r \in \mathbb N$ such that $0 \leq r \leq \min(m, n).$ Matrix rank has several applications, e.g. $\bold A^{-1}$ exists for a square matrix whenever it has maximal rank. In applied settings, rank is used in PCA, Factor Analysis, etc. because rank is used to determine how much information is contained in $\bold A.$ <br><br>
+
+* (5.65) **Computing the rank.** How to count the maximal number of linearly independent columns? (1) Row reduction (can be numerically unstable). (2) Best way is to use SVD. The rank of $\bold A$ is the number $r$ of nonzero singular values of $\bold A.$ This is how it's implemented in MATLAB and NumPy. The SVD is also used for rank estimation. Another way is to count the number of nonzero eigenvalues of $\bold A$ provided (!) $\bold A$ has an eigendecomposition. Since this would imply that $\bold A$ is similar to its matrix of eigenvalues. This is in general not true. Instead, we can count the eigenvalues of $\bold A^\top \bold A$ or $\bold A\bold A^\top$ whichever is small, both of which always have an eigendecomposition. <br><br>
+
+* (5.65) **Rank can be difficult to calculate numerically.** For instance if we obtain $\sigma_k = 10^{-13}$ numerically, is it a real nonzero singular value, or is it zero? In practice, we set thresholds. The choice of threshold can be arbitrary or domain specific, and in general, introduces its own difficulties. Another issue is noise, adding $\epsilon\bold I$ makes $\bold A = [[1, 1], [1, 1]]$ rank two. <br><br>
+
+* (5.67) **Generate rank 4 matrix 10x10 matrix randomly by multiplying two randomly generated matrices.** Solution is to multiply 10x4 and 4x10 matrices. Here it is assumed that the randomly generated matrices have maximal rank. <br><br>
+
+* (5.69) **Rank of $\bold A^\top \bold A$ and $\bold A \bold A^\top$.** These are all equal to the rank of $\bold A.$ 
+The first equality can be proved using by showing the $\ker \bold A^\top \bold A = \ker \bold A,$ then invoke the rank-nullity theorem. 
+Now that we know this is true, we can now use the SVD to find the rank of $\bold A \bold A^\top$ which results in $\bold A \bold A^\top = \bold U \bold \Sigma^2 \bold U^\top,$ i.e. similar to a diagonal matrix with $r = \text{rank }\bold A$ diagonal entries. 
+Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
+
+* (5.71) **Making a matrix full-rank by shifting:** $\tilde\bold A = \bold A + \lambda \bold I$ where we assume $\bold A$ is square. This is done for computational stability reasons. Typically the regularization constant $\lambda$ is less than the experimental noise. For instance, if $|\lambda| \gg \max |a_{ij}|,$ then $\tilde \bold A \approx \lambda \bold I$ and $\bold A$ becomes the noise. An exchange in the Q&A highlights another important issue. Hamzah asks:
+  > So in a previous video in this section, you talked about how a 3 dimensional matrix spanning a 2 dimensional subspace [...] really is a rank 2 matrix, BUT if you introduce some noise, it can look like like a rank 3 matrix. [...] By adding the identity matrix, aren't you essentially deliberately adding noise to an existing dataset to artificially boost the rank? Am I correct in interpreting that you can possibly identify features in the boosted rank matrix that may not actually exist in the true dataset, and maybe come up with some weird conclusions? If that is the case wouldn't it be very dangerous to increase the rank by adding the identity matrix? Would appreciate some clarification. Thank you!
+  <br>
+
+  To which Mike answers:
+
+  > Excellent observation, and good question. Indeed, there is a huge and decades-old literature about exactly this issue -- how much "noise" to add to data? In statistics and machine learning, adding noise is usually done as part of regularization. <br><br>
+  The easy answer is that you want to shift the matrix by as little as possible to avoid changing the data, while still adding enough to make the solutions work. I don't go into a lot of detail about that in this course, but often, somewhere around 1% of the average eigenvalues of the matrix provides a good balance. <br><br>
+  Note that this is done for numerical stability reasons, not for theoretical reasons. So the balance is: Do I want to keep my data perfect and get no results, or am I willing to lose a bit of data precision in order to get good results?
+
+<br>
+
+* (5.72) **Is this vector in the span of this set?** Let $\bold x \in \mathbb R^m$ be a test vector. Is $\bold x$ in the span of $\bold a_1, \ldots, \bold a_n \in \mathbb R^m.$ Let $\bold A = [\bold a_1, \ldots, \bold a_n].$ Solution is to check whether the rank of $[\bold A | \bold x]$ is equal to the rank of $\bold A$ (in the span) or +1 (not in the span). <br><br>
 
 * 
 
