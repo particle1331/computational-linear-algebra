@@ -105,19 +105,19 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
 </p>
 <br>
 
-* **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ has a diagonal representation (see Figure above). That is, we diagonalize $\bold A$ in terms of two orthonormal bases of singular vectors for $\mathbb R^n$ and $\mathbb R^m$ resulting in $\bold U^\top \bold A \bold V = \bold \Sigma.$ Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. Let us see this in action. Recall that $\bold A \bold v_i = \bold 0$ for $r < i \leq n$. Consider: 
+* **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ has a diagonal representation (see Figure above). That is, we diagonalize $\bold A$ in terms of two orthonormal bases of singular vectors for $\mathbb R^n$ and $\mathbb R^m$ resulting in $\bold U^\top \bold A \bold V = \bold \Sigma.$ Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. Let us see this in action. Recall that $\bold A \bold v_i = \bold 0$ for $r < i \leq n$. Then 
     $$
     \begin{aligned}
     \bold A \bold x 
     &= \bold A \left(\sum_{j=1}^n \bold v_j \bold v_j^\top \bold x \right) \\
     &= \sum_{j=1}^n \left(\bold A \bold v_j \right) \bold v_j^\top \bold x  \\
     &= \sum_{j=1}^n \left(\sum_{i=1}^m \bold u_i \bold u_i^\top\right) \left(\bold A \bold v_j \right) \bold v_j^\top \bold x  \\
-    &= \sum_{j=1}^r \sum_{i=1}^m \bold u_i \bold u_i^\top \left(\sigma_{j} \bold u_j \right) \bold v_j^\top \bold x  \\
-    &= \sum_{j=1}^n \sum_{i=1}^m \bold u_i \bold u_i^\top \left( \Sigma_{ij} \bold u_i \right) \bold v_j^\top \bold x  \\
-    &= \sum_{j=1}^n \sum_{i=1}^m \bold u_i  \Sigma_{ij} \bold v_i^\top \bold x  \\
+    &= \sum_{i=1}^m\sum_{j=1}^{\color{yellow} r}  \bold u_i \bold u_i^\top \left(\sigma_{j} \bold u_j \right) \bold v_j^\top \bold x  \\
+    &= \sum_{i=1}^m\sum_{j=1}^{\color{yellow} n}  \bold u_i \bold u_i^\top (\Sigma_{ij} \bold u_i ) \bold v_j^\top \bold x  \\
+    &= \sum_{i=1}^m \sum_{j=1}^n  \bold u_i  \Sigma_{ij} \bold v_j^\top \bold x  \\
     \end{aligned}
     $$
-    Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $m \times n$ diagonal matrix of singular values. We can think of the singular values as weights for the importance of the rank one matrices ("layers") that sum to $\bold A$. From [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of Moler's *Numerical Computing with MATLAB*:
+    The entry $\Sigma_{ij}$ is equal to $\bold u_i^\top \bold A \bold v_j$ where $\bold u_i$ and $\bold v_j$ are ONBs. Thus, the SVD is analogous to orthogonal diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $m \times n$ diagonal matrix of singular values. We can think of the singular values as weights for the importance of the rank one matrices ("layers") that sum to $\bold A$. From [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of Moler's *Numerical Computing with MATLAB*:
   > In abstract linear algebra terms, eigenvalues are relevant if a square, $n$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-dimensional space onto itself. We try to find a basis for the space so that the matrix becomes diagonal. This basis might be complex even if $\bold A$ is real. In fact, if the eigenvectors are not linearly independent, such a basis does not even exist. The SVD is relevant if a possibly rectangular, $m$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-space onto $m$-space. We try to find one change of basis in the domain and a usually different change of basis in the range so that the matrix becomes diagonal. Such bases always exist and are always real if $\bold A$ is real. In fact, the transforming matrices are orthogonal or unitary, so they preserve lengths and angles and do not magnify errors.
   
   **Remark.** Discarding zero terms in the sum, $\Sigma_{ij}$ reduces to $\sigma_i \delta_{ij}$ for $1 \leq i, j \leq r$, i.e. nonzero diagonal elements of $\bold \Sigma_r$, which gives us the compact SVD: 
