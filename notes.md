@@ -121,13 +121,7 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
     $$
     The entry $\Sigma_{ij}$ is equal to $\bold u_i^\top \bold A \bold v_j$ where $\bold u_i$ and $\bold v_j$ are ONBs. Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $m \times n$ diagonal matrix of singular values. From [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of Moler's *Numerical Computing with MATLAB*:
   > In abstract linear algebra terms, eigenvalues are relevant if a square, $n$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-dimensional space onto itself. We try to find a basis for the space so that the matrix becomes diagonal. This basis might be complex even if $\bold A$ is real. In fact, if the eigenvectors are not linearly independent, such a basis does not even exist. The SVD is relevant if a possibly rectangular, $m$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-space onto $m$-space. We try to find one change of basis in the domain and a usually different change of basis in the range so that the matrix becomes diagonal. Such bases always exist and are always real if $\bold A$ is real. In fact, the transforming matrices are orthogonal or unitary, so they preserve lengths and angles and do not magnify errors.
-  
-  **Remark.** Discarding zero terms in the sum, $\Sigma_{ij}$ reduces to $\sigma_i \delta_{ij}$ for $1 \leq i, j \leq r$, i.e. nonzero diagonal elements of $\bold \Sigma_r$, which gives us the compact SVD: 
-  $$
-  \bold A = \sum_{j=1}^n \sum_{i=1}^m \bold u_i  \Sigma_{ij} \bold v_i^\top = \sum_{j=1}^r \sigma_j \bold  u_j \bold v_j^\top.
-  $$
-  We can think of the singular values as weights for the importance of each rank one matrix ("layers") that sum to $\bold A$.
-  <br><br>
+
 
 * **Computing the SVD.** In `4_compute_svd.py` we calculate 3 things: (1) equality between the eigenvalues of $\sqrt{\bold A^\top \bold A}$ and the singular values of $\bold A$, (2) difference bet. max. singular value $\sigma_1$ and $\max_{\lVert \bold x \rVert_2 = 1} \lVert \bold A \bold x \rVert_2$, and (3) whether $\bold A\bold v_i = \sigma_i \bold u_i$ for $i = 1, 2$. Here $\bold A$ is a 2x2 matrix with elements sampled from a standard normal.
   ```
