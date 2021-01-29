@@ -74,7 +74,7 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
   $$
   \bold u_i^\top \bold u_j = \frac{1}{\sigma_i\sigma_j}\bold v_i^\top\bold A^\top \bold A \bold v_j = \frac{1}{\sigma_i\sigma_j}\bold v_i^\top {\sigma_j}^2 \bold v_j = \delta_{ij} \frac{{\sigma_j}^2}{\sigma_i\sigma_j} = \delta_{ij}.
   $$
-  Thus, $\bold u_1, \ldots \bold u_r$ is an orthonormal basis for the image of $\bold A$ in $\mathbb R^m.$ Let $\bold U_r = [\bold u_1, \ldots, \bold u_r] \in \mathbb R^{m \times r}.$ From here we can already obtain the **compact SVD** which already contains all necessary information: $\bold A = \sum_{k=1}^r \sigma_k \bold  u_k \bold v_k^\top$ or $\bold A = \bold U_r \bold \Sigma_r \bold V_r^\top$ (bottom of Figure 10.1 below). Here $\bold\Sigma_r = \bold\Sigma[:r, :r]$ and $\bold V^\top_r = \bold V^\top[:r, :] = \bold V[:, :r]^\top.$ To get the **full SVD**, we extend $\bold U_r$ to an orthonormal basis of $\mathbb R^m$ by Gram-Schmidt obtaining $\bold U = [\bold U_r | \bold U_{m-r}] \in \mathbb R^{m \times m}.$ For $\bold\Sigma$, we either pad ($m > n$) or remove zero rows ($m < n$) to get an $m \times n$ diagonal matrix. Finally, $\bold A \bold V = \bold U \bold \Sigma$ so that $\bold A = \bold U \bold \Sigma \bold V^\top$ where the factors have the properties stated in the SVD. And we're done! $\square$
+  Thus, $\bold u_1, \ldots \bold u_r$ is an orthonormal basis for the image of $\bold A$ in $\mathbb R^m.$ Let $\bold U_r = [\bold u_1, \ldots, \bold u_r] \in \mathbb R^{m \times r}.$ From here we can already obtain the **compact SVD** which already contains all necessary information: $\bold A = \sum_{k=1}^r \sigma_k \bold  u_k \bold v_k^\top$ or $\bold A = \bold U_r \bold \Sigma_r \bold V_r^\top$ (bottom of Figure 10.1 below where $r = n$). Here $\bold\Sigma_r = \bold\Sigma[:r, :r]$ and $\bold V^\top_r = \bold V^\top[:r, :] = \bold V[:, :r]^\top.$ To get the **full SVD**, we extend $\bold U_r$ to an orthonormal basis of $\mathbb R^m$ by Gram-Schmidt obtaining $\bold U = [\bold U_r | \bold U_{m-r}] \in \mathbb R^{m \times m}.$ For $\bold\Sigma$, we either pad ($m > n$) or remove zero rows ($m < n$) to get an $m \times n$ diagonal matrix. Finally, $\bold A \bold V = \bold U \bold \Sigma$ so that $\bold A = \bold U \bold \Sigma \bold V^\top$ where the factors have the properties stated in the SVD. And we're done! $\square$
 
 <br>
 
@@ -98,21 +98,33 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
   <br><br>
 
 
-* **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ is diagonal. That is, we diagonalize $\bold A$ in terms of two orthonormal bases of singular vectors for $\mathbb R^n$ and $\mathbb R^m$ resulting in $\bold U^\top \bold A \bold V = \bold \Sigma.$ Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. Let us see this in action. Recall that $\bold A \bold v_i = \bold 0$ for $r < i \leq n$. Consider: 
+<br>
+<p align="center">
+  <img src="img/svd_change_of_basis.svg" alt="drawing" width="400"/> <br> 
+  <b>Figure. </b> SVD as diagonalization.
+</p>
+<br>
+
+* **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ has a diagonal representation (see Figure above). That is, we diagonalize $\bold A$ in terms of two orthonormal bases of singular vectors for $\mathbb R^n$ and $\mathbb R^m$ resulting in $\bold U^\top \bold A \bold V = \bold \Sigma.$ Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. Let us see this in action. Recall that $\bold A \bold v_i = \bold 0$ for $r < i \leq n$. Consider: 
     $$
     \begin{aligned}
-    \bold A \bold x &= \bold A \left(\sum_{i=1}^n \bold v_i \bold v_i^\top \bold x \right) \\
-    &= \sum_{i=1}^r \left(\bold A \bold v_i \right) \bold v_i^\top \bold x  \\
-    &= \sum_{i=1}^r \left(\sum_{j=1}^m \bold u_j \bold u_j^\top\right) \left(\bold A \bold v_i \right) \bold v_i^\top \bold x  \\
-    &= \sum_{i=1}^r \sum_{j=1}^m \bold u_j \bold u_j^\top \left(\sigma_i \bold u_i \right) \bold v_i^\top \bold x  \\
-    &= \sum_{i=1}^r \sum_{j=1}^m \bold u_j (\delta_{ij} \sigma_i) \bold v_i^\top \bold x  \\
-    &= \sum_{i=1}^r \sum_{j=1}^r \bold u_j (\delta_{ij} \sigma_i) \bold v_i^\top \bold x. \\
+    \bold A \bold x 
+    &= \bold A \left(\sum_{j=1}^n \bold v_j \bold v_j^\top \bold x \right) \\
+    &= \sum_{j=1}^n \left(\bold A \bold v_j \right) \bold v_j^\top \bold x  \\
+    &= \sum_{j=1}^n \left(\sum_{i=1}^m \bold u_i \bold u_i^\top\right) \left(\bold A \bold v_j \right) \bold v_j^\top \bold x  \\
+    &= \sum_{j=1}^r \sum_{i=1}^m \bold u_i \bold u_i^\top \left(\sigma_{j} \bold u_j \right) \bold v_j^\top \bold x  \\
+    &= \sum_{j=1}^n \sum_{i=1}^m \bold u_i \bold u_i^\top \left( \Sigma_{ij} \bold u_i \right) \bold v_j^\top \bold x  \\
+    &= \sum_{j=1}^n \sum_{i=1}^m \bold u_i  \Sigma_{ij} \bold v_i^\top \bold x  \\
     \end{aligned}
     $$
-    The matrix in the middle is precisely $\bold\Sigma_r = \bold\Sigma[:r, :r]$ (pad with zeros to get the full matrix). Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $r \times r$ diagonal matrix of singular values where $r=\text{rank }\bold A$. We can think of the singular values as $n$ weights for the importance of the singular vectors of $\bold A$. Here is a lucid account of the analogy with diagonalization in [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of Moler's *Numerical Computing with MATLAB*:
+    Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $m \times n$ diagonal matrix of singular values. We can think of the singular values as weights for the importance of the rank one matrices ("layers") that sum to $\bold A$. From [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of Moler's *Numerical Computing with MATLAB*:
   > In abstract linear algebra terms, eigenvalues are relevant if a square, $n$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-dimensional space onto itself. We try to find a basis for the space so that the matrix becomes diagonal. This basis might be complex even if $\bold A$ is real. In fact, if the eigenvectors are not linearly independent, such a basis does not even exist. The SVD is relevant if a possibly rectangular, $m$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-space onto $m$-space. We try to find one change of basis in the domain and a usually different change of basis in the range so that the matrix becomes diagonal. Such bases always exist and are always real if $\bold A$ is real. In fact, the transforming matrices are orthogonal or unitary, so they preserve lengths and angles and do not magnify errors.
   
-  <br>
+  **Remark.** Discarding zero terms in the sum, $\Sigma_{ij}$ reduces to $\sigma_i \delta_{ij}$ for $1 \leq i, j \leq r$, i.e. nonzero diagonal elements of $\bold \Sigma_r$, which gives us the compact SVD: 
+  $$
+  \bold A = \sum_{j=1}^n \sum_{i=1}^m \bold u_i  \Sigma_{ij} \bold v_i^\top = \sum_{j=1}^r \sigma_j \bold  u_j \bold v_j^\top.
+  $$
+  <br><br>
 
 * **Computing the SVD.** In `4_compute_svd.py` we calculate 3 things: (1) equality between the eigenvalues of $\sqrt{\bold A^\top \bold A}$ and the singular values of $\bold A$, (2) difference bet. max. singular value $\sigma_1$ and $\max_{\lVert \bold x \rVert_2 = 1} \lVert \bold A \bold x \rVert_2$, and (3) whether $\bold A\bold v_i = \sigma_i \bold u_i$ for $i = 1, 2$. Here $\bold A$ is a 2x2 matrix with elements sampled from a standard normal.
   ```
