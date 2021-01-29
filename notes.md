@@ -144,7 +144,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
 <br>
 
 
-* (4.59) **Frobenius norm.** The **Frobenius inner product** between two $m \times n$ matrices $\bold A$ and $\bold B$ is defined as 
+* (4.59) **Frobenius inner product and its induced norm.** The **Frobenius inner product** between two $m \times n$ matrices $\bold A$ and $\bold B$ is defined as 
   $
   \langle \bold A, \bold B\rangle_F 
   = \sum_{i=1}^m \sum_{j=1}^n a_{ij} b_{ij}. 
