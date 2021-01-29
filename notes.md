@@ -107,7 +107,7 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
 </p>
 <br>
 
-* **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ has a diagonal representation (see Figure above). Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. Let us see this in action. Recall that $\bold A \bold v_i = \bold 0$ for $r < i \leq n$. Then 
+* **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ has a diagonal representation (see Figure above). Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. Let us see this in action. Recall that $\bold A \bold v_j = \sigma_j \bold u_j$ for $j \leq r$ and $\bold A \bold v_j = \bold 0$ for $r < j \leq n$. Then 
     $$
     \begin{aligned}
     \bold A \bold x 
