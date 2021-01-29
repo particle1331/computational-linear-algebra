@@ -149,7 +149,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
   \langle \bold A, \bold B\rangle_F 
   = \sum_{i=1}^m \sum_{j=1}^n a_{ij} b_{ij}. 
   $ 
-  Two alternative ways of computing this are: (1) reshape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which should be nice for theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as 
+  Two alternative ways of computing this: (1) reshape the two matrices $\bold A$ and $\bold B$ as vectors, then take their usual dot product; and (2) $\text{tr}(\bold A^\top \bold B)$ which should be nice for theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as 
   $$
   \lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{\sum\sum {a_{ij}}^2}.
   $$ 

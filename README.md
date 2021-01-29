@@ -29,3 +29,4 @@ Matrix multiplication by layering (iterating over outer products). Pure and impu
 ## Readings
 * [Cleve Moler. *Numerical Computing with MATLAB* (2013)](https://www.mathworks.com/moler/index_ncm.html)
 * [Sheldon Axler. *Down With Determinants!* (1996)](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf)
+* [Sergei Treil. *Linear Algebra Done Wrong* (2017)](https://www.math.brown.edu/streil/papers/LADW/LADW_2017-09-04.pdf)
