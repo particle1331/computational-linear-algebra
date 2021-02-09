@@ -308,11 +308,13 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
 
 <br>
 
-* (9.108) **Left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ If $\bold A$ is tall ($n < m$), then $\bold A$ has a left inverse if and only if $\bold A$ has maximal column rank, i.e. $\text{rank }\bold A = n.$ Suppose $\text{rank } \bold A < n$, then any left multiplication with $\bold A$ will result in a matrix with less than $n$ rank, i.e. not $\bold I_n.$ Suppose $\text{rank } \bold A = n.$ Then, using the SVD,
+* (9.108) **Existence of left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ If $\bold A$ is tall ($n < m$), then $\bold A$ has a left inverse if and only if $\bold A$ has maximal column rank, i.e. $\text{rank }\bold A = n.$ Suppose $\text{rank } \bold A < n$, then any left multiplication with $\bold A$ will result in a matrix with less than $n$ rank, i.e. not $\bold I_n$, so it cannot be left invertible. Suppose $\text{rank } \bold A = n.$ Then, using the SVD,
   $$
   \bold A^\top \bold A = \bold V \bold \Sigma^2 \bold V^\top
   $$ 
   which is invertible since $r = n.$  This allows us to take $(\bold A^\top \bold A)^{-1} \bold A^\top$ as the left inverse of $\bold A.$ Same argument, if $\bold A$ is wide ($n > m$), then $\bold A$ has a right inverse if and only if the rank of $\bold A$ is $m$, i.e. maximally independent rows, and we can take $\bold A^\top (\bold A \bold A^\top)^{-1}$ as a right inverse of $\bold A.$ 
+  <br><br>
+  **Remark.** Observe that left invertible matrices are precisely those that are one-to-one and right invertible matrices are precisely those that are onto. That is, if $\bold A \bold x = \bold 0,$ then applying the left inverse gives us $\bold x = 0$ so that $\bold A$ is one-to-one. If $\bold y \in \mathbb R^m$, then $\bold x = \bold A^{-1}_R \bold y \in \mathbb R^n$ is a pre-image of $\bold y.$   
 
 <br>
 
