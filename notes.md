@@ -280,10 +280,10 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
   $$
   The induction hypothesis allows us to write $\bold B = \bold U \bold \Omega \bold U^\top$ where $\bold \Omega$ is a diagonal matrix of real entries $\omega_1, \ldots, \omega_{n-1}$ and $\bold U$ is an orthogonal $(n-1) \times (n-1)$ real matrix with columns $\bold u_1, \ldots, \bold u_{n-1}$. Thus, 
   $$
-  \bold A|_V = (\bold Y \bold U) \bold \Omega ( \bold Y \bold U)^\top.
+  {\bold A}{|_ V} = (\bold Y \bold U) \bold \Omega ( \bold Y \bold U)^\top.
   $$
-  Let $\bold w_j = \bold Y \bold u_j \in V.$ Observe that (1)
-  ${\bold w_i}^\top \bold w_j = {(\bold Y \bold u_i)}^\top {\bold Y \bold u_j} = {\bold u_i}^\top \bold Y ^\top {\bold Y \bold u_j} = \delta_{ij}$
+  Let $\bold w_ j = \bold Y \bold u_j \in V.$ Observe that (1)
+  ${\bold w_ i}^\top \bold w_j = {(\bold Y \bold u_i)}^\top {\bold Y \bold u_j} = {\bold u_i}^\top \bold Y ^\top {\bold Y \bold u_j} = \delta_{ij}$
   and $\bold v \perp \bold w_j$ for all $j=1, \ldots, n-1$ so that  $\bold v, \bold w_1 \ldots, \bold w_{n-1}$ is an ONB of $\mathbb R^n$ by maximality; and (2) $\bold A \bold v = \lambda\bold v$ and $\bold A \bold w_j = \omega_j \bold w_j$ for $j=1, \ldots, n-1.$ These two facts allow us to diagonalize
   $$
   \begin{aligned}
