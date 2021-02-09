@@ -274,6 +274,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
   &= \lambda c \bold w ^\top \bold v = 0
   \end{aligned}
   $$
+  for any $c \in \mathbb R.$ It follows that $\bold A \bold w \in V.$ Thus, ${\bold A}{|_ V}$ is a linear operator on $V$ and we have the matrix representation $\bold A| _ V = \bold Y \bold B \bold Y^\top$ where $\bold B$ is a real ${(n-1)\times(n-1)}$ matrix and $\bold Y = [\bold y_1 \mid \ldots \mid \bold y_{n-1}]$ is $n \times (n-1).$ Observe that $\bold B$ is symmetric:
   $$
   b_{ij} = {\bold y_i}^\top \bold A \bold y_j = (\bold A^\top \bold y_i)^\top \bold y_j = (\bold A \bold y_i)^\top \bold y_j = b_{ji}.
   $$
