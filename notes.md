@@ -256,4 +256,64 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
 
 <br>
 
+* **Spectral Theorem Proof.** The real spectral theorem is the basis for the SVD, i.e. we use it to decompose $\bold A^\top \bold A$ which is automatically symmetric. Proving the SVD early allowed us to easily things about $\bold A,$ e.g. the SVD gives us access to the number of singular values which is equal to the rank of $\bold A$. In the proof note that the properties of the inner product is used heavily, e.g. the orthogonal decompositon of $\mathbb R^n$ in terms of a one-dimensional subspace and its orthogonal complement. This result generalizes to self-adjoint operators on real inner product spaces; see [[Theorem 8.3]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf). <br><br>
+
+    > **Theorem.** (Real spectral theorem). Let $\bold A \in \mathbb R^{n \times n}$ be a symmetric matrix. Then
+      (1) the eigenvalues of $\bold A$ are real;
+      (2) the eigenvectors of $\bold A$ corresponding to distinct eigenvalues are orthogonal; and
+      (3) there exists an ONB of $\mathbb R^n$ of eigenvectors of $\bold A.$ This allows the diagonalization $\bold A = \bold U \bold \Lambda \bold U^\top = \sum_{i=1}^n \lambda_i \bold u_i {\bold u_i}^\top.$
+  
+  <br>
+  
+  **Proof.** (Olver, 2018). We skip on (1) and (2). To prove (3), we perform induction on $n.$ For $n = 1,$ this is trivially true: $\bold A = a = \lambda \in \mathbb R$ with eigenvector $1.$ Suppose the spectral theorem is true for symmetric matrices in $\mathbb R^{n-1}.$ By the [fundamental theorem of algebra (FTA)](https://math.libretexts.org/Bookshelves/Linear_Algebra/Book%3A_Linear_Algebra_(Schilling_Nachtergaele_and_Lankham)/07%3A_Eigenvalues_and_Eigenvectors/7.04%3A_Existence_of_Eigenvalues), there exists at least one eigenvalue $\lambda$ of $\bold A$ which we know to be real. Along with $\lambda$ comes a nonzero unit eigenvector $\bold v \in \mathbb R^n.$ Let $V$ be the subspace orthogonal to the $1$-dimensional $\mathbb R \bold v$ subspace spanned by $\bold v.$ Let $\mathbb R\bold v \oplus (\mathbb R\bold v)^\perp = \mathbb R^n$ and so that $\dim V = n-1.$ Then, there exists an ONB $\bold y_1, \ldots, \bold y_{n-1} \in \mathbb R^n$ for the subspace $V.$ Moreover, $V$ is invariant under $\bold A.$ To see this, suppose $\bold w \in V,$ then 
+  $$
+  \begin{aligned}
+  (\bold A \bold w)^\top c\bold v 
+  &= c \bold w ^\top \bold A^\top \bold v  \\
+  &= c \bold w ^\top \bold A \bold v \\
+  &= \lambda c \bold w ^\top \bold v = 0
+  \end{aligned}
+  $$
+  for any $c \in \mathbb R.$ It follows that $\bold A \bold w \in V.$ Thus, $\bold A|_V$ is a linear operator on $V$ and we have the matrix representation $\bold A|_V = \bold Y \bold B \bold Y^\top$ where $\bold B$ is a real ${(n-1)\times(n-1)}$ matrix and $\bold Y = [\bold y_1 \mid \ldots \mid \bold y_{n-1}]$ is $n \times (n-1).$ Observe that $\bold B$ is symmetric:
+  $$
+  b_{ij} = {\bold y_i}^\top \bold A \bold y_j = (\bold A^\top \bold y_i)^\top \bold y_j = (\bold A \bold y_i)^\top \bold y_j = b_{ji}.
+  $$
+  The induction hypothesis allows us to write $\bold B = \bold U \bold \Omega \bold U^\top$ where $\bold \Omega$ is a diagonal matrix of real entries $\omega_1, \ldots, \omega_{n-1}$ and $\bold U$ is an orthogonal $(n-1) \times (n-1)$ real matrix with columns $\bold u_1, \ldots, \bold u_{n-1}$. Thus, 
+  $$
+  \bold A|_V = (\bold Y \bold U) \bold \Omega ( \bold Y \bold U)^\top.
+  $$
+  Let $\bold w_j = \bold Y \bold u_j \in V.$ Observe that (1)
+  ${\bold w_i}^\top \bold w_j = {(\bold Y \bold u_i)}^\top {\bold Y \bold u_j} = {\bold u_i}^\top \bold Y ^\top {\bold Y \bold u_j} = \delta_{ij}$
+  and $\bold v \perp \bold w_j$ for all $j=1, \ldots, n-1$ so that  $\bold v, \bold w_1 \ldots, \bold w_{n-1}$ is an ONB of $\mathbb R^n$ by maximality; and (2) $\bold A \bold v = \lambda\bold v$ and $\bold A \bold w_j = \omega_j \bold w_j$ for $j=1, \ldots, n-1.$ These two facts allow us to diagonalize
+  $$
+  \begin{aligned}
+  \bold A
+  &= \lambda \bold v \bold v^\top + \sum_{j=1}^{n-1}\omega_j \bold w_j{\bold w_j}^\top \\
+  &= \Bigg[\bold v\; \bold w_1 \ldots \; \bold w_{n-1}\Bigg] \begin{bmatrix}
+   c & & \\ 
+     & \omega_1 & & \\ 
+     &   &  \ddots & \\
+     &   &  & \omega_{n-1}
+  \end{bmatrix}
+  \begin{bmatrix}
+  \bold v^\top \\
+  {\bold w_1}^\top \\ 
+  \vdots
+  \\
+  {\bold w_{n-1}}^\top
+  \end{bmatrix}
+  \end{aligned}
+  $$
+  where $\bold v, \bold w_1 \ldots, \bold w_{n-1}$ are eigenvectors of $\bold A$ with respect to eigenvalues $\lambda, \omega_1, \ldots, \omega_{n-1}$ that form a basis of $\mathbb R^n.$ This completes the proof! $\square$
+
+<br>
+
+* (9.108) **Left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ If $\bold A$ is tall ($n < m$), then $\bold A$ has a left inverse if and only if $\bold A$ has maximal column rank, i.e. $\text{rank }\bold A = n.$ Suppose $\text{rank } \bold A < n$, then any left multiplication with $\bold A$ will result in a matrix with less than $n$ rank, i.e. not $\bold I_n.$ Suppose $\text{rank } \bold A = n.$ Then, using the SVD,
+  $$
+  \bold A^\top \bold A = \bold V \bold \Sigma^2 \bold V^\top
+  $$ 
+  which is invertible since $r = n.$  This allows us to take $(\bold A^\top \bold A)^{-1} \bold A^\top$ as the left inverse of $\bold A.$ Same argument, if $\bold A$ is wide ($n > m$), then $\bold A$ has a right inverse if and only if the rank of $\bold A$ is $m$, i.e. maximally independent rows, and we can take $\bold A^\top (\bold A \bold A^\top)^{-1}$ as a right inverse of $\bold A.$ 
+
+<br>
+
 * 
