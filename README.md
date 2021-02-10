@@ -1,6 +1,7 @@
-# Complete linear algebra: theory and implementation in code
+# cohen-linalg
 
-My notes and code experiments for the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof./Dr. Mike X Cohen](http://mikexcohen.com/).
+
+My notes and code experiments for the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/).
 
 <!---
 <br>
@@ -29,8 +30,8 @@ Matrix multiplication by layering (iterating over outer products). Pure and impu
 
 <br>
 
-## Readings and References
----
-* [Cleve Moler. *Numerical Computing with MATLAB* (2013)](https://www.mathworks.com/moler/index_ncm.html)
+## References
+
+* [Cleve Moler. *Numerical Computing with MATLAB*. (2013)](https://www.mathworks.com/moler/index_ncm.html)
 * [Sheldon Axler. *Down With Determinants!* (1996)](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf)
-* [Sergei Treil. *Linear Algebra Done Wrong* (2017)](https://www.math.brown.edu/streil/papers/LADW/LADW_2017-09-04.pdf)
+* [Sergei Treil. *Linear Algebra Done Wrong*. (2017)](https://www.math.brown.edu/streil/papers/LADW/LADW_2017-09-04.pdf)
