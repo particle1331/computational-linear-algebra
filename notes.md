@@ -112,7 +112,7 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
 <br>
 
 * **Computing the SVD.** In `4_compute_svd.py` we calculate 3 things: (1) equality between the eigenvalues of $\sqrt{\bold A^\top \bold A}$ and the singular values of $\bold A$, (2) difference bet. max. singular value $\sigma_1$ and $\max_{\lVert \bold x \rVert_2 = 1} \lVert \bold A \bold x \rVert_2$, and (3) whether $\bold A\bold v_i = \sigma_i \bold u_i$ for $i = 1, 2$. Here $\bold A$ is a 2x2 matrix with elements sampled from a standard normal.
-  ```
+  ```python
     eigvals of sqrt(A^T A):  [1.29375301 2.75276951]
     singular values of A:    [2.75276951 1.29375301]
     max norm - max s.value:  1.6732994501111875e-07
@@ -130,7 +130,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
     (???)<br><br>
 
 * (4.57) **Hadamard and standard multiplications are equivalent for diagonal matrices.** This can have consequences in practice. The following code in IPython shows that Hadamard multiplication is 3 times faster than standard multiplication in NumPy.
-    ```
+    ```python
     In [1]: import numpy as np
     In [2]: D = np.diag([1, 2, 3, 4, 5])
     In [3]: %timeit D @ D
@@ -151,7 +151,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
   \lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{\sum\sum {a_{ij}}^2}.
   $$ 
     The fastest way to calculate this in NumPy is the straightforward `(A * B).sum()`. Other ways of calculating (shown in the video) are slower: (1) `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` where `order='F'` means Fortran-like indexing or along the columns, and (2) `np.trace(A @ B)`. 
-    ```
+    ```python
     In [14]: A = np.random.randn(2, 2)
     In [15]: B = np.random.randn(2, 2)
     In [17]: %timeit np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))
@@ -168,7 +168,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
 <br><br>
 
 * (4.60) **Operator norm and singular values.** Note that $\lVert \bold A \rVert_{p} = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_p$ for the operator norm. Recall that the unit circle is transformed $\bold A$ to an ellipse whose axes have length corresponding to the singular values of $\bold A$. Geometrically, we can guess that $\lVert \bold A \rVert_{p} = \max_{j} \sigma_j$  where $\sigma_j$ are the singular values of $\bold A$. Indeed, we can verify this:
-    ```
+    ```python
     In [6]: A = np.random.randn(2, 2)
     In [7]: abs(np.linalg.norm(A, 2) - np.linalg.svd(A)[1][0])
     Out[7]: 0.0
@@ -308,13 +308,68 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
 
 <br>
 
-* (9.108) **Existence of left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ If $\bold A$ is tall ($n < m$), then $\bold A$ has a left inverse if and only if $\bold A$ has maximal column rank, i.e. $\text{rank }\bold A = n.$ Suppose $\text{rank } \bold A < n$, then any left multiplication with $\bold A$ will result in a matrix with less than $n$ rank, i.e. not $\bold I_n$, so it cannot be left invertible. Suppose $\text{rank } \bold A = n.$ Then, using the SVD of $\bold A$,
+* (9.108) **Existence of left and right inverses.** If $\bold A \in \mathbb R^{m\times n}$ is tall or $m > n$, then $\bold A$ has a left inverse if and only if $\bold A$ has maximal (column) rank, i.e. $\text{rank }\bold A = n.$ **Proof**. Suppose $\text{rank } \bold A < n$, then any left multiplication with $\bold A$ will result in a matrix with less than $n$ rank, i.e. not $\bold I_n.$ In other words, $\bold A$ is not left invertible. Suppose $\text{rank } \bold A = n.$ Then, using the SVD of $\bold A$,
   $$
   \bold A^\top \bold A = \bold V \bold \Sigma^2 \bold V^\top
   $$ 
-  which is invertible since $r = n.$  This allows us to take $(\bold A^\top \bold A)^{-1} \bold A^\top$ as the left inverse of $\bold A.$ By the same argument, if $\bold A$ is wide ($n > m$), then $\bold A$ has a right inverse if and only if the rank of $\bold A$ is $m$, i.e. maximally independent rows, and we can take $\bold A^\top (\bold A \bold A^\top)^{-1}$ as a right inverse of $\bold A.$ <br><br> 
-  Observe that left invertible matrices are precisely those that are one-to-one and right invertible matrices are precisely those that are onto. That is, if $\bold A \bold x = \bold 0,$ then applying the left inverse gives us $\bold x = 0$ so that $\bold A$ is one-to-one. If $\bold y \in \mathbb R^m$, then $\bold x = \bold A^{-1}_R \bold y \in \mathbb R^n$ is a pre-image of $\bold y.$ Hence, if a matrix has both left and right inverses, this matrix is invertible, and has full column and row rank.
+  which is invertible since $r = n,$ i.e. take $(\bold A^\top \bold A)^{-1} = \bold V \bold \Sigma^{-2} \bold V^\top.$ This allows us to take ${\bold A_{L}}^{-1} = (\bold A^\top \bold A)^{-1} \bold A^\top$ as the left inverse of $\bold A.$ 
+  Observe that we have the dual result that if $\bold A$ is wide or $n > m$, then $\bold A$ has a right inverse if and only if $\text{rank } \bold A = m$ and we can take ${\bold A_{R}}^{-1} = \bold A^\top (\bold A \bold A^\top)^{-1}$ as a right inverse of $\bold A.$ <br><br>
+  
+* (9.108) **Characterizing left and right invertible matrices.** Left invertible matrices are precisely those matrices that are one-to-one, and right invertible matrices are precisely those that are onto. It can be shown that $\bold A$ is one-to-one if and only if $\mathsf{N}(\bold A)$ is zero if and only if $\text{rank }\bold A = n$ (rank-nullity theorem) which is equivalent to being left invertible (above bullet). Similarly, $\bold A$ is onto if and only if its column space is $\mathbb R^m$ which is equivalent, as shown above, to $\bold A$ being right invertible. It follows that a matrix has both left and right inverses, i.e. invertible if and only if it has full rank.
+
+<br>
+
+* (9.111) **Moore-Penrose Pseudoinverse.** Now that we know how to compute the one sided inverse from rectangular matrices, assuming they have full column rank or full row rank, the big missing piece is what to do with a reduced rank matrix. It turns out that it is possible to find another matrix that is not formally an inverse, but is some kind of a good approximation of what the inverse element should be in a least squares sense (later), i.e. what is called a pseudoinverse. The **Moore-Penrose pseudoinverse** for a matrix $\bold A \in \mathbb R^{m \times n}$ is defined as the *unique* matrix $\bold A^+ \in \mathbb R^{n \times m}$ that satisfies the four equations:
+
+  1. $\bold A \bold A^+ \bold A = \bold A$
+  2. $\bold A^+ \bold A \bold A^+ = \bold A^+$
+  3. $\bold A \bold A^+$ is symmetric.
+  4. $\bold A^+ \bold A$ is symmetric.
+
+  These properties make $\bold A^+$ as much as possible look like an inverse of $\bold A$. In fact, if $\bold A$ is invertible, then $\bold A^{-1}$ trivially satisfies the equations. Note that there are many other notions of generalized inverses and the Moore-Penrose is just one of them. The Moore-Penrose exists (shortly) and is [unique](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse)  for every matrix even rank deficient ones. 
+  To solve for the exact form, consider the SVD: $\bold A = \bold U \bold \Sigma \bold V^\top$, we naturally take
+  $$
+    \bold A^{+} = \bold V \bold \Sigma^+ \bold U^\top
+  $$
+  where $\bold \Sigma^+$ is a diagonal matrix of shape $n \times m$ with the first $r$ nonzero entries equal to $\bold \Sigma_r^{-1}$, elsewhere zero. Note that while the matrices $\bold U$ and $\bold V$ in the SVD are not unique, the resulting product is. One can easily calculate that this is the Moore-Penrose pseudoinverse, e.g.  $\bold A \bold A^+ = \bold U_r\; {\bold U_r}^\top$ and $\bold A^+ \bold A = \bold V_r\; {\bold V_r}^\top.$ The other two properties are also easy to calculate. This is precisely how `np.linalg.pinv` calculates the pseudoinverse:
+  <br><br>
+    ```python
+    In [1]: import numpy as np
+    
+    In [2]: A = np.random.randn(3, 3)
+    In [3]: A[:, 0] = A[:, 1] * 3.2 - A[:, 2] * 1.2 # make rank 2
+    In [4]: u, s, vT = np.linalg.svd(A)
+
+    In [5]: u[:, :2] @ (u[:, :2].T)
+    Out[5]: 
+    array([[ 0.89274311,  0.30151708,  0.06957224],
+           [ 0.30151708,  0.15238496, -0.19557923],
+           [ 0.06957224, -0.19557923,  0.95487192]])
+
+    In [6]: A @ np.linalg.pinv(A)
+    Out[6]: 
+    array([[ 0.89274311,  0.30151708,  0.06957224],
+           [ 0.30151708,  0.15238496, -0.19557923],
+           [ 0.06957224, -0.19557923,  0.95487192]])
+    ```
 
 <br>
 
 * 
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+---
+
+**todo:**
+
+- eigendecomposition (further theory)
+- projections
+- SVD
+- eckart young, low-rank approx.
+- SVD and least squares

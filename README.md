@@ -32,6 +32,7 @@ Matrix multiplication by layering (iterating over outer products). Pure and impu
 
 ## References
 
-* [Cleve Moler. *Numerical Computing with MATLAB*. (2013)](https://www.mathworks.com/moler/index_ncm.html)
-* [Sheldon Axler. *Down With Determinants!* (1996)](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf)
-* [Sergei Treil. *Linear Algebra Done Wrong*. (2017)](https://www.math.brown.edu/streil/papers/LADW/LADW_2017-09-04.pdf)
+* [Cleve Moler. *Numerical Computing with MATLAB*. The MathWorks / SIAM. (2013)](https://www.mathworks.com/moler/index_ncm.html)
+* [Sheldon Axler. *Down With Determinants!*. The American Monthly. (1996)](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf)
+* [Peter Olver and Chehzrad Shakiban. *Applied Linear Algebra*. UTM Springer. (2018)](https://www-users.math.umn.edu/~olver/books.html)
+* [Proofs involving the Moore-Penrose pseudoinverse](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse)
