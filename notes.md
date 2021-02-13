@@ -431,11 +431,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
 
 * **Moore-Penrose pseudo-inverse as left and right inverse.** Let $\bold A \in \mathbb R^{m \times n}$ with maximal rank. It turns out the left and right inverses we constructed above is the Moore-Penrose pseudo-inverse of $\bold A$ in each case:
 
-  * $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ (tall matrix; $m > n$)
+  * $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ (tall)
   
-  * $\bold A^+ = \bold A^\top(\bold A \bold A^\top)^{-1}$ (wide matrix; $m < n$) 
+  * $\bold A^+ = \bold A^\top(\bold A \bold A^\top)^{-1}$ (wide) 
 
-  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. As a side note, any left or right inverse will trivially satisfy the first two, but not the third and fourth (on symmetry).
+  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not the third and fourth!
   
   <br>
   
