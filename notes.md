@@ -53,7 +53,7 @@
 * (4.51) **Geometry of linear operators.** In the code challenge, we saw that a unit circle is mapped by a square matrix $\bold A$ into an ellipse. It turns out that the effect of a square matrix $\bold A \in \mathbb R^{2 \times 2}$ as an operator on $\mathbb R^2$ is to dilate the space outwards in two orthogonal directions (possibly some directions shrinking to zero, but never in a negative direction), then resulting space is rotated twice. To see this, let $\bold A = \bold U \bold \Sigma \bold V^\top$ be the SVD of $\bold A$, then $\bold A = (\bold U \bold V^\top) (\bold V \bold\Sigma \bold V^\top)$. The factor $\bold V \bold\Sigma \bold V^\top$ dilates the space two orthogonal directions defined by the columns of $\bold V$ while the strength of the dilation is determined by the singular values in the diagonal of $\bold \Sigma$. 
 We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. in terms of a sum of projection operators $\sum_{i=1}^n \sigma_i \bold v_i \bold v_i^\top$. This is followed by a product $\bold U \bold V^\top$ of two isometries of $\mathbb R^2$. It can be [easily calculated](https://math.stackexchange.com/a/2924263) that orthogonal transformations of $\mathbb R^2$ are either rotations or reflections, so that we get a final ellipse. Since the rank of $\bold A$ is equal to the number of nonzero singular values, whenever $\bold A$ is singular, some of its singular values will be zero corresponding to an axis where the ellipse collapses (see figure below). <br><br>
 
-* (4.51) **Polar decomposition.** The decomposition of an operator $\bold A \in \mathbb R^{n\times n}$ in (4.51) into $\bold A = \bold Q \bold P$ where $\bold Q$ is orthogonal and $\bold P$ is symmetric positive semidefinite is called the **polar decomposition**. Geometrically, we can see that $\bold P$ should be unique. Indeed, observe that $\bold P^2 = \bold A^\top \bold A$ and $\bold A^\top \bold A$ is evidently symmetric positive semidefinite, so it has a unique symmetric positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm. 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Thus, $\bold P = \bold V \bold \Sigma \bold V^\top = \sqrt{\bold A ^\top \bold A}$ by uniqueness. Note however that the eigenvectors the orthogonal eigendecomposition into need not be unique (e.g. when the kernel of $\bold A$ is nonzero). For real matrices, the isometries are precisely the orthogonal matrices. Thus, the polar decomposition can be written as $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ for some isometry $\bold Q$ &mdash; cf. [[Lem. 9.6]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf) which states the polar decomposition in terms of the existence such an isometry. The matrix $\bold Q$ is only unique if $\bold A$ is nonsingular. For instance, if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation. <br>
+* (4.51) **Polar decomposition.** The decomposition of an operator $\bold A \in \mathbb R^{n\times n}$ in (4.51) into $\bold A = \bold Q \bold P$ where $\bold Q$ is orthogonal and $\bold P$ is symmetric positive semidefinite is called the **polar decomposition**. Geometrically, we can see that $\bold P$ should be unique. Indeed, observe that $\bold P^2 = \bold A^\top \bold A$ and $\bold A^\top \bold A$ is evidently symmetric positive semidefinite, so it has a unique symmetric positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm. 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Thus, $\bold P = \bold V \bold \Sigma \bold V^\top = \sqrt{\bold A ^\top \bold A}$ by uniqueness. Note however that the eigenvectors the orthogonal eigendecomposition into need not be unique (e.g. when the kernel of $\bold A$ is nonzero). For real matrices, the isometries are precisely the orthogonal matrices. Thus, the polar decomposition can be written as $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ for some isometry $\bold Q$; cf. [[Lem. 9.6]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf) which states the polar decomposition in terms of the existence of such an isometry. The matrix $\bold Q$ is only unique if $\bold A$ is nonsingular. For instance, if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation. <br>
    
     **Remark.** The name "polar decomposition" comes from the analogous decomposition of complex numbers as $z = re^{i\theta}$ in polar coordinates. Here $r = \sqrt{\bar z z }$ (analogous to $\sqrt{\bold A^* \bold A}$) and multiplication by $e^{i\theta}$ is an isometry of $\mathbb C$ (analogous to the isometric property of $\bold Q$). For complex matrices we consider $\bold A^*\bold A$ and unitary matrices in the SVD. <br><br> 
 
@@ -78,11 +78,43 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
   Thus, $\bold u_1, \ldots \bold u_r$ is an orthonormal basis for the image of $\bold A$ in $\mathbb R^m.$ From here we can already obtain the **compact SVD** which already contains all necessary information: $\bold A = \sum_{k=1}^r \sigma_k \bold  u_k \bold v_k^\top$ or $\bold A = \bold U_r \bold \Sigma_r \bold V_r^\top$ (bottom of Figure 10.1 below with $r = n$) where $\bold U_r = [\bold u_1, \ldots, \bold u_r] \in \mathbb R^{m \times r},$ $\bold\Sigma_r = \bold\Sigma[:r, :r],$ and $\bold V^\top_r = \bold V[:, :r]^\top.$ To get the **full SVD**, we extend $\bold U_r$ to an orthonormal basis of $\mathbb R^m$ by Gram-Schmidt obtaining $\bold U = [\bold U_r | \bold U_{m-r}] \in \mathbb R^{m \times m}.$ For $\bold\Sigma$, we either pad ($m > n$) or remove zero rows ($m < n$) to get an $m \times n$ diagonal matrix. Finally, with these matrices, we can write $\bold A \bold V = \bold U \bold \Sigma$ so that $\bold A = \bold U \bold \Sigma \bold V^\top$ where the factors have the properties stated in the SVD. And we're done! $\square$
 
 <br>
-
   <p align="center">
   <img src="img/svd.png" alt="drawing" width="400"/>
   </p>
-  <br><br>
+<br>
+
+<br>
+
+* See `src/4_svd_from_scratch.py` for a construction of the (compact) SVD in code following the proof. The result looks great:
+    <br>
+
+  ```python
+  In [1]: %run 4_svd_from_scratch.py                                                                                                                                    
+  U @ Sigma @ V.T =
+  [[ 1.76405235  0.40015721  0.97873798  2.2408932 ]
+   [ 1.86755799 -0.97727788  0.95008842 -0.15135721]
+   [-0.10321885  0.4105985   0.14404357  1.45427351]
+   [ 0.76103773  0.12167502  0.44386323  0.33367433]
+   [ 1.49407907 -0.20515826  0.3130677  -0.85409574]]
+
+  A=
+  [[ 1.76405235  0.40015721  0.97873798  2.2408932 ]
+   [ 1.86755799 -0.97727788  0.95008842 -0.15135721]
+   [-0.10321885  0.4105985   0.14404357  1.45427351]
+   [ 0.76103773  0.12167502  0.44386323  0.33367433]
+   [ 1.49407907 -0.20515826  0.3130677  -0.85409574]]
+
+  L1 error = 8.229528170033973e-15
+
+  U.T @ U =
+  [[ 1.00000000e+00  7.85139767e-17 -2.70399175e-16  4.08696943e-15 0.00000000e+00]
+   [ 7.85139767e-17  1.00000000e+00 -9.81442401e-16  6.71377649e-16 0.00000000e+00]
+   [-2.70399175e-16 -9.81442401e-16  1.00000000e+00  1.27931484e-14 0.00000000e+00]
+   [ 4.08696943e-15  6.71377649e-16  1.27931484e-14  1.00000000e+00 0.00000000e+00]
+   [ 0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00 0.00000000e+00]]
+  ```
+
+<br>
 
 * **Singular vectors in the SVD.** Given the SVD we can write $\bold A = \sum_{i=1}^r \sigma_i \bold u_i \bold v_i^\top$ as a sum of rank one (!) terms. Recall that $\sigma_i \bold u_i = \bold A \bold v_i$. Writing $\bold A = \sum_{i=1}^r (\bold A \bold v_i) \bold v_i^\top$ is trivial given an ONB $\bold v_1, \ldots, \bold v_n$ of $\mathbb R^n.$ What is nontrivial in the SVD is that (1) an ONB always exists that is "natural" to $\bold A$, and (2) the corresponding image vectors $\bold A \bold v_i$ which span $\textsf{col }\bold A$ are also orthogonal in $\mathbb R^m.$
   <br>
@@ -97,7 +129,6 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
   $$
   for $i = 1, \ldots, r.$ This is also trivially true for $i > r.$ Thus, $\bold u_1, \ldots, \bold u_m$ are $m$ orthogonal eigenvectors of $\bold A \bold A^\top$ w.r.t. eigenvalues ${\sigma_1}^2, \ldots {\sigma_r}^2, 0, \ldots, 0$.
   <br><br>
-
 
 <br>
 <p align="center">
@@ -119,6 +150,90 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
     || Av - su ||.max():     2.220446049250313e-16
   ```
   <br>
+
+* **Spectral Theorem Proof.** The real spectral theorem is the basis for the SVD, i.e. we use it to decompose $\bold A^\top \bold A$ which is automatically symmetric. Proving the SVD early will allow us to easily things about $\bold A,$ e.g. the SVD gives us access to the number of singular values which is equal to the rank of $\bold A$. In the proof below, note that the properties of the inner product is used heavily, e.g. the orthogonal decompositon of $\mathbb R^n$ in terms of a one-dimensional subspace and its orthogonal complement. Indeed, this result generalizes to self-adjoint operators on real inner product spaces; see [[Theorem 8.3]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf). <br><br>
+
+    > **Theorem.** (Real spectral theorem). Let $\bold A \in \mathbb R^{n \times n}$ be a symmetric matrix. Then
+      (1) the eigenvalues of $\bold A$ are real;
+      (2) the eigenvectors of $\bold A$ corresponding to distinct eigenvalues are orthogonal; and
+      (3) there exists an ONB of $\mathbb R^n$ of eigenvectors of $\bold A.$ This allows the diagonalization $\bold A = \bold U \bold \Lambda \bold U^\top = \sum_{i=1}^n \lambda_i \bold u_i {\bold u_i}^\top.$
+  
+  <br>
+  
+  **Proof.** [Olver, 2018]. We skip (1) and (2). To prove (3), we perform induction on $n.$ For $n = 1$, this is trivially true: $\bold A = a = \lambda \in \mathbb R$ with eigenvector $1.$ Suppose the spectral theorem is true for symmetric matrices in $\mathbb R^{n-1}.$ By the [Fundamental Theorem of Algebra (FTA)](https://math.libretexts.org/Bookshelves/Linear_Algebra/Book%3A_Linear_Algebra_(Schilling_Nachtergaele_and_Lankham)/07%3A_Eigenvalues_and_Eigenvectors/7.04%3A_Existence_of_Eigenvalues), there exists at least one eigenvalue $\lambda$ of $\bold A$ which we know to be real. Along with $\lambda$ comes a nonzero unit eigenvector $\bold v \in \mathbb R^n.$ Let $V$ be the subspace orthogonal to the $1$-dimensional $\mathbb R \bold v$ subspace spanned by $\bold v.$ Let $\mathbb R\bold v \oplus (\mathbb R\bold v)^\perp = \mathbb R^n$ and so that $\dim V = n-1.$ Then, there exists an ONB $\bold y_1, \ldots, \bold y_{n-1} \in \mathbb R^n$ for the subspace $V.$ Moreover, $V$ is invariant under $\bold A.$ To see this, suppose $\bold w \in V,$ then 
+  $$
+  \begin{aligned}
+  (\bold A \bold w)^\top \bold v 
+  &= \bold w ^\top \bold A^\top \bold v  \\
+  &= \bold w ^\top \bold A \bold v \\
+  &= \lambda \bold w ^\top \bold v = 0.
+  \end{aligned}
+  $$
+  It follows that $\bold A \bold w \in V.$ Thus, ${\bold A}{|_ V}$ is a linear operator on $V$ and we can write $\bold A| _ V = \bold Y \bold B \bold Y^\top$ where $\bold Y = [\bold y_1, \ldots , \bold y_{n-1}] \in \mathbb R ^{n \times (n-1)}$ and $\bold B \in \mathbb R^{(n-1)\times(n-1)}$ is the matrix representation of $\bold A| _ V,$ i.e. $\bold B = \bold Y^\top \bold A \bold Y.$ In general, $\bold Y$ is not yet composed of eigenvector directions of $\bold A$, i.e. $\bold B$ is not yet diagonal. However, observe that $\bold B$ is symmetric:
+  $$
+  b_{ij} = {\bold y_i}^\top \bold A \bold y_j = (\bold A^\top \bold y_i)^\top \bold y_j = (\bold A \bold y_i)^\top \bold y_j = b_{ji}.
+  $$
+  The induction hypothesis then allows us to write $\bold B = \bold U \bold \Omega \bold U^\top$ where $\bold \Omega$ is a diagonal matrix of real entries $\omega_1, \ldots, \omega_{n-1}$ and $\bold U \in \mathbb R^{(n-1) \times (n-1)}$ is an orthogonal matrix with columns consisting of the corresponding eigenvectors $\bold u_1, \ldots, \bold u_{n-1}$. Thus, 
+  $$
+  {\bold A}{|_ V} = (\bold Y \bold U) \bold \Omega ( \bold Y \bold U)^\top.
+  $$
+  Let $\bold w_ j = \bold Y \bold u_j \in V.$ Observe that (1)
+  ${\bold w_ i}^\top \bold w_j = {(\bold Y \bold u_i)}^\top {\bold Y \bold u_j} = {\bold u_i}^\top \bold Y ^\top {\bold Y \bold u_j} = \delta_{ij}$
+  and $\bold v \perp \bold w_j$ for all $j=1, \ldots, n-1$ so that  $\bold v, \bold w_1 \ldots, \bold w_{n-1}$ is an ONB of $\mathbb R^n$ by maximality; and (2) $\bold A \bold v = \lambda\bold v$ and $\bold A \bold w_j = \omega_j \bold w_j$ for $j=1, \ldots, n-1.$ These two facts allow us to diagonalize
+  $$
+  \begin{aligned}
+  \bold A
+  &= \lambda \bold v \bold v^\top + \sum_{j=1}^{n-1}\omega_j \bold w_j{\bold w_j}^\top \\
+  &= \Bigg[\bold v\; \bold w_1 \ldots \; \bold w_{n-1}\Bigg] \begin{bmatrix}
+   c & & \\ 
+     & \omega_1 & & \\ 
+     &   &  \ddots & \\
+     &   &  & \omega_{n-1}
+  \end{bmatrix}
+  \begin{bmatrix}
+  \bold v^\top \\
+  {\bold w_1}^\top \\ 
+  \vdots
+  \\
+  {\bold w_{n-1}}^\top
+  \end{bmatrix}
+  \end{aligned}
+  $$
+  where $\bold v, \bold w_1 \ldots, \bold w_{n-1}$ are eigenvectors of $\bold A$ with respect to eigenvalues $\lambda, \omega_1, \ldots, \omega_{n-1}$ that form a basis of $\mathbb R^n.$ This completes the proof! $\square$
+
+<br>
+
+* **Code demo: Spectral theorem proof.**  The exact construction in the above proof is done in code: see `src/4_spectral_theorem_proof_3x3.py`! Here we have an $n = 3$ random symmetric matrix. The first eigenvector $\bold v$ obtained by cheating a bit, i.e. using `np.linalg.eig`. Then, we constructed two linearly independent vectors $\bold y_1$ and $\bold y_2$ by calculating the equation of the plane orthogonal to $\bold v$ and finding $x$'s such that $(x, 1, 1)$ and $(x, 1, 0)$ are points on the plane $\bold v^\perp.$ Finally, the vectors $\bold y_1$ and $\bold y_2$ are made to be orthonormal by Gram-Schmidt. By the inductive hypothesis, we are allowed to compute `omega, U = np.linalg.eig(B)` where `B = Y.T @ A @ Y`. Then, we set `W = Y @ U` to be the $n-1$ eigenvector directions in the orthogonal plane. This is concatenated with $\bold v$ to get the final matrix `V` of all $n$ eigenvectors. Of course, the eigenvalues are constructed likewise. 
+
+  <br>
+
+  ```python
+  In [123]: %run 4_spectral_theorem_proof_3x3.py                                                                                               
+  B =
+  [[ 0.37139617 -0.36034904]
+   [-0.36034904  2.30840586]]
+
+  V =
+  [[-0.85231143  0.36198424  0.37753496]
+   [-0.50914829 -0.40898848 -0.75729548]
+   [ 0.11972159  0.83767287 -0.53288921]]
+
+  V.T @ V =
+  [[ 1.00000000e+00  6.44268216e-17 -6.75467825e-17]
+   [ 6.44268216e-17  1.00000000e+00 -1.58338343e-16]
+   [-6.75467825e-17 -1.58338343e-16  1.00000000e+00]]
+
+  Lambda (eigenvalues) = [11.95081085  2.37327078  0.30653125]
+  L1 error (A, V @ Lambda @ V.T) = 2.6867397195928788e-14
+
+  Compare with np.linalg.eig(A):
+  [11.95081085  2.37327078  0.30653125]
+  [[-0.85231143 -0.36198424 -0.37753496]
+   [-0.50914829  0.40898848  0.75729548]
+   [ 0.11972159 -0.83767287  0.53288921]]
+  ```
+
+<br>
 
 * **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$ <br><br>
 
@@ -146,7 +261,7 @@ The lack of symmetry, i.e. $\bold S \bold T \neq \bold T \bold S$, turns out to 
   \langle \bold A, \bold B\rangle_F 
   = \sum_{i=1}^m \sum_{j=1}^n a_{ij} b_{ij}. 
   $ 
-  Two alternative ways of computing this: (1) reshape $\bold A$ and $\bold B$ as vectors, then take the dot product; and (2) $\langle \bold A, \bold B\rangle_F = \text{tr}(\bold A^\top \bold B)$ which is nice in theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as 
+  Two alternative ways of computing this: (1) reshape $\bold A$ and $\bold B$ as vectors, then take the dot product; and (2) $\langle \bold A, \bold B\rangle_F = \text{tr}(\bold A^\top \bold B)$ which is nice in theory, but makes *a lot* of unnecessary computation! The **Frobenius norm** is defined as
   $$
   \lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{\sum\sum {a_{ij}}^2}.
   $$ 
@@ -214,7 +329,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
   * $\mathsf{C}(\bold A) \oplus \mathsf{N}(\bold A^\top) =\, \mathbb R^m \;\; \text{s.t.} \;\; \mathsf{C}(\bold A) \perp \mathsf{N}(\bold A^\top).$ 
   <br><br>
 
-  This implies that $\dim  \mathsf{N}(\bold A^\top) = m-r$ and $\dim {N}(\bold A) = n-r.$ Proving one of the two decompositions prove the other by duality. Suppose $\bold x \in \mathbb R^m$ and consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top.$ Let $\tilde \bold x = \bold x - \bold U \bold U^\top \bold x.$ Note that $\bold U\bold U^\top \bold x \in \mathsf{C}(\bold A)$ since the columns of $\bold U$ are $\bold u_i = \bold A \bold v_i$ for $i = 1, \ldots, r$ where $r = \text{rank }\bold A,$ and the singular vectors $\bold u_i$ and $\bold v_j$ are, resp., ONBs of $\mathbb R^m$ and $\mathbb R^n.$ Then
+  This implies that $\dim  \mathsf{N}(\bold A^\top) = m-r$ and $\dim {N}(\bold A) = n-r.$ Proving one of the two decompositions proves the other by duality. Suppose $\bold x \in \mathbb R^m$ and consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top.$ Let $\tilde \bold x = \bold x - \bold U \bold U^\top \bold x.$ Note that $\bold U\bold U^\top \bold x \in \mathsf{C}(\bold A)$ since the columns of $\bold U$ are $\bold u_i = \bold A \bold v_i$ for $i = 1, \ldots, r$ where $r = \text{rank }\bold A,$ and the singular vectors $\bold u_i$ and $\bold v_j$ are, resp., ONBs of $\mathbb R^m$ and $\mathbb R^n.$ Then
   $$
   \bold A^\top \tilde \bold x = \bold V \bold \Sigma \bold U^\top \left( \bold x - \bold U \bold U^\top \bold x \right) = \bold 0.
   $$
@@ -247,91 +362,50 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
 
 * (10.1) **Full rank $\Leftrightarrow$ Invertible.** Let $r = \text{rank }\bold A.$ This fact is consistent with the SVD, namely, take $\bold A^{-1} = \bold U \bold \Sigma^{-1} \bold V^\top.$ Note that the $\Sigma$ is invertible if and only if $r = n,$ i.e. ${\bold\Sigma^{-1}}_{ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ Without using the SVD, we can prove this using the rank-nullity theorem and the fact that $\bold A$ is invertible (as a matrix) if and only if its corresponding linear operator on $\mathbb R^n$ is invertible (as a map). The corresponding operator for $\bold A$ is invertible by counting dimensions resulting in $\mathsf{C}(\bold A) = \mathbb {R}^n$ (onto) and $\mathsf{N}(\bold A) = \bold 0$ (one-to-one). <br><br>
 
-* (10.1) **Sparse matrix has a dense inverse.** A sparse matrix can have a dense inverse. This can cause memory errors in practice. In `src/10_sparse_to_dense.py` we artificially construct a sparse matrix. This is typically singular, so we shift it to make it nonsingular. Result:
+* (10.1) **Sparse matrix has a dense inverse.** A sparse matrix can have a dense inverse. This can cause memory errors in practice. In `src/10_sparse_to_dense.py` we artificially construct a sparse matrix. This is typically singular, so we shift it to make it nonsingular.  The result is that the inverse is 50x more dense than the original matrix:
+
   ```
   A sparsity:      0.001999
   A_inv sparsity:  0.108897
   ```
-  The inverse is 50x more dense than the original matrix.
 
 <br>
 
-* **Spectral Theorem Proof.** The real spectral theorem is the basis for the SVD, i.e. we use it to decompose $\bold A^\top \bold A$ which is automatically symmetric. Proving the SVD early allowed us to easily things about $\bold A,$ e.g. the SVD gives us access to the number of singular values which is equal to the rank of $\bold A$. In the proof note that the properties of the inner product is used heavily, e.g. the orthogonal decompositon of $\mathbb R^n$ in terms of a one-dimensional subspace and its orthogonal complement. This result generalizes to self-adjoint operators on real inner product spaces; see [[Theorem 8.3]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf). <br><br>
+* (9.108) **Existence of left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ TFAE 
+  1. $\text{rank }\bold A = n.$
+  2. $\bold A$ is 1-1.
+  3. $\bold A$ is left invertible.
 
-    > **Theorem.** (Real spectral theorem). Let $\bold A \in \mathbb R^{n \times n}$ be a symmetric matrix. Then
-      (1) the eigenvalues of $\bold A$ are real;
-      (2) the eigenvectors of $\bold A$ corresponding to distinct eigenvalues are orthogonal; and
-      (3) there exists an ONB of $\mathbb R^n$ of eigenvectors of $\bold A.$ This allows the diagonalization $\bold A = \bold U \bold \Lambda \bold U^\top = \sum_{i=1}^n \lambda_i \bold u_i {\bold u_i}^\top.$
-  
-  <br>
-  
-  **Proof.** (Olver, 2018). We skip on (1) and (2). To prove (3), we perform induction on $n.$ For $n = 1,$ this is trivially true: $\bold A = a = \lambda \in \mathbb R$ with eigenvector $1.$ Suppose the spectral theorem is true for symmetric matrices in $\mathbb R^{n-1}.$ By the [fundamental theorem of algebra (FTA)](https://math.libretexts.org/Bookshelves/Linear_Algebra/Book%3A_Linear_Algebra_(Schilling_Nachtergaele_and_Lankham)/07%3A_Eigenvalues_and_Eigenvectors/7.04%3A_Existence_of_Eigenvalues), there exists at least one eigenvalue $\lambda$ of $\bold A$ which we know to be real. Along with $\lambda$ comes a nonzero unit eigenvector $\bold v \in \mathbb R^n.$ Let $V$ be the subspace orthogonal to the $1$-dimensional $\mathbb R \bold v$ subspace spanned by $\bold v.$ Let $\mathbb R\bold v \oplus (\mathbb R\bold v)^\perp = \mathbb R^n$ and so that $\dim V = n-1.$ Then, there exists an ONB $\bold y_1, \ldots, \bold y_{n-1} \in \mathbb R^n$ for the subspace $V.$ Moreover, $V$ is invariant under $\bold A.$ To see this, suppose $\bold w \in V,$ then 
+  Suppose one of these is true (so that all are true), then we can construct a left inverse using the SVD $\bold A = \bold U \bold \Sigma \bold V^\top$ which allows us to write
+  $
+  \bold A^\top \bold A = \bold V \bold \Sigma^\top \bold \Sigma \bold V^\top.
+  $ 
+  This is invertible since $r = n,$ i.e. $\bold\Sigma^\top \bold \Sigma$ is $n \times n$ with nonzero entries on its diagonal. Moreover, the inverse can be efficiently computed using $(\bold A^\top \bold A)^{-1} = \bold V (\bold\Sigma^\top \bold \Sigma)^{-1} \bold V^\top$ where $(\bold\Sigma^\top \bold \Sigma)^{-1} = \bold \Sigma_n^{-2}$ is the diagonal matrix with entries $1/\sigma_j^2$ for $j=1,\ldots, n.$ Then, a left inverse is
+    $$
+    (\bold A^\top \bold A)^{-1} \bold A^\top.
+    $$ 
+  Note that we have corresponding dual equivalences about the rows of $\bold A.$ In this case, we have a wide matrix with maximal rows, and a right inverse of $\bold A$ can be constructed as
   $$
-  \begin{aligned}
-  (\bold A \bold w)^\top c\bold v 
-  &= c \bold w ^\top \bold A^\top \bold v  \\
-  &= c \bold w ^\top \bold A \bold v \\
-  &= \lambda c \bold w ^\top \bold v = 0
-  \end{aligned}
+  \bold A^\top (\bold A \bold A^\top)^{-1}
   $$
-  for any $c \in \mathbb R.$ It follows that $\bold A \bold w \in V.$ Thus, ${\bold A}{|_ V}$ is a linear operator on $V$ and we have the matrix representation $\bold A| _ V = \bold Y \bold B \bold Y^\top$ where $\bold B$ is a real ${(n-1)\times(n-1)}$ matrix and $\bold Y = [\bold y_1 \mid \ldots \mid \bold y_{n-1}]$ is $n \times (n-1).$ Observe that $\bold B$ is symmetric:
-  $$
-  b_{ij} = {\bold y_i}^\top \bold A \bold y_j = (\bold A^\top \bold y_i)^\top \bold y_j = (\bold A \bold y_i)^\top \bold y_j = b_{ji}.
-  $$
-  The induction hypothesis allows us to write $\bold B = \bold U \bold \Omega \bold U^\top$ where $\bold \Omega$ is a diagonal matrix of real entries $\omega_1, \ldots, \omega_{n-1}$ and $\bold U$ is an orthogonal $(n-1) \times (n-1)$ real matrix with columns $\bold u_1, \ldots, \bold u_{n-1}$. Thus, 
-  $$
-  {\bold A}{|_ V} = (\bold Y \bold U) \bold \Omega ( \bold Y \bold U)^\top.
-  $$
-  Let $\bold w_ j = \bold Y \bold u_j \in V.$ Observe that (1)
-  ${\bold w_ i}^\top \bold w_j = {(\bold Y \bold u_i)}^\top {\bold Y \bold u_j} = {\bold u_i}^\top \bold Y ^\top {\bold Y \bold u_j} = \delta_{ij}$
-  and $\bold v \perp \bold w_j$ for all $j=1, \ldots, n-1$ so that  $\bold v, \bold w_1 \ldots, \bold w_{n-1}$ is an ONB of $\mathbb R^n$ by maximality; and (2) $\bold A \bold v = \lambda\bold v$ and $\bold A \bold w_j = \omega_j \bold w_j$ for $j=1, \ldots, n-1.$ These two facts allow us to diagonalize
-  $$
-  \begin{aligned}
-  \bold A
-  &= \lambda \bold v \bold v^\top + \sum_{j=1}^{n-1}\omega_j \bold w_j{\bold w_j}^\top \\
-  &= \Bigg[\bold v\; \bold w_1 \ldots \; \bold w_{n-1}\Bigg] \begin{bmatrix}
-   c & & \\ 
-     & \omega_1 & & \\ 
-     &   &  \ddots & \\
-     &   &  & \omega_{n-1}
-  \end{bmatrix}
-  \begin{bmatrix}
-  \bold v^\top \\
-  {\bold w_1}^\top \\ 
-  \vdots
-  \\
-  {\bold w_{n-1}}^\top
-  \end{bmatrix}
-  \end{aligned}
-  $$
-  where $\bold v, \bold w_1 \ldots, \bold w_{n-1}$ are eigenvectors of $\bold A$ with respect to eigenvalues $\lambda, \omega_1, \ldots, \omega_{n-1}$ that form a basis of $\mathbb R^n.$ This completes the proof! $\square$
+  where $(\bold A \bold A^\top)^{-1} = \bold U (\bold \Sigma \bold \Sigma^\top)^{-1} \bold U^\top$ can be efficiently computed as in the left inverse with $(\bold \Sigma \bold \Sigma^\top)^{-1} = \bold \Sigma_m^{-2}.$
 
 <br>
 
-* (9.108) **Existence of left and right inverses.** If $\bold A \in \mathbb R^{m\times n}$ is tall or $m > n$, then $\bold A$ has a left inverse if and only if $\bold A$ has maximal (column) rank, i.e. $\text{rank }\bold A = n.$ **Proof**. Suppose $\text{rank } \bold A < n$, then any left multiplication with $\bold A$ will result in a matrix with less than $n$ rank, i.e. not $\bold I_n.$ In other words, $\bold A$ is not left invertible. Suppose $\text{rank } \bold A = n.$ Then, using the SVD of $\bold A$,
-  $$
-  \bold A^\top \bold A = \bold V \bold \Sigma^2 \bold V^\top
-  $$ 
-  which is invertible since $r = n,$ i.e. take $(\bold A^\top \bold A)^{-1} = \bold V \bold \Sigma^{-2} \bold V^\top.$ This allows us to take ${\bold A_{L}}^{-1} = (\bold A^\top \bold A)^{-1} \bold A^\top$ as the left inverse of $\bold A.$ 
-  Observe that we have the dual result that if $\bold A$ is wide or $n > m$, then $\bold A$ has a right inverse if and only if $\text{rank } \bold A = m$ and we can take ${\bold A_{R}}^{-1} = \bold A^\top (\bold A \bold A^\top)^{-1}$ as a right inverse of $\bold A.$ <br><br>
-  
-* (9.108) **Characterizing left and right invertible matrices.** Left invertible matrices are precisely those matrices that are one-to-one, and right invertible matrices are precisely those that are onto. It can be shown that $\bold A$ is one-to-one if and only if $\mathsf{N}(\bold A)$ is zero if and only if $\text{rank }\bold A = n$ (rank-nullity theorem) which is equivalent to being left invertible (above bullet). Similarly, $\bold A$ is onto if and only if its column space is $\mathbb R^m$ which is equivalent, as shown above, to $\bold A$ being right invertible. It follows that a matrix has both left and right inverses, i.e. invertible if and only if it has full rank.
-
-<br>
-
-* (9.111) **Moore-Penrose Pseudoinverse.** Now that we know how to compute the one sided inverse from rectangular matrices, assuming they have full column rank or full row rank, the big missing piece is what to do with a reduced rank matrix. It turns out that it is possible to find another matrix that is not formally an inverse, but is some kind of a good approximation of what the inverse element should be in a least squares sense (later), i.e. what is called a pseudoinverse. The **Moore-Penrose pseudoinverse** for a matrix $\bold A \in \mathbb R^{m \times n}$ is defined as the *unique* matrix $\bold A^+ \in \mathbb R^{n \times m}$ that satisfies the four equations:
+* (9.111) **Moore-Penrose Pseudo-inverse.** Now that we know how to compute the one sided inverse from rectangular matrices, assuming they have full column rank or full row rank, the big missing piece is what to do with a reduced rank matrix. It turns out that it is possible to find another matrix that is not formally an inverse, but is some kind of a good approximation of what the inverse element should be in a least squares sense (later), i.e. what is called a pseudo-inverse. The **Moore-Penrose pseudo-inverse** for a matrix $\bold A \in \mathbb R^{m \times n}$ is defined as the unique matrix $\bold A^+ \in \mathbb R^{n \times m}$ that satisfies the four Penrose equations:
 
   1. $\bold A \bold A^+ \bold A = \bold A$
   2. $\bold A^+ \bold A \bold A^+ = \bold A^+$
   3. $\bold A \bold A^+$ is symmetric.
   4. $\bold A^+ \bold A$ is symmetric.
 
-  These properties make $\bold A^+$ as much as possible look like an inverse of $\bold A$. In fact, if $\bold A$ is invertible, then $\bold A^{-1}$ trivially satisfies the equations. Note that there are many other notions of generalized inverses and the Moore-Penrose is just one of them. The Moore-Penrose exists (shortly) and is [unique](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse)  for every matrix even rank deficient ones. 
-  To solve for the exact form, consider the SVD: $\bold A = \bold U \bold \Sigma \bold V^\top$, we naturally take
+  These properties make $\bold A^+$ look like an inverse of $\bold A$. In fact, if $\bold A$ is invertible, then $\bold A^{-1}$ trivially satisfies the equations (also see below for left and right inverses). The Moore-Penrose pseudo-inverse exists (from the SVD below) and is [unique](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse) for every rectangular matrix even rank deficient ones.
+  <br><br>
+  **Existence.** Consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top,$ we naturally take
   $$
     \bold A^{+} = \bold V \bold \Sigma^+ \bold U^\top
   $$
-  where $\bold \Sigma^+$ is a diagonal matrix of shape $n \times m$ with the first $r$ nonzero entries equal to $\bold \Sigma_r^{-1}$, elsewhere zero. Note that while the matrices $\bold U$ and $\bold V$ in the SVD are not unique, the resulting product is. One can easily calculate that this is the Moore-Penrose pseudoinverse, e.g.  $\bold A \bold A^+ = \bold U_r\; {\bold U_r}^\top$ and $\bold A^+ \bold A = \bold V_r\; {\bold V_r}^\top.$ The other two properties are also easy to calculate. This is precisely how `np.linalg.pinv` calculates the pseudoinverse:
+  where $\bold \Sigma^+$ is the unique matrix that satisfies the Penrose equations for $\bold \Sigma.$ This turns out to be  the diagonal matrix of shape $n \times m$ that is a block matrix with the upper left block $\bold \Sigma_r^{-1}$ and zero blocks elsewhere. That is, $\bold\Sigma^+\bold \Sigma$ and  $\bold\Sigma\bold \Sigma^+$ with $\bold I_r$ on the upper left block and zero blocks elsewhere are symmetric, then $\bold \Sigma \bold\Sigma^+\bold \Sigma = \bold \Sigma$ and $\bold \Sigma^+ \bold \Sigma \bold \Sigma^+ = \bold \Sigma^+.$ It follows that $\bold A^+$ is the Moore-Penrose pseudo-inverse for $\bold A,$ e.g.  $\bold A \bold A^+ = \bold U_r\; {\bold U_r}^\top$ and $\bold A^+ \bold A = \bold V_r\; {\bold V_r}^\top$ are symmetric, and the first two Penrose equations follows from the same two equations for $\bold \Sigma^+.$ This is precisely how `np.linalg.pinv` calculates the pseudo-inverse $\bold A^+$:
   <br><br>
     ```python
     In [1]: import numpy as np
@@ -355,21 +429,24 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
 
 <br>
 
+* **Moore-Penrose pseudo-inverse as left and right inverse.** Let $\bold A \in \mathbb R^{m \times n}$ with maximal rank. It turns out the left and right inverses we constructed above is the Moore-Penrose pseudo-inverse of $\bold A$ in each case:
+
+  * ($m > n$) $\;$ $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ 
+  
+  * ($m < n$) $\;$ $\bold A^+ =\  \bold A^\top(\bold A \bold A^\top)^{-1}.$ 
+
+  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. As a side note, any left or right inverse will trivially satisfy the first two, but not the third and fourth (on symmetry).
+  
+  <br>
+  
+  **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula above just obtained for matrices with maximal rank. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
+    $$
+    \bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top
+    = \bold V (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top \bold U^\top.
+    $$
+    Since $\bold \Sigma$ is a tall matrix as well with maximal rank, then $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ This completes the exercise as we have shown that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top.$
+
+<br>
+
 * 
 
-
-
-
-<br>
-<br>
-<br>
-<br>
----
-
-**todo:**
-
-- eigendecomposition (further theory)
-- projections
-- SVD
-- eckart young, low-rank approx.
-- SVD and least squares

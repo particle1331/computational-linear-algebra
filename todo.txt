@@ -1,0 +1,6 @@
+todo
+- eigendecomposition (further theory)
+- projections
+- SVD
+- eckart young, low-rank approx.
+- SVD and least squares

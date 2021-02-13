@@ -1,2 +1,4 @@
 data/
 *.pdf
+*.json
+.vscode/settings.json
