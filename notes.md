@@ -435,16 +435,16 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
   
   * $\bold A^+ = \bold A^\top(\bold A \bold A^\top)^{-1}$ (wide) 
 
-  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not the third and fourth!
+  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not *both* the third and fourth! For instance, consider `A = np.vstack([ np.eye(3), [0, 0, 1] ])` and a left inverse ` B = np.hstack([np.eye(3), np.array([0, 0, 0]).reshape(-1, 1)])` which is not the Moore-Penrose pseudo-inverse. The product `A @ B` turns out to be not symmetric, as expected.
   
   <br>
   
-* **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula above just obtained for matrices with maximal rank. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
+* **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula for $\bold A^+$ obtained for matrices with maximal rank. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
     $$
     \bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top
     = \bold V (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top \bold U^\top.
     $$
-    Since $\bold \Sigma$ is a tall matrix as well with maximal rank, then $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ This completes the exercise as we have shown that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top.$
+    Since $\bold \Sigma$ is a tall matrix with maximal rank as well, we have $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ This completes the exercise.
 
 <br>
 
