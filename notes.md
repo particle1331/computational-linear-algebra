@@ -203,12 +203,12 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
 
 <br>
 
-* **Code demo: Spectral theorem proof.**  The exact construction in the above proof is done in code: see `src/4_spectral_theorem_proof_3x3.py`! Here we have an $n = 3$ random symmetric matrix. The first eigenvector $\bold v$ obtained by cheating a bit, i.e. using `np.linalg.eig`. Then, we constructed two linearly independent vectors $\bold y_1$ and $\bold y_2$ by calculating the equation of the plane orthogonal to $\bold v$ and finding $x$'s such that $(x, 1, 1)$ and $(x, 1, 0)$ are points on the plane $\bold v^\perp.$ Finally, the vectors $\bold y_1$ and $\bold y_2$ are made to be orthonormal by Gram-Schmidt. By the inductive hypothesis, we are allowed to compute `omega, U = np.linalg.eig(B)` where `B = Y.T @ A @ Y`. Then, we set `W = Y @ U` to be the $n-1$ eigenvector directions in the orthogonal plane. This is concatenated with $\bold v$ to get the final matrix `V` of all $n$ eigenvectors. Of course, the eigenvalues are constructed likewise. 
+* **Code demo: Spectral theorem proof.** In `4_spectral_theorem.py` we implement the constuction above of an orthonormal eigenbasis for $\mathbb R^n$ for $n = 3$ with respect to a randomly generated symmetric matrix `A`. The first eigenvector $\bold v$ obtained by cheating a bit, i.e. using `np.linalg.eig`. Then, we constructed two linearly independent vectors $\bold y_1$ and $\bold y_2$ by calculating the equation of the plane orthogonal to $\bold v$ and finding $x$'s such that $(x, 1, 1)$ and $(x, 1, 0)$ are points on the plane $\bold v^\perp.$ Finally, the vectors $\bold y_1$ and $\bold y_2$ are made to be orthonormal by Gram-Schmidt. By the inductive hypothesis, we are allowed to compute `omega, U = np.linalg.eig(B)` where `B = Y.T @ A @ Y`. Then, we set `W = Y @ U` to be the $n-1$ eigenvector directions in the orthogonal plane. This is concatenated with $\bold v$ to get the final matrix `V` of all $n$ eigenvectors. Of course, the eigenvalues are constructed likewise. 
 
   <br>
 
   ```python
-  In [123]: %run 4_spectral_theorem_proof_3x3.py                                                                                               
+  In [123]: %run 4_spectral_theorem.py                                                                                               
   B =
   [[ 0.37139617 -0.36034904]
    [-0.36034904  2.30840586]]
