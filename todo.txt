@@ -4,3 +4,4 @@ todo
 - SVD
 - eckart young, low-rank approx.
 - SVD and least squares
+

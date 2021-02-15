@@ -1,23 +1,21 @@
 import numpy as np 
 np.random.seed(0)
 
-# make a random symmetric matrix
+# sample a random symmetric matrix
 A = np.random.randn(3, 3)
 A = A.T @ A  
 
-# cheating a bit, let's find one eigenvalue-eigenevctor pair
-# using numpy (too lazy!)
+# calculate an eigenvalue-eigenevctor pair using numpy
 eigvals, eigvecs = np.linalg.eig(A)
 lam = eigvals[0]
-v = eigvecs[:, 0] # defines a 1-d subspace
+v = eigvecs[:, 0]       # already normalized; defines a 1-d subspace
 
-# now we want to find a basis Y for the subspace
-# orthogonal to v, i.e. (x, y, z) @ v = 0. 
+# now we want to find a basis Y for the subspace orthogonal to v, i.e. (x, y, z) @ v = 0. 
 x1 = -(1*v[1] + 1*v[2]) / v[0] 
 y1 = np.array([x1, 1, 1], dtype=np.float) # y = z = 1
 
 x2 = -(1*v[1] + 0*v[2]) / v[0] 
-y2 = np.array([x2, 1, 0], dtype=np.float) # y = 1 and z = 0
+y2 = np.array([x2, 1, 0], dtype=np.float) # y = 1, z = 0
 
 # make y1 and y2 orthonormal (Gram-Schmidt)
 y1 = y1 / np.linalg.norm(y1)
