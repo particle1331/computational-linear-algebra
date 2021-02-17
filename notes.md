@@ -313,7 +313,7 @@ To see this, assume we have two bases $\bold a_1, \ldots, \bold a_{r_1}$ and $\b
 
 <br> 
 
-* **Row rank = column rank.** Consider a step in Gaussian elimination along the rows of $\bold A$ resulting in $\tilde \bold A.$ We know that $\mathsf{R}(\bold A) = \mathsf{R}(\tilde\bold A).$ So its clear that the row rank is unchanged. On the other hand, let's consider the independence of the columns after a step. We know there are $r$ basis vectors in the columns of $\bold A$ and the $n - r$ non-basis vectors are a linear combination of the $r$ basis vectors. WLOG, suppose the first $r$ columns of $\bold A$ form the basis for $\mathsf{C}(\bold A).$ Then, (1) for $j > r$, there exist a vector $\bold x$ such that $\bold A \bold x = \bold 0$ and $x_j = -1$ which encode the dependencies. Moreover, (2) the only solution of the homogeneous system such that $x_j = 0$ for $j > r$ is $\bold x = 0.$ Observe that $\bold A$ and $\tilde\bold A$ have the same null space as an invariant. So that the dependencies in (1) and (2) of the columns are the same in the transformed system. It follows that, the column rank of $\tilde \bold A$ is the same as $\bold A.$ Thus, in every step of Gaussian elimination the column rank and row ranks remain invariant. At the end of the algorithm with $r$ pivots remaining, we can read off that there are $r$ maximally independent rows and $r$ maximally independent columns. It follows that the column and row ranks of $\bold A$ are equal, i.e. both $r.$ 
+* **Row rank = column rank.** Consider a step in Gaussian elimination along the rows of $\bold A$ resulting in $\tilde \bold A.$ We know that $\mathsf{R}(\bold A) = \mathsf{R}(\tilde\bold A).$ So its clear that the row rank is unchanged. On the other hand, let's consider the independence of the columns after a step. We know there are $r$ basis vectors in the columns of $\bold A$ and the $n - r$ non-basis vectors are a linear combination of the $r$ basis vectors. WLOG, suppose the first $r$ columns of $\bold A$ form the basis for $\mathsf{C}(\bold A).$ Then, (1) for $j > r$, there exist a vector $\bold x$ such that $\bold A \bold x = \bold 0$ and $x_j = -1$ which encode the dependencies. Moreover, (2) the only solution of the homogeneous system such that $x_j = 0$ for $j > r$ is $\bold x = 0.$ Observe that $\bold A$ and $\tilde\bold A$ have the same null space as an invariant. So that the dependencies in (1) and (2) of the columns are the same in the transformed system. It follows that, the column rank of $\tilde \bold A$ is the same as $\bold A.$ Thus, in every step of Gaussian elimination the column rank and row ranks remain invariant. At the end of the algorithm, with $r$ pivots remaining, we can read off that there are $r$ maximally independent rows and $r$ maximally independent columns. It follows that the column and row ranks of $\bold A$ are equal, i.e. both $r.$ 
 
 <br>
 
@@ -321,12 +321,16 @@ To see this, assume we have two bases $\bold a_1, \ldots, \bold a_{r_1}$ and $\b
 
 <br>
 
-* (5.67) **Generate rank 4 matrix 10x10 matrix randomly by multiplying two randomly generated matrices.** Solution is to multiply 10x4 and 4x10 matrices. Here we assume, reasonably so, that the randomly generated matrices have maximal rank. <br><br>
+* (5.67) **Generate rank 4 matrix 10x10 matrix randomly by multiplying two randomly generated matrices.** Solution is to multiply 10x4 and 4x10 matrices. Here we assume, reasonably so, that the randomly generated matrices have maximal rank. 
+
+<br>
 
 * (5.69) **Rank of $\bold A^\top \bold A$ and $\bold A \bold A^\top$.** These are all equal to the rank of $\bold A.$ 
 The first equality can be proved using by showing the $\mathsf{N} (\bold A^\top \bold A) = \mathsf{N}( \bold A),$ and then invoke the rank-nullity theorem. We used this in the proof of SVD to show conclude that rank $\bold A$ is the number of nonzero singular values of $\bold A.$ 
 Now that we know this is true, we can now use the SVD to find the rank of $\bold A \bold A^\top$ which results in $\bold A \bold A^\top = \bold U \bold \Sigma \bold \Sigma^\top \bold U^\top,$ i.e. similar to a diagonal matrix with $r = \text{rank }\bold A$ diagonal entries. 
-Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ <br><br>
+Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ 
+
+<br>
 
 * (5.71) **Making a matrix full-rank by shifting:** $\tilde\bold A = \bold A + \lambda \bold I$ where we assume $\bold A$ is square. This is done for computational stability reasons. Typically the regularization constant $\lambda$ is less than the experimental noise. For instance, if $|\lambda| \gg \max |a_{ij}|,$ then $\tilde \bold A \approx \lambda \bold I$ and $\bold A$ becomes the noise. An exchange in the Q&A highlights another important issue. Hamzah asks:
   > So in a previous video in this section, you talked about how a 3 dimensional matrix spanning a 2 dimensional subspace [...] really is a rank 2 matrix, BUT if you introduce some noise, it can look like like a rank 3 matrix. [...] By adding the identity matrix, aren't you essentially deliberately adding noise to an existing dataset to artificially boost the rank? Am I correct in interpreting that you can possibly identify features in the boosted rank matrix that may not actually exist in the true dataset, and maybe come up with some weird conclusions? If that is the case wouldn't it be very dangerous to increase the rank by adding the identity matrix? Would appreciate some clarification. Thank you!
