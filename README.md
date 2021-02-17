@@ -36,5 +36,4 @@ Matrix multiplication by layering (iterating over outer products). Pure and impu
 * [Sheldon Axler. *Down With Determinants!*. The American Monthly. (1996)](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf)
 * [Peter Olver and Chehzrad Shakiban. *Applied Linear Algebra*. UTM Springer. (2018)](https://www-users.math.umn.edu/~olver/books.html)
 * [Proofs involving the Moore-Penrose pseudoinverse](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse)
-* [Basis and dimension](https://www.math.tamu.edu/~yvorobet/MATH304-2011A/Lect2-04web.pdf). MATH 304-505: Linear Algebra. Yaroslav Vorobets.
 
