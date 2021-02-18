@@ -311,7 +311,7 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 <br>
 
 * **Dimension is well-defined.** 
-  A vector space $V$ is finite-dimensional if there exists a finite spanning set for $V.$ As shown above, a finite-dimensional vector space always has a basis. A property of a vector space is its dimension $\dim V$ which can be defined as the cardinality of any basis of $V.$  In this section, we will show that this number is well-defined. This can be proved by showing the lemma:
+  A vector space $V$ is finite-dimensional if there exists a finite spanning set for $V.$ As shown above, a finite-dimensional vector space always has a basis. A property of a vector space is its dimension $\dim V$ which can be defined as the cardinality of any basis of $V.$  In this section, we will show that this number is well-defined. This can be proved with the help of the ff. lemma:
 
   > (Finite-dim.) The cardinality of any linearly independent set of vectors is at most the cardinality of any spanning set of the vector space.
   
