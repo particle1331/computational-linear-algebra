@@ -321,7 +321,7 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
   $$
   \bold u_2 = c_1 \bold u_1 + \sum_{j=2}^t c_j \bold v_j \implies \bold v_2 = \frac{c_1}{c_2} \bold u_1 - \frac{1}{c_2} \bold u_2 + \sum_{j=3}^t \frac{c_j}{c_2} \bold v_j 
   $$
-  so that $\bold u_2, \bold u_1, \bold v_3, \ldots, \bold v_{t}$ spans $V.$ That is, we have exchanged $\bold u_2$ with $\bold v_2$ in the spanning set. Repeat this until we get all $\bold u_j$'s on the left end of the list. This necessarily implies that $s \leq t$ since we cannot run out of $\bold v_i$ vectors in the spanning set due to linear independence. $\square$ <br><br>
+  so that $\bold u_2, \bold u_1, \bold v_3, \ldots, \bold v_{t}$ spans $V.$ That is, we have exchanged $\bold u_2$ with $\bold v_2$ in the spanning set. Repeat this until we get all $\bold u_j$'s on the left end of the list. This necessarily implies that $s \leq t$ since we cannot run out of $\bold v_i$ vectors in the spanning set due to linear independence of the $\bold u_j$'s. $\square$ <br><br>
   The way to think about this proof is that we exchange vectors that are be able to span one "dimension" of the space while the rest of the vectors take care of the "other dimensions". In this way, the non-uniqueness of the basis does not become a mystery. For linearly independent vectors with length less than the dimension, these sets will generally span different subspaces of the space. But once the count is equal to the dimension, any linearly independent set inevitably spans the whole vector space. Of course, all of these rests on the existence of a finite spanning set so that the space is finite-dimensional.
 
 <br>
