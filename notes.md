@@ -298,25 +298,34 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 
 * (5.64) **Rank as dimensionality of information.** The rank of $\bold A \in \mathbb R^{m \times n}$ is the maximal number of linearly independent columns of $\bold A.$ It follows that $0 \leq r \leq \min(m, n).$ Matrix rank has several applications, e.g. $\bold A^{-1}$ exists for a square matrix whenever it has maximal rank. In applied settings, rank is used in PCA, Factor Analysis, etc. because rank is used to determine how much nonredundant information is contained in $\bold A.$ <br><br>
 
-* (5.65) **Computing the rank.** How to count the maximal number of linearly independent columns? (1) Row reduction (can be numerically unstable). (2) Best way is to use SVD. The rank of $\bold A$ is the number $r$ of nonzero singular values of $\bold A.$ This is how it's implemented in MATLAB and NumPy. The SVD is also used for rank estimation. Another way is to count the number of nonzero eigenvalues of $\bold A$ provided (!) $\bold A$ has an eigendecomposition. Since this would imply that $\bold A$ is similar to its matrix of eigenvalues. This is in general not true. Instead, we can count the eigenvalues of $\bold A^\top \bold A$ or $\bold A\bold A^\top$ &mdash; whichever is smaller &mdash; since an eigendecomposition for both matrices always exist.
+* (5.65) **Computing the rank.** How to count the maximal number of linearly independent columns? (1) Row reduction (can be numerically unstable). (2) Best way is to use SVD. The rank of $\bold A$ is the number $r$ of nonzero singular values of $\bold A.$ This is how it's implemented in MATLAB and NumPy. The SVD is also used for rank estimation. Another way is to count the number of nonzero eigenvalues of $\bold A$ provided $\bold A$ has an eigendecomposition. Since this would imply that $\bold A$ is similar to its matrix of eigenvalues. This is in general not true. Instead, we can count the eigenvalues of $\bold A^\top \bold A$ or $\bold A\bold A^\top$ &mdash; whichever is smaller &mdash; since an eigendecomposition for both matrices always exist.
 
 <br>
 
 * (5.65) **Rank can be difficult to calculate numerically.** For instance if we obtain $\sigma_k = 10^{-13}$ numerically, is it a real nonzero singular value, or is it zero? In practice, we set thresholds. The choice of threshold can be arbitrary or domain specific, and in general, introduces its own difficulties. Another issue is noise, adding $\epsilon\bold I$ makes $\bold A = [[1, 1], [1, 1]]$ rank two. <br><br>
 
 
-* **Rank is well-defined.** That is, dimension is well-defined. Rank of $\bold A$ is defined as the dimension of its column space $\mathsf{C}(\bold A).$ The column space is a well-defined subspace of $\mathbb R^m.$ To get a basis for $\mathsf{C}(\bold A)$ one can proceed iteratively, i.e. if $\bold a_1, \ldots, \bold a_n$ are columns of $\bold A$, then take the largest $j$ such that $\sum_{j=1}^n c_j \bold a_j = \bold 0$ and $c_j \neq 0.$ We can remove this vector $\bold a_j$ such that the remaining columns still span $\mathsf{C}(\bold A).$ Repeat until $r$ columns that is linearly independent, i.e. we cannot anymore perform the iterative step. The remaining columns is a basis for $\mathsf{C}(\bold A)$ by definition. It turns out that while the resulting basis is not unique, the count $r$ is &mdash; so that the dimension is well-defined! Another way to construct a basis is to perform Gaussian elimination along the columns of $\bold A$ as each step preserves the column space. The resulting $r$ pivot columns form a basis for $\mathsf{C}(\bold A).$
+* **Finding a basis for the column space (in theory).** While the column space as a subspace of $\mathbb R^m$ that can be spanned by vectors that are not in the columns of $\bold A$, we will be particularly interested in finding a subset of the columns of $\bold A$ that spans $\mathsf{C}(\bold A).$ This set forms a basis for $\mathsf{C}(\bold A)$ by definition. This problem is equivalent to finding a linearly independent subset of the columns of $\bold A$ that spans $\mathsf{C}(\bold A).$ To get such a basis for $\mathsf{C}(\bold A)$ one can proceed iteratively. Let $\bold a_1, \ldots, \bold a_n$ be the columns of $\bold A$, take the largest $j$ such that $\sum_{j=1}^n c_j \bold a_j = \bold 0$ and $c_j \neq 0.$ We can remove this vector $\bold a_j$ such that the remaining columns still span $\mathsf{C}(\bold A).$ Repeat until we get $r$ columns that is linearly independent, i.e. $\sum_{j=1}^n c_j \bold a_j = \bold 0$ implies $c_j = 0$ for all $j.$ Then, the remaining columns is a basis for $\mathsf{C}(\bold A)$ by definition.
 <br><br>
-To see this, consider any two bases $\bold a_1, \ldots, \bold a_{r_1}$ and $\bar \bold a_1, \ldots, \bar \bold a_{r_2}$ for $\mathsf{C}(\bold A).$ We perform an iteration with the two inductive invariants: (1) length of list is $r_2$ and (2) the list spans $\mathsf{C}(\bold A).$ Append $\bold a_1, \bar \bold a_1, \ldots, \bar \bold a_{r_2}.$ This list is linearly dependent since $\bold a_1 \in \mathsf{C}(\bold A).$ Possibly reindexing, let $\bold a_1$ depend on $\bar \bold a_1$, then $\bold a_1, \bar \bold a_2, \ldots, \bar \bold a_{r_2}$ spans $\mathsf{C}(\bold A).$ Repeat with $\bold a_2, \bold a_1, \bar \bold a_2, \ldots, \bar \bold a_{r_2}.$ Note that $\bold a_2$ cannot depend solely on $\bold a_1$ by linear independence, so that $\bold a_2$ depends on $\bar \bold a_2,$ possibly after reindexing. It follows that $\bold a_2, \bold a_1, \bar \bold a_3, \ldots, \bar \bold a_{r_2}$ spans $\mathsf{C}(\bold A).$ Repeat this until we get all unbarred vectors on the left end of the list. This implies that $r_1 \leq r_2$ necessarily. By symmetry, $r_1 \geq r_2$ so that $r_1 = r_2.$ In other words, all basis for $\mathsf{C}(\bold A)$ have the same length which we define to be its dimension. Note that the rank is the maximal number of linearly independent vectors in the space.
-<br><br>
-**Remark.** In general, we proved (1) that a spanning set always contains a basis, and (2) that the length of any spanning list of a vector space is always is an upper bound on any linearly independent list of vectors in the vector space.
+**Remark.** From vector space theory, we know that while the resulting basis is not unique, the count $r$ is &mdash; which is equal to the rank of $\bold A.$ Another way to construct a basis is to perform Gaussian elimination along the columns of $\bold A$ as each step preserves the column space. The resulting $r$ pivot columns form a basis for $\mathsf{C}(\bold A).$
 
-<br> 
+<br>
+
+* **Dimension is well-defined.** 
+  A vector space $V$ is finite-dimensional if there exists a finite spanning set for $V.$ As shown above, a finite-dimensional vector space always has a basis. A property of a vector space is its dimension $\dim V$ which can be defined as the cardinality of any basis of $V.$  In this section, we will show that this number is well-defined. This can be proved by showing the lemma:
+
+  > The cardinality of a linearly independent set of vectors in $V$ is at most the cardinality of any spanning set in $V.$
+  
+  This proves that all basis for $V$ have the same length since we can apply the bounds in both directions obtaining equality as a basis is both a spanning and a linearly independent. This also allows us to characterize dimension as the maximal number of linearly independent vectors, i.e. the exact point where we get equality in the bound given by the lemma.
+  <br><br>
+  **Proof.** Let $\bold u_1, \ldots, \bold u_{s}$ be a linearly independent list and $\bold v_1, \ldots, \bold v_{t}$ be a spanning set in $V.$ We iteratively update the spanning set keeping it at fixed length $t.$ Append $\bold u_1, \bold v_1, \ldots, \bold v_{t}.$ This list is linearly dependent since $\bold u_1 \in V.$ Possibly reindexing, let $\bold u_1$ depend on $\bold v_1$, then $\bold u_1, \bold v_2, \ldots, \bold v_{t}$ spans $V.$ Repeat with $\bold u_2, \bold u_1, \bold v_2, \ldots, \bold v_{t}.$ Note that $\bold u_2$ cannot depend solely on $\bold u_1$ by linear independence, so that $\bold u_2$ depends on $\bold v_2$ possibly reindexing. It follows that $\bold u_2, \bold u_1, \bold v_3, \ldots, \bold v_{t}$ spans $V.$ Repeat this until we get all unbarred vectors on the left end of the list. This necessarily implies that $s \leq t$ which proves the lemma. $\square$
+
+<br>
 
 * **Row rank = column rank.** 
   Consider a step in Gaussian elimination along the rows of $\bold A$ resulting in $\tilde \bold A.$ We know that $\mathsf{R}(\bold A) = \mathsf{R}(\tilde\bold A).$ So its clear that the row rank remains unchanged. 
   On the other hand, let's consider the independence of the columns after a step. We know there are $r$ basis vectors in the columns of $\bold A$ and the $n - r$ non-basis vectors are a linear combination of the $r$ basis vectors. 
-  WLOG, suppose the first $r$ columns of $\bold A$ form the basis for $\mathsf{C}(\bold A).$ Then, for $j > r$, there exist a vector $\bold x$ such that $\bold A \bold x = \bold 0$ and $x_j = -1$ which encode the dependencies. Moreover, the only solution of the homogeneous system such that $x_j = 0$ for $j > r$ is $\bold x = \bold 0.$ Observe that $\bold A$ and $\tilde\bold A$ have the same null space as an invariant, so that the dependencies in the columns of $\bold A$ and $\tilde \bold A$ are the same. It follows that, the column rank of $\tilde \bold A$ is equal to the column rank of $\bold A.$ Thus, in every step of Gaussian elimination the column and row ranks are invariant. At the end of the algorithm, with $r$ pivots remaining, we can read off that $r$ maximally independent rows and $r$ maximally independent columns. It follows that the column and row ranks of $\bold A$ are equal.
+  WLOG, suppose the first $r$ columns of $\bold A$ form the basis for $\mathsf{C}(\bold A).$ Then, for $j > r$, there exist a vector $\bold x$ such that $\bold A \bold x = \bold 0$ and $x_j = -1$ which encode the dependencies. Moreover, the only solution of the homogeneous system such that $x_j = 0$ for $j > r$ is $\bold x = \bold 0.$ Observe that $\bold A$ and $\tilde\bold A$ have the same null space as an inductive invariant, so that the index of the basis vectors in the columns of $\bold A$ are carried over to $\tilde \bold A.$ It follows that, the column rank of $\tilde \bold A$ is equal to the column rank of $\bold A.$ Thus, in every step of Gaussian elimination the column and row ranks are invariant. At the end of the algorithm, with $r$ pivots remaining, we can read off that $r$ maximally independent rows and $r$ maximally independent columns. It follows that the column and row ranks of $\bold A$ are equal.
 
 <br>
 
@@ -447,19 +456,18 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     
     In [2]: A = np.random.randn(3, 3)
     In [3]: A[:, 0] = A[:, 1] * 3.2 - A[:, 2] * 1.2 # make rank 2
-    In [4]: u, s, vT = np.linalg.svd(A)
-
-    In [5]: u[:, :2] @ (u[:, :2].T)
-    Out[5]: 
-    array([[ 0.89274311,  0.30151708,  0.06957224],
-           [ 0.30151708,  0.15238496, -0.19557923],
-           [ 0.06957224, -0.19557923,  0.95487192]])
-
-    In [6]: A @ np.linalg.pinv(A)
+    In [4]: u, s, vT = np.linalg.svd(A)                                     In [5]: s_pinv = np.diag([ 1/x if x > 1e-8 else 0 for x in s ])
+    In [6]: vT.T @ s_pinv @ u.T
     Out[6]: 
-    array([[ 0.89274311,  0.30151708,  0.06957224],
-           [ 0.30151708,  0.15238496, -0.19557923],
-           [ 0.06957224, -0.19557923,  0.95487192]])
+    array([[-0.13374723, -0.01096947,  0.08071149],
+           [ 0.0228385 , -0.16845822, -0.12487767],
+           [ 0.1723587 , -0.44008068, -0.40026669]])
+
+    In [7]: np.linalg.pinv(A)
+    Out[7]: 
+    array([[-0.13374723, -0.01096947,  0.08071149],
+           [ 0.0228385 , -0.16845822, -0.12487767],
+           [ 0.1723587 , -0.44008068, -0.40026669]])
     ```
 
 <br>
@@ -470,9 +478,24 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
   * $\bold A^+ = \bold A^\top(\bold A \bold A^\top)^{-1}$ (wide) 
 
-  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not *both* the third and fourth! For instance, consider `A = np.vstack([ np.eye(3), [0, 0, 1] ])` and a left inverse ` B = np.hstack([np.eye(3), np.array([0, 0, 0]).reshape(-1, 1)])` which is not the Moore-Penrose pseudo-inverse. The product `A @ B` turns out to be not symmetric, as expected.
-  
-  <br>
+  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not both the third and fourth! Example:
+  <br><br>
+  ```python
+  In [31]: A = np.vstack([ np.eye(3), [0, 0, 1] ])                                         In [33]: B = np.hstack([ np.eye(3), [[0], [0], [0]] ])     
+  In [34]: A @ B       
+  Out[34]: 
+  array([[1., 0., 0., 0.],
+         [0., 1., 0., 0.],
+         [0., 0., 1., 0.],
+         [0., 0., 1., 0.]])
+  In [35]: B @ A        
+  Out[35]: 
+  array([[1., 0., 0.],
+         [0., 1., 0.],
+         [0., 0., 1.]])
+  ``` 
+
+<br>
   
 * **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula for $\bold A^+$ obtained for matrices with maximal rank. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
     $$
