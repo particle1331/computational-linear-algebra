@@ -298,31 +298,34 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 
 * (5.64) **Rank as dimensionality of information.** The rank of $\bold A \in \mathbb R^{m \times n}$ is the maximal number of linearly independent columns of $\bold A.$ It follows that $0 \leq r \leq \min(m, n).$ Matrix rank has several applications, e.g. $\bold A^{-1}$ exists for a square matrix whenever it has maximal rank. In applied settings, rank is used in PCA, Factor Analysis, etc. because rank is used to determine how much nonredundant information is contained in $\bold A.$ <br><br>
 
-* (5.65) **Computing the rank.** How to count the maximal number of linearly independent columns? (1) Row reduction (can be numerically unstable). (2) Best way is to use SVD. The rank of $\bold A$ is the number $r$ of nonzero singular values of $\bold A.$ This is how it's implemented in MATLAB and NumPy. The SVD is also used for rank estimation. Another way is to count the number of nonzero eigenvalues of $\bold A$ provided $\bold A$ has an eigendecomposition. Since this would imply that $\bold A$ is similar to its matrix of eigenvalues. This is in general not true. Instead, we can count the eigenvalues of $\bold A^\top \bold A$ or $\bold A\bold A^\top$ &mdash; whichever is smaller &mdash; since an eigendecomposition for both matrices always exist.
+* (5.65) **Computing the rank.** How to count the maximal number of linearly independent columns? (1) Row reduction (can be numerically unstable). (2) Best way is to use SVD. The rank of $\bold A$ is the number $r$ of nonzero singular values of $\bold A.$ This is how it's implemented in MATLAB and NumPy. The SVD is also used for rank estimation. Another way is to count the number of nonzero eigenvalues of $\bold A$ provided $\bold A$ has an eigendecomposition. Since this would imply that $\bold A$ is similar to its matrix of eigenvalues. This is in general not true. Instead, we can count the eigenvalues of $\bold A^\top \bold A$ or $\bold A\bold A^\top$ &mdash; whichever is smaller &mdash; since an eigendecomposition for both matrices always exist. In practice, counting the rank requires setting a threshold below which values which determine rank are treated as zero, e.g. singular values $\sigma_k$ in the SVD. 
 
 <br>
 
 * (5.65) **Rank can be difficult to calculate numerically.** For instance if we obtain $\sigma_k = 10^{-13}$ numerically, is it a real nonzero singular value, or is it zero? In practice, we set thresholds. The choice of threshold can be arbitrary or domain specific, and in general, introduces its own difficulties. Another issue is noise, adding $\epsilon\bold I$ makes $\bold A = [[1, 1], [1, 1]]$ rank two. <br><br>
 
 
-* **Finding a basis for the column space (in theory).** While the column space as a subspace of $\mathbb R^m$ can be spanned by vectors that are not in the columns of $\bold A$, we will be particularly interested in finding a subset of the columns of $\bold A$ that spans $\mathsf{C}(\bold A).$ This set forms a basis for $\mathsf{C}(\bold A)$ by definition. This problem is equivalent to finding a linearly independent subset of a spanning set that is a basis for the space. To get such a basis for $\mathsf{C}(\bold A)$ one can proceed iteratively. Let $\bold a_1, \ldots, \bold a_n$ be the columns of $\bold A$, take the largest $j$ such that $\sum_{j=1}^n c_j \bold a_j = \bold 0$ and $c_j \neq 0.$ We can remove this vector $\bold a_j$ such that the remaining columns still span $\mathsf{C}(\bold A).$ Repeat until we get $r$ columns that is linearly independent, i.e. $\sum_{j=1}^n c_j \bold a_j = \bold 0$ implies $c_j = 0$ for all $j.$ Further removing any vector fails to span the column space or the column space is zero, so we know the stopping condition occurs at $0 \leq r \leq n.$ Then, the remaining columns is a basis for $\mathsf{C}(\bold A)$ by definition. <br><br>
-**Remark.** From vector space theory (see below), we know that while the resulting basis is not unique, the count $r$ is &mdash; which is the rank of $\bold A.$ Another way to construct a basis is to perform Gaussian elimination along the columns of $\bold A$ as each step preserves the column space. The resulting $r$ pivot columns form a basis for $\mathsf{C}(\bold A).$
+* **Finding a basis for the column space.** We will be particularly interested in finding a subset of the columns of $\bold A$ that is a basis for $\mathsf{C}(\bold A).$ The problem in abstract terms is to find a linearly independent subset of a spanning set that spans the space. One can proceed iteratively. Let $\bold a_1, \ldots, \bold a_n$ be the columns of $\bold A$, take the largest $j$ such that $\sum_{j=1}^n c_j \bold a_j = \bold 0$ and $c_j \neq 0.$ We can remove this vector $\bold a_j$ such that the remaining columns still span $\mathsf{C}(\bold A).$ Repeat until we get $r$ columns that is linearly independent, i.e. $\sum_{j=1}^n c_j \bold a_j = \bold 0$ implies $c_j = 0$ for all $j.$ Further removing any vector fails to span the column space, or the column space is zero in the worst case, so we know this algorithm terminates. <br><br>
+Another way to construct a basis for $\mathsf{C}(\bold A)$ is to perform Gaussian elimination along the columns of $\bold A$ as each step preserves the column space. The resulting pivot columns form a basis for $\mathsf{C}(\bold A)$ but is not a subset of the columns of $\bold A.$
 
 <br>
 
-* **Dimension is well-defined.** 
-  A vector space $V$ is finite-dimensional if there exists a finite spanning set for $V.$ As shown above, a finite-dimensional vector space always has a basis. A property of a vector space is its dimension $\dim V$ which can be defined as the cardinality of any basis of $V.$  In this section, we will show that this number is well-defined. This can be proved with the help of the ff. lemma:
+* **Basis and dimension.** Basis vectors are linearly independent vectors that span the vector space. We will be interested in finite-dimensional vector spaces, i.e. spaces that are spanned by finitely many vectors. By the above algorithm, we can always reduce the spanning set to a basis, so that a finite-dimensional vector space always has a (finite) basis. We know that a basis is not unique &mdash; in the previous bullet we constructed two bases for $\mathsf{C}(\bold A).$ However, once a basis $\bold v_1, \ldots, \bold v_n$ is fixed, every vector $\bold x$ has a unique representation $(x_1, \ldots, x_n)$ such that $\bold x = \sum_{i=1}^n x_i \bold v_i.$ We can think of this as a **parametrization** of the space by $n$ numbers. It is natural to ask whether there exists a more compressed parametrization, i.e. a basis of shorter length. It turns out that the length of any basis of a finite-dimensional vector space have the same length. Thus, we can think of this number as a property of the space which we define to be its **dimension**. This can be proved with the help of the ff. lemma since a basis is simultaneously spanning and linearly independent:
 
-  > (Finite-dim.) The cardinality of any linearly independent set of vectors is at most the cardinality of any spanning set of the vector space.
-  
-  This implies that all basis for $V$ have the same length since we can apply the bounds in both directions obtaining equality. This also allows us to characterize dimension as the maximal number of linearly independent vectors, i.e. the exact point where we get equality in the bound given by the lemma. Any linearly independent list of vectors of length equal to the dimension is a basis for the vector space by maximality. And so on, see (2.2) of [HLA2e, 2014].
-  <br><br>
-  **Proof.** Let $\bold u_1, \ldots, \bold u_{s}$ be a linearly independent list and $\bold v_1, \ldots, \bold v_{t}$ be a spanning set in $V.$ We iteratively update the spanning set keeping it at fixed length $t.$ Append $\bold u_1, \bold v_1, \ldots, \bold v_{t}.$ This list is linearly dependent since $\bold u_1 \in V.$ Possibly reindexing, let $\bold u_1$ depend on $\bold v_1$, then $\bold u_1, \bold v_2, \ldots, \bold v_{t}$ spans $V.$ Now append $\bold u_2, \bold u_1, \bold v_2, \ldots, \bold v_{t}.$ Note that $\bold u_2$ cannot depend solely on $\bold u_1$ by linear independence, so that $\bold u_2$ depends on $\bold v_2$ possibly reindexing. That is, we know $c_2 \neq 0$ in the ff. equation:
+  > (Finite-dim.) The cardinality of any linearly independent set of vectors is bounded by the cardinality of any spanning set of the vector space.
+
+  <br>
+
+  **Proof.**   The idea for the proof is that we can iteratively exchange vectors in a spanning set with vectors in linearly independent set while preserving the span. 
+  Let $\bold u_1, \ldots, \bold u_{s}$ be a linearly independent list and $\bold v_1, \ldots, \bold v_{t}$ be a spanning set in $V.$ We iteratively update the spanning set keeping it at fixed length $t.$ Append $\bold u_1, \bold v_1, \ldots, \bold v_{t}.$ This list is linearly dependent since $\bold u_1 \in V.$ Possibly reindexing, let $\bold u_1$ depend on $\bold v_1$, then $\bold u_1, \bold v_2, \ldots, \bold v_{t}$ spans $V.$ Now append $\bold u_2, \bold u_1, \bold v_2, \ldots, \bold v_{t}.$ Note that $\bold u_2$ cannot depend solely on $\bold u_1$ by linear independence, so that $\bold u_2$ depends on $\bold v_2$ possibly reindexing. That is, we know $c_2 \neq 0$ in the ff. equation:
   $$
   \bold u_2 = c_1 \bold u_1 + \sum_{j=2}^t c_j \bold v_j \implies \bold v_2 = \frac{c_1}{c_2} \bold u_1 - \frac{1}{c_2} \bold u_2 + \sum_{j=3}^t \frac{c_j}{c_2} \bold v_j 
   $$
-  so that $\bold u_2, \bold u_1, \bold v_3, \ldots, \bold v_{t}$ spans $V.$ That is, we have exchanged $\bold u_2$ with $\bold v_2$ in the spanning set. Repeat this until we get all $\bold u_j$'s on the left end of the list. This necessarily implies that $s \leq t$ since we cannot run out of $\bold v_i$ vectors in the spanning set due to linear independence of the $\bold u_j$'s. $\square$ <br><br>
-  The way to think about this proof is that we exchange vectors that are be able to span one "dimension" of the space while the rest of the vectors take care of the "other dimensions". In this way, the non-uniqueness of the basis does not become a mystery. For linearly independent vectors with length less than the dimension, these sets will generally span different subspaces of the space. But once the count is equal to the dimension, any linearly independent set inevitably spans the whole vector space. Of course, all of these rests on the existence of a finite spanning set so that the space is finite-dimensional.
+  so that $\bold u_2, \bold u_1, \bold v_3, \ldots, \bold v_{t}$ spans $V.$ That is, we have exchanged $\bold u_2$ with $\bold v_2$ in the spanning set. Repeat this until we get all $\bold u_j$'s on the left end of the list. This necessarily implies that $s \leq t$ since we cannot run out of $\bold v_i$ vectors in the spanning set due to linear independence of the $\bold u_j$'s. $\square$
+
+<br>
+
+* **Obtaining a basis by counting.** This example shows how we can use the bound to reason about linearly independent lists/sets. A linearly independent set of length $r$ where $r$ is the dimension of the space is necessarily a basis. Otherwise, we can append the vector that is not spanned to get a linearly independent list of size $r+1.$
 
 <br>
 
@@ -373,13 +376,13 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   Recall that column rank equals row rank. In other words, $\dim \mathsf{C}(\bold A) = \dim \mathsf{C}(\bold A^\top).$ We have dual results:
 
-  * $\mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A) =\, \mathbb R^n \;\; \text{s.t.} \;\; \mathsf{C}(\bold A^\top) \perp \mathsf{N}(\bold A);$ and
-  * $\mathsf{C}(\bold A) \oplus \mathsf{N}(\bold A^\top) =\, \mathbb R^m \;\; \text{s.t.} \;\; \mathsf{C}(\bold A) \perp \mathsf{N}(\bold A^\top).$ 
+  * $\mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A) =\, \mathbb R^n \;\; \text{s.t.} \;\; \mathsf{C}(\bold A^\top) \perp \mathsf{N}(\bold A)$
+  * $\mathsf{C}(\bold A) \oplus \mathsf{N}(\bold A^\top) =\, \mathbb R^m \;\; \text{s.t.} \;\; \mathsf{C}(\bold A) \perp \mathsf{N}(\bold A^\top)$ 
   <br><br>
 
   This implies that $\dim  \mathsf{N}(\bold A^\top) = m-r$ and $\dim {N}(\bold A) = n-r.$ Proving one of the two decompositions proves the other by duality. Suppose $\bold x \in \mathbb R^m$ and consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top.$ Let $\tilde \bold x = \bold x - \bold U \bold U^\top \bold x.$ Note that $\bold U\bold U^\top \bold x \in \mathsf{C}(\bold A)$ since the columns of $\bold U$ are $\bold u_i = \bold A \bold v_i$ for $i = 1, \ldots, r$ where $r = \text{rank }\bold A,$ and the singular vectors $\bold u_i$ and $\bold v_j$ are, resp., ONBs of $\mathbb R^m$ and $\mathbb R^n.$ Then
   $$
-  \bold A^\top \tilde \bold x = \bold V \bold \Sigma \bold U^\top \left( \bold x - \bold U \bold U^\top \bold x \right) = \bold 0.
+  \bold A^\top \tilde \bold x = {\bold V} {\bold \Sigma} {\bold U}^\top \left( \bold x - \bold U \bold U^\top \bold x \right) = \bold 0.
   $$
   It follows that $\mathbb R^m = \mathsf{N}(\bold A^\top) + \mathsf{C}(\bold A).$ To complete the proof, we show the intersection is zero. Suppose $\bold y \in  \mathsf{N}(\bold A^\top) \cap \mathsf{C}(\bold A).$ Then, $\bold A^\top\bold y = \bold 0$ and $\bold y = \bold A \bold x$ for some $\bold x \in \mathbb R^n.$ Thus, $\bold A^\top \bold A \bold x = \bold 0$ which implies $\bold A \bold x = \bold 0.$ In other words, $\bold y = \bold 0.$ The orthogonality between spaces is straightforward. For instance, $\bold A \bold x = \bold 0$ implies $\bold x \perp \mathsf{C}(\bold A^\top)$; the other follows  by duality. <br><br>
 
@@ -506,7 +509,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top
     = \bold V (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top \bold U^\top.
     $$
-    Since $\bold \Sigma$ is a tall matrix with maximal rank as well, we have $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ This completes the exercise.
+    Since $\bold \Sigma$ is a tall matrix with maximal rank as well, we have $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ Similarly for when $\bold A$ is right invertible. This completes the exercise.
 
 <br>
 
