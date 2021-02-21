@@ -535,7 +535,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* (9.101) **Sparse matrix has a dense inverse.** A sparse matrix can have a dense inverse. This can cause memory errors in practice. In `src/10_sparse_to_dense.py` we artificially construct a sparse matrix. This is typically singular, so we shift it to make it nonsingular.  The result is that the inverse is 50x more dense than the original matrix:
+* (9.101) **Sparse matrix has a dense inverse.** A sparse matrix can have a dense inverse. This can cause memory errors in practice. In `src/9_sparse_to_dense.py` we artificially construct a sparse matrix. This is typically singular, so we shift it to make it nonsingular.  The result is that the inverse is 50x more dense than the original matrix:
 
   ```
   A sparsity:      0.001999
@@ -643,4 +643,105 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* 
+* **Projection matrix.** Let $\bold A \in \mathbb R^{m \times n}$ and $\boldsymbol b \in \mathbb R^m.$ Suppose $\bold A$ has maximal column rank. To find the projection of $\boldsymbol b$ in $\mathsf{C}(\bold A)$ which is a subspace of $\mathbb R^m,$ we solve $\bold A^\top( \boldsymbol b - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \boldsymbol b.$ Thus, the projection matrix onto $\mathsf{C}(\bold A)$ is given by
+  $$
+  {{P}_{\bold A} = \bold A (\bold A^\top \bold A)^{-1} \bold A^\top.}
+  $$
+  
+  Some properties: (1) ${P_{\bold A}}^2 = P_{\bold A}$ &mdash; reduces to the identity when restricted to $\mathsf{C}(\bold A)$, and (2) ${P_{\bold A}}^\top = P_{\bold A}.$
+  In the special case of projecting onto a 1-dimensional subspace of $\mathbb R^2$ spanned by the vector $\boldsymbol a,$ we get
+    $$
+    \begin{aligned}
+    P_{\bold A} \boldsymbol b 
+    &= \boldsymbol a (\boldsymbol a^\top \boldsymbol a)^{-1} \boldsymbol a^\top \boldsymbol b \\
+    &= \boldsymbol a \lVert \boldsymbol a \rVert^{-2} \lVert \boldsymbol a \rVert \lVert \boldsymbol b \rVert \cos \theta \\
+    &= \lVert \boldsymbol b \rVert \cos \theta\; \hat \boldsymbol a.
+    \end{aligned}
+    $$
+
+<br>
+
+* **Code demo:** `src/10_projection.py`. We confirm computationally that $P_{\bold A} \boldsymbol b \perp (\boldsymbol b - P_{\bold A} \boldsymbol b)$ and plot the resulting vectors.
+
+  <p align="center">
+      <img src="img/10_projection.png" title="drawing" width=80% />
+      </p> 
+
+  ```python
+  (Ax - b) @ Ax = -2.3678975447083417e-16
+  ```
+
+<br>
+
+* **Projection matrix with orthonormal columns.** Suppose $\bold U$ be an $m \times n$ matrix with columns $\boldsymbol u_1, \ldots, \boldsymbol u_n$ in $\mathbb R^m$ that are orthonormal in $\mathbb R^m.$ Then, $\bold U^\top \bold U = \bold I_n$ so the projection matrix reduces to
+  $$
+  P_{\bold U} = \bold U \bold U^\top = \sum_{i=1}^n \boldsymbol u_j \boldsymbol u_j^\top.
+  $$
+
+  This makes sense, i.e. we simply project into each unit vector. Since the vectors are orthonormal, there will be no redundancy in the projection. (The job of the factor $(\bold A^\top \bold A)^{-1}$ in the general formula is to correct this redundancy.)
+
+<br>
+
+* **Gram-Schmidt process.** Given the columns of $\bold A,$ we want to construct an orthonormal basis for $\mathsf{C}(\bold A).$ To do this, we can perform what is called the Gram-Schmidt process. Let $\boldsymbol a_1, \ldots, \boldsymbol a_n$ be the columns of $\bold A.$ Then, an ONB $\boldsymbol u_1, \ldots, \boldsymbol u_r$ for $\mathsf{C}(\bold A)$ can be constructed as follows:
+  1. $\boldsymbol u_1 = \boldsymbol a_1 / \lVert \boldsymbol a_1 \rVert.$
+  2. $\boldsymbol u_k
+  = \dfrac{\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k}
+  {\lVert 
+  \boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k 
+  \rVert}
+  = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert \boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k \rVert}$ 
+  
+  where $\bold U_{k-1} = [\boldsymbol u_1 | \ldots | \boldsymbol u_{k-1}].$ That is we remove the component of $\boldsymbol a_k$ projected in the space already spanned by the earlier vectors. The resulting vector is $\boldsymbol u_k$ orthogonal to $\mathsf{C}(\bold U_{k-1}).$
+
+<br>
+
+* **Modified Gram-Schmidt.** We introduce a more numerically stable version of Gram-Schmidt which corrects intermediate errors when projecting. Observe that in the Gram-Schmidt process described above, the vector is projected in the whole space $\mathsf{C}(\bold U_{k-1}).$ In the modified version, at step $k$, we remove all components of later vectors that is in the span of $\boldsymbol a_k.$ 
+  1. Copy $\boldsymbol v_k = \boldsymbol a_k$ for $k = 1, \ldots, n.$
+  2. Normalize $\boldsymbol u_k = \boldsymbol v_k / \lVert \boldsymbol v_k \rVert,$ then update $\boldsymbol v_j = \boldsymbol v_j -  \boldsymbol u_k \boldsymbol u_k^\top \boldsymbol v_j$ for $j > k.$ 
+  
+  The modification is that instead of projecting the column vector on the whole subspace spanned by earlier vectors, each vector is iteratively projected in the 1-dimensional subspace spanned by earlier vectors. In exact arithmetic, this algorithm returns the same set of orthonormal vectors as the classical GS (use pen and paper to calculate three vectors, i.e. proof by $n=3$). However, the modified GS is more numerically stable as we will show experimentally. Perhaps one reason is that errors are projected away in each prior iteration. (???) The operation count for modified GS is about $\mathcal{O}(mn^2).$
+
+<br>
+
+* **Code demo: stability of GS algorithms**. We implement the two in `src/10_stability_gram-schmidt.py` how far away from the identity the generated orthonormal basis is from the columns of a randomly (standard normal) generated matrix. In this example, we perturb the matrix 
+  $$ \bold A = 
+  \begin{bmatrix}
+    1 & 1 & 1 \\
+    \epsilon & 0 & 0 \\
+    0 & \epsilon & 0 \\
+    0 & 0 & \epsilon
+  \end{bmatrix}.
+  $$
+  where $\epsilon = 10^{-8}.$ Results:
+  ```python
+  In [78]: %run 10_stability_gram-schmidt.py
+  L1 error (classical GS) = 0.010203694116029399
+  L1 error (modified GS) = 1.5250564655067275e-10    
+  ```
+
+<br> 
+
+* **QR decomposition.** 
+    We can write $\bold A = \bold Q \bold R$ where $\bold Q$ is an $m \times m$
+    matrix obtained by extending the Gram-Schmidt basis to an ONB of $\mathbb R^m,$ and 
+    $\bold R = \bold Q^\top \bold A.$ 
+
+<br>
+
+* **Sherman-Morrison inverse.**
+
+todo
+Q matrix, n < m case. Q^T Q is nxn. 
+Q orthogonal -> P_Q = QQ^T
+gram schmidt -> show unstable, R is lost information
+    -> code gram schmidt, fast and stable version
+QR decomp.
+  Q = gram schmidt
+  R = residual = Q^T A
+  prove R is upper triangular
+  prove upper triangular easy to invert
+  -> cor. easy inverse with QR 
+Proving equality using correlation (???)
+Sherman morrison inverse
+  - proof iff v^t u \neq -1.
+    (1 + uv^T)^{-1} = 1 - uv^T / (1 + v^T u)
