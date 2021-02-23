@@ -4,11 +4,15 @@
   - [Vectors and matrices](#vectors-and-matrices)
   - [Geometry of linear operators](#geometry-of-linear-operators)
   - [Matrix multiplication and norms](#matrix-multiplication-and-norms)
-  - [Rank](#rank)
+  - [Rank and dimension](#rank-and-dimension)
   - [Four fundamental subspaces](#four-fundamental-subspaces)
   - [Determinant](#determinant)
   - [Matrix inverse](#matrix-inverse)
   - [Projection and orthogonalization](#projection-and-orthogonalization)
+  - [Eigendecomposition](#eigendecomposition)
+  - [Singular value decomposition](#singular-value-decomposition)
+  - [Least squares for model fitting](#least-squares-for-model-fitting)
+  - [Quadratic form and definiteness](#quadratic-form-and-definiteness)
 
 <br>
 
@@ -356,7 +360,7 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 
 <br>
 
-## Rank
+## Rank and dimension
 
 ---
 
@@ -585,7 +589,8 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     
     In [2]: A = np.random.randn(3, 3)
     In [3]: A[:, 0] = A[:, 1] * 3.2 - A[:, 2] * 1.2 # make rank 2
-    In [4]: u, s, vT = np.linalg.svd(A)                                     In [5]: s_pinv = np.diag([ 1/x if x > 1e-8 else 0 for x in s ])
+    In [4]: u, s, vT = np.linalg.svd(A)                                     
+    In [5]: s_pinv = np.diag([ 1/x if x > 1e-8 else 0 for x in s ])
     In [6]: vT.T @ s_pinv @ u.T
     Out[6]: 
     array([[-0.13374723, -0.01096947,  0.08071149],
@@ -684,12 +689,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 * **Gram-Schmidt process.** Given the columns of $\bold A,$ we want to construct an orthonormal basis for $\mathsf{C}(\bold A).$ To do this, we can perform what is called the Gram-Schmidt process. Let $\boldsymbol a_1, \ldots, \boldsymbol a_n$ be the columns of $\bold A.$ Then, an ONB $\boldsymbol u_1, \ldots, \boldsymbol u_r$ for $\mathsf{C}(\bold A)$ can be constructed as follows:
   1. $\boldsymbol u_1 = \boldsymbol a_1 / \lVert \boldsymbol a_1 \rVert.$
-  2. $\boldsymbol u_k
-  = \dfrac{\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k}
-  {\lVert 
-  \boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k 
-  \rVert}
-  = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert \boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k \rVert}$ 
+  2. $\boldsymbol u_k = \dfrac{\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k}{\lVert \boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k \rVert} = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert \boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k \rVert}$ 
   
   where $\bold U_{k-1} = [\boldsymbol u_1 | \ldots | \boldsymbol u_{k-1}].$ That is we remove the component of $\boldsymbol a_k$ projected in the space already spanned by the earlier vectors. The resulting vector is $\boldsymbol u_k$ orthogonal to $\mathsf{C}(\bold U_{k-1}).$
 
@@ -712,36 +712,102 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     0 & 0 & \epsilon
   \end{bmatrix}.
   $$
-  where $\epsilon = 10^{-8}.$ Results:
+  where $\epsilon = 10^{-8}.$ We compute the L1 error $\lVert \bold U^\top \bold U - \bold I_m \rVert_1$:
+
   ```python
   In [78]: %run 10_stability_gram-schmidt.py
   L1 error (classical GS) = 0.010203694116029399
-  L1 error (modified GS) = 1.5250564655067275e-10    
+  L1 error (modified GS) = 1.5250564655067275e-10
   ```
-
-<br> 
-
-* **QR decomposition.** 
-    We can write $\bold A = \bold Q \bold R$ where $\bold Q$ is an $m \times m$
-    matrix obtained by extending the Gram-Schmidt basis to an ONB of $\mathbb R^m,$ and 
-    $\bold R = \bold Q^\top \bold A.$ 
 
 <br>
 
-* **Sherman-Morrison inverse.**
+* **QR decomposition.** 
+    We can write $\bold A = \bold Q \bold R$ where $\bold Q$ is an $m \times m$
+    orthogonal matrix obtained by extending the Gram-Schmidt basis to an ONB of $\mathbb R^m,$ and 
+    $\bold R = \bold Q^\top \bold A.$ 
+    Note that the entries of $\bold R$ are $r_{ij} = \boldsymbol q_i^\top \boldsymbol a_j.$ But $\boldsymbol q_j = \gamma (\boldsymbol a_j - \bold {Q}_{j-1} \bold Q_{j-1}^\top \boldsymbol a_j)$ for some scalar $\gamma.$ Thus,
+    $$
+    \gamma^{-1}\boldsymbol q_j + \bold {Q}_{j-1} \bold Q_{j-1}^\top \boldsymbol a_j=  \boldsymbol a_j.
+    $$
+    This means $\boldsymbol a_j \in \mathsf{C}(\bold Q_{j}).$ But for $i > j$, by construction, $\boldsymbol q_i \perp \mathsf{C}(\bold Q_j)$ which implies $r_{ij} = {\boldsymbol q_i}^\top \boldsymbol a_j = 0.$ The idea is that later Gram-Schmidt vectors are orthogonal to earlier column vectors &mdash; which are spanned by earlier GS vectors. It follows that $\bold R$ is upper triangular. 
+
+<br>
+
+* **Inverse from QR.** The QR decomposition allows for easy computation of the inverse: 
+  $$
+  \bold A^{-1} = \bold R^{-1} \bold Q^\top.
+  $$ 
+
+  The inverse of $\bold R$ is faster to compute since it is upper triangular. An experiment for this is done in `src/10_solve_triangular.py` with the ff. results:
+
+  <br>
+
+  <p align="center">
+  <img src="img/10_solve_triangular.png" title="drawing" width="80%" />
+
+  <b>Figure.</b> Wall time for computing the inverse of a full (blue) and upper triangular (orange) randomly generated n-by-n matrix. 
+  </p> 
+
+<br>
+
+* **Sherman-Morrison inverse.** From [(24)](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf), $\det( \bold I + \boldsymbol u \boldsymbol v^\top) = 1 + \boldsymbol v^\top \boldsymbol u.$ Thus, the identity perturbed by a rank $1$ matrix is invertible if and only if $1 + \boldsymbol v^\top \boldsymbol u \neq 0.$ In this case the we have a formula for the inverse:
+  $$
+  \left(\bold I + \boldsymbol u \boldsymbol v^\top\right)^{-1} = \bold I - \dfrac{\boldsymbol u \boldsymbol v^\top}{1 + \boldsymbol v^\top \boldsymbol u}.
+  $$
+  
+<br>
+
+<br>
+
+## Eigendecomposition
+
+---
+
+[Back to top](#notes)
+
+
+<br>
+
+<br>
+
+## Singular value decomposition
+
+---
+
+[Back to top](#notes)
+
+
+
+<br>
+
+<br>
+
+## Least squares for model fitting
+
+---
+
+[Back to top](#notes)
+
+
 
 todo
-Q matrix, n < m case. Q^T Q is nxn. 
-Q orthogonal -> P_Q = QQ^T
-gram schmidt -> show unstable, R is lost information
-    -> code gram schmidt, fast and stable version
-QR decomp.
-  Q = gram schmidt
-  R = residual = Q^T A
-  prove R is upper triangular
-  prove upper triangular easy to invert
-  -> cor. easy inverse with QR 
-Proving equality using correlation (???)
-Sherman morrison inverse
-  - proof iff v^t u \neq -1.
-    (1 + uv^T)^{-1} = 1 - uv^T / (1 + v^T u)
+- least squares via left inv
+- least squares via orthogonal proj.
+- least squares via gradient descent.
+
+<br>
+
+<br>
+
+## Quadratic form and definiteness
+
+---
+
+[Back to top](#notes)
+
+
+
+<br>
+
+<br>
