@@ -541,7 +541,15 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* (9.101) **Full rank $\Leftrightarrow$ Invertible.** Let $r = \text{rank }\bold A.$ This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. This is then equivalent to $\bold A$ being one-to-one and onto. SVD provides a straightforward algebraic and geometric perspective to this equivalence: a square matrix $\bold A$ is invertible if and only if $\bold \Sigma$ is invertible, since $\bold U$ and $\bold V$ are invertible. But $\bold \Sigma$ is invertible if and only if $r = n,$ i.e. ${\bold\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ The indices where $\sigma_i = 0$ are those directions in the output space that collapses resulting in a degenerate ellipse.
+* (9.101) **Full rank $\Leftrightarrow$ Invertible.** Let $\bold A \in \mathbb R^{n \times n}.$ TFAE
+  1. $\text{rank }\bold A = n.$
+  2. $\bold A$ is one-to-one.
+  3. $\bold A$ is onto.
+  4. $\bold A$ is invertible.
+
+  This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. The latter is then equivalent to $\bold A$ being one-to-one, while the former to $\bold A$ being onto. $\square$
+
+  **Remark.** SVD provides a straightforward algebraic and geometric perspective to this equivalence. A square matrix $\bold A$ is invertible if and only if $\bold \Sigma$ is invertible, since $\bold U$ and $\bold V$ are invertible. But $\bold \Sigma$ is invertible if and only if $r = n,$ and we can take ${\bold\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ The indices where $\sigma_i = 0$ indexes directions where space collapses resulting in a degenerate ellipse.
 
 <br>
 
