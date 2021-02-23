@@ -541,7 +541,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* (9.101) **Full rank $\Leftrightarrow$ Invertible.** Let $r = \text{rank }\bold A.$ This fact is consistent with the SVD, namely, take $\bold A^{-1} = \bold U \bold \Sigma^{-1} \bold V^\top.$ Note that $\bold \Sigma$ is invertible if and only if $r = n,$ i.e. ${\bold\Sigma^{-1}}_{ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ Without using the SVD, we can prove this using the rank-nullity theorem and the fact that $\bold A$ is invertible (as a matrix) if and only if its corresponding linear operator on $\mathbb R^n$ is invertible (as a map). The corresponding operator for $\bold A$ is invertible by counting dimensions resulting in $\mathsf{C}(\bold A) = \mathbb {R}^n$ (onto) and $\mathsf{N}(\bold A) = \bold 0$ (one-to-one). 
+* (9.101) **Full rank $\Leftrightarrow$ Invertible.** Let $r = \text{rank }\bold A.$ This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. This is then equivalent to $\bold A$ being one-to-one and onto. SVD provides a straightforward algebraic and geometric perspective to this equivalence: a square matrix $\bold A$ is invertible if and only if $\bold \Sigma$ is invertible, since $\bold U$ and $\bold V$ are invertible. But $\bold \Sigma$ is invertible if and only if $r = n,$ i.e. ${\bold\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ The indices where $\sigma_i = 0$ are those directions in the output space that collapses resulting in a degenerate ellipse.
 
 <br>
 
@@ -772,7 +772,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 ---
 
 [Back to top](#notes)
-
 
 
 todo
