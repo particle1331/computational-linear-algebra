@@ -565,16 +565,18 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   1. $\text{rank }\bold A = n.$
   2. $\bold A$ is 1-1.
   3. $\bold A$ is left invertible.
+  4. $\bold A$ has $n$ nonzero singular values.
 
-  Suppose one of these is true (so that all are true), then we can construct a left inverse using the SVD $\bold A = \bold U \bold \Sigma \bold V^\top$ which allows us to write
+  It's easy to see that (1-3) are equivalent and (1) $\implies$  (4). We prove (3) $\impliedby$ (4). Suppose $\bold A$ has $n$ nonzero singular values, then we can construct a left inverse using the SVD $\bold A = \bold U \bold \Sigma \bold V^\top$ which allows us to write
   $
   \bold A^\top \bold A = \bold V \bold \Sigma^\top \bold \Sigma \bold V^\top.
   $ 
-  This is invertible since $r = n,$ i.e. $\bold\Sigma^\top \bold \Sigma$ is $n \times n$ with nonzero entries on its diagonal. Moreover, the inverse can be efficiently computed using $(\bold A^\top \bold A)^{-1} = \bold V (\bold\Sigma^\top \bold \Sigma)^{-1} \bold V^\top$ where $(\bold\Sigma^\top \bold \Sigma)^{-1} = \bold \Sigma_n^{-2}$ is the diagonal matrix with entries $1/\sigma_j^2$ for $j=1,\ldots, n.$ Then, a left inverse is
+  This is invertible since $r = n,$ i.e. $\bold\Sigma^\top \bold \Sigma$ is $n \times n$ with nonzero entries on its diagonal. Moreover, the inverse can be efficiently computed using $(\bold A^\top \bold A)^{-1} = \bold V (\bold\Sigma^\top \bold \Sigma)^{-1} \bold V^\top$ where $(\bold\Sigma^\top \bold \Sigma)^{-1} = \bold \Sigma_n^{-2}$ is the diagonal matrix with entries $\sigma_j^{-2}$ for $j=1,\ldots, n.$ Then, a left inverse for $\bold A$ is
     $$
     (\bold A^\top \bold A)^{-1} \bold A^\top.
     $$ 
-  Note that we have corresponding dual equivalences about the rows of $\bold A.$ In this case, we have a wide matrix with maximal rows, and a right inverse of $\bold A$ can be constructed as
+
+  We have corresponding dual equivalences about the rows of $\bold A.$ In this case, $\bold A$ is onto, and we have a wide matrix with maximal rows. A right inverse of $\bold A$ can be constructed as
   $$
   \bold A^\top (\bold A \bold A^\top)^{-1}
   $$
