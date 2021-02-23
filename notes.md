@@ -546,8 +546,9 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   2. $\bold A$ is one-to-one.
   3. $\bold A$ is onto.
   4. $\bold A$ is invertible.
+  5. $\bold A$ is nonsingular.
 
-  This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. The latter is then equivalent to $\bold A$ being one-to-one, while the former to $\bold A$ being onto. A more geometric way of looking at this is through the SVD, i.e. $\bold A$ is invertible if and only if $\bold \Sigma$ is invertible (since $\bold U$ and $\bold V$ are invertible). But $\bold \Sigma$ is invertible if and only if $r = n,$ and we can take ${\bold\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ The indices where $\sigma_i = 0$ indexes directions where the column space collapses resulting in a degenerate ellipse. 
+  This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. The latter is then equivalent to $\bold A$ being one-to-one, while the former to $\bold A$ being onto. This proves (1-4). A matrix is nonsingular if it has no nonzero singular value so that the image of the unit sphere under $\bold A$ is non-degenerate. Note that $\bold A$ is invertible if and only if $\bold \Sigma$ is invertible (since $\bold U$ and $\bold V$ are invertible). But $\bold \Sigma$ is invertible if and only if $r = n,$ and we can take ${\bold\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ Thus, a matrix is invertible if and only if it is nonsingular. This proves (5).
 
 <br>
 
