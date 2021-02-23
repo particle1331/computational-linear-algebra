@@ -547,7 +547,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   3. $\bold A$ is onto.
   4. $\bold A$ is invertible.
 
-  This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. The latter is then equivalent to $\bold A$ being one-to-one, while the former to $\bold A$ being onto. $\square$
+  This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. The latter is then equivalent to $\bold A$ being one-to-one, while the former to $\bold A$ being onto.
 
   **Remark.** SVD provides a straightforward algebraic and geometric perspective to this equivalence. A square matrix $\bold A$ is invertible if and only if $\bold \Sigma$ is invertible, since $\bold U$ and $\bold V$ are invertible. But $\bold \Sigma$ is invertible if and only if $r = n,$ and we can take ${\bold\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ The indices where $\sigma_i = 0$ indexes directions where the column space collapses resulting in a degenerate ellipse.
 
