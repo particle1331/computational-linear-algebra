@@ -9,9 +9,9 @@
   - [Determinant](#determinant)
   - [Matrix inverse](#matrix-inverse)
   - [Projection and orthogonalization](#projection-and-orthogonalization)
+  - [Least squares for model fitting](#least-squares-for-model-fitting)
   - [Eigendecomposition](#eigendecomposition)
   - [Singular value decomposition](#singular-value-decomposition)
-  - [Least squares for model fitting](#least-squares-for-model-fitting)
   - [Quadratic form and definiteness](#quadratic-form-and-definiteness)
 
 <br>
@@ -462,23 +462,23 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* (6.80) **Four Fundamental Subspaces.** Let $\bold A \in \mathbb R^{m \times n}.$ The four fundamental subspaces of $\bold A$ are 
-  1. The column space $\mathsf{C}(\bold A) \subset\, \mathbb R^m.$ 
-  2. The null space $\mathsf{N}(\bold A) \subset\, \mathbb R^n.$
-  3. The row space $\mathsf{C}(\bold A^\top) \subset\, \mathbb R^n.$
-  4. The left null space $\mathsf{N}(\bold A^\top) \subset\, \mathbb R^m$, i.e. $\bold A^\top \bold x = \bold 0$ iff. $\bold x^\top \bold A = \bold 0^\top.$
-
-  Recall that column rank equals row rank. In other words, $\dim \mathsf{C}(\bold A) = \dim \mathsf{C}(\bold A^\top).$ We have dual results:
+* (6.80) **Four Fundamental Subspaces.** The so-called four fundamental subspaces $\bold A$ are subspaces that form an orthogonal direct sum decomposition of its input and output spaces, namely:
 
   * $\mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A) =\, \mathbb R^n \;\; \text{s.t.} \;\; \mathsf{C}(\bold A^\top) \perp \mathsf{N}(\bold A)$
-  * $\mathsf{C}(\bold A) \oplus \mathsf{N}(\bold A^\top) =\, \mathbb R^m \;\; \text{s.t.} \;\; \mathsf{C}(\bold A) \perp \mathsf{N}(\bold A^\top)$ 
-  <br><br>
 
-  This implies that $\dim  \mathsf{N}(\bold A^\top) = m-r$ and $\dim {N}(\bold A) = n-r.$ Proving one of the two decompositions proves the other by duality. Suppose $\bold x \in \mathbb R^m$ and consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top.$ Let $\tilde \bold x = \bold x - \bold U \bold U^\top \bold x.$ Note that $\bold U\bold U^\top \bold x \in \mathsf{C}(\bold A)$ since the columns of $\bold U$ are $\bold u_i = \bold A \bold v_i$ for $i = 1, \ldots, r$ where $r = \text{rank }\bold A,$ and the singular vectors $\bold u_i$ and $\bold v_j$ are, resp., ONBs of $\mathbb R^m$ and $\mathbb R^n.$ Then
+  * $\mathsf{C}(\bold A) \oplus \mathsf{N}(\bold A^\top) =\, \mathbb R^m \;\; \text{s.t.} \;\; \mathsf{C}(\bold A) \perp \mathsf{N}(\bold A^\top)$ 
+  
+  <br>
+
+  **Proof.** Suppose $\bold x \in \mathbb R^m$ and consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top.$ Let $\tilde \bold x = \bold x - \bold U \bold U^\top \bold x.$ Note that $\bold U\bold U^\top \bold x \in \mathsf{C}(\bold A)$ since the columns of $\bold U$ are $\bold u_i = \bold A \bold v_i$ for $i = 1, \ldots, r$ where $r = \text{rank }\bold A,$ and the singular vectors $\bold u_i$ and $\bold v_j$ are, resp., ONBs of $\mathbb R^m$ and $\mathbb R^n.$ Then
+
   $$
   \bold A^\top \tilde \bold x = {\bold V} {\bold \Sigma} {\bold U}^\top \left( \bold x - \bold U \bold U^\top \bold x \right) = \bold 0.
   $$
-  It follows that $\mathbb R^m = \mathsf{N}(\bold A^\top) + \mathsf{C}(\bold A).$ To complete the proof, we show the intersection is zero. Suppose $\bold y \in  \mathsf{N}(\bold A^\top) \cap \mathsf{C}(\bold A).$ Then, $\bold A^\top\bold y = \bold 0$ and $\bold y = \bold A \bold x$ for some $\bold x \in \mathbb R^n.$ Thus, $\bold A^\top \bold A \bold x = \bold 0$ which implies $\bold A \bold x = \bold 0.$ In other words, $\bold y = \bold 0.$ The orthogonality between spaces is straightforward. For instance, $\bold A \bold x = \bold 0$ implies $\bold x \perp \mathsf{C}(\bold A^\top)$; the other follows  by duality. <br><br>
+
+  It follows that $\mathbb R^m = \mathsf{N}(\bold A^\top) + \mathsf{C}(\bold A).$ To complete the proof, we show the intersection is zero. Suppose $\bold y \in  {\mathsf{N}(\bold A^\top)} \cap {\mathsf{C}(\bold A)}.$ Then, $\bold A^\top\bold y = \bold 0$ and $\bold y = \bold A \bold x$ for some $\bold x \in \mathbb R^n.$ Thus, $\bold A^\top \bold A \bold x = \bold 0$ which implies $\bold A \bold x = \bold 0.$ In other words, $\bold y = \bold 0.$ This proves the direct sum decomposition. To prove orthogonality, observe that $\bold A \bold x = \bold 0$ implies $\bold x \perp \mathsf{C}(\bold A^\top).$ The other follows  by duality. $\square$ 
+  
+  <br>
 
     <p align="center">
     <img src="img/fourfundamental.png" alt="drawing" width="500"/>
@@ -486,13 +486,19 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Basis for fundamental subspaces.** Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that 
-  $$
-  \bold A^\top \bold u_i = \sigma_i \bold v_i
-  $$ 
+* **Basis for fundamental subspaces.** Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ for $i = 1, \ldots, r = \text{rank }\bold A.$ From this fact, the above decomposition, and counting dimensions we have the ff. 
 
-  for $i = 1, \ldots, r = \text{rank }\bold A.$ It follows that $\bold v_1, \ldots, \bold v_r$ form a basis for $\mathsf{C}(\bold A^\top),$ while we know that $\bold v_{r+1}, \ldots, \bold v_n$ is a basis for $\mathsf{N}(\bold A).$ Analogously, $\bold u_1, \ldots, \bold u_r$ is a basis for $\mathsf{C}(\bold A)$ while $\bold u_{r+1}, \ldots, \bold u_n$ is a basis for $\mathsf{N}(\bold A^\top).$ Using these ONBs give an easier proof of the orthogonality of subspaces, as well as the decomposition of the input and output spaces. 
+  <center>
+
+  subspace | basis
+  ------ | ------
+  $\mathsf{C}(\bold A^\top)$ | $\bold v_1, \ldots, \bold v_r$
+  $\mathsf{N}(\bold A)$ | $\bold v_{r+1}, \ldots, \bold v_n$
+  $\mathsf{C}(\bold A)$ | $\bold u_1, \ldots, \bold u_r$
+  $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
   
+  </center>
+
 <br>
 
 <br>
@@ -760,6 +766,26 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
+
+## Least squares for model fitting
+
+---
+
+[Back to top](#notes)
+
+
+
+todo
+- least squares via left inv / pseudo-inverse
+- least squares via orthogonal proj.
+- least squares via gradient descent.
+- least squares via QR.
+
+<br>
+
+<br>
+
+
 ## Eigendecomposition
 
 ---
@@ -777,24 +803,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-
-
-<br>
-
-<br>
-
-## Least squares for model fitting
-
----
-
-[Back to top](#notes)
-
-
-
-todo
-- least squares via left inv
-- least squares via orthogonal proj.
-- least squares via gradient descent.
 
 <br>
 
