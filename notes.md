@@ -433,8 +433,8 @@ Another way to construct a basis for $\mathsf{C}(\bold A)$ is to perform Gaussia
 <br>
 
 * (5.69) **Rank of $\bold A^\top \bold A$ and $\bold A \bold A^\top$.** These are all equal to the rank of $\bold A.$ 
-The first equality can be proved using by showing the $\mathsf{N} (\bold A^\top \bold A) = \mathsf{N}( \bold A),$ and then invoke the rank-nullity theorem. We used this in the proof of SVD to show conclude that rank $\bold A$ is the number of nonzero singular values of $\bold A.$ 
-Now that we know this is true, we can now use the SVD to find the rank of $\bold A \bold A^\top$ which results in $\bold A \bold A^\top = \bold U \bold \Sigma \bold \Sigma^\top \bold U^\top,$ i.e. similar to a diagonal matrix with $r = \text{rank }\bold A$ diagonal entries. 
+The first equality can be proved using by showing the $\mathsf{N} (\bold A^\top \bold A) = \mathsf{N}( \bold A),$ and then invoke the rank-nullity theorem. We used this in the proof of SVD to show conclude that rank $\bold A$ is the number of nonzero singular values of $\bold A.$ The second equality follows by replacing $\bold A$ with $\bold A^\top$ and the fact that row rank equals column rank.  
+We can also see this from the SVD which gives us $\bold A \bold A^\top = \bold U \bold \Sigma \bold \Sigma^\top \bold U^\top$ i.e. similar to $\Sigma \bold \Sigma^\top$ which has $r = \text{rank }\bold A$ diagonal entries. 
 Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ 
 
 <br>
@@ -486,7 +486,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Basis for fundamental subspaces.** Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ for $i = 1, \ldots, r = \text{rank }\bold A.$ From this fact, the above decomposition, and counting dimensions we have the ff. 
+* **Basis for fundamental subspaces.** Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ for $i = 1, \ldots, r = \text{rank }\bold A.$ From this fact, the above decomposition, and counting dimensions we have the ff. table: 
 
   <center>
 
@@ -663,12 +663,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* **Projection matrix.** Let $\bold A \in \mathbb R^{m \times n}$ and $\boldsymbol b \in \mathbb R^m.$ Suppose $\bold A$ has maximal column rank. To find the projection of $\boldsymbol b$ in $\mathsf{C}(\bold A)$ which is a subspace of $\mathbb R^m,$ we solve $\bold A^\top( \boldsymbol b - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \boldsymbol b.$ Thus, the projection matrix onto $\mathsf{C}(\bold A)$ is given by
+* **Projection matrix.** Let $\bold A \in \mathbb R^{m \times n}$ and $\boldsymbol b \in \mathbb R^m.$ Suppose $\bold A$ has maximal column rank. To find the projection of $\boldsymbol b$ in $\mathsf{C}(\bold A)$ which is a subspace of $\mathbb R^m,$ we solve for $\boldsymbol x$ such that $\bold A^\top( \boldsymbol b - \bold A \boldsymbol x ) = \bold 0$ getting $\boldsymbol x = (\bold A^\top \bold A)^{-1} \bold A^\top \boldsymbol b = \bold A^+ \boldsymbol b.$ So we can define the projection of $\boldsymbol b$ onto $\mathsf{C}(\bold A)$ as
   $$
-  {{P}_{\bold A} = \bold A (\bold A^\top \bold A)^{-1} \bold A^\top.}
+  \boxed{P_{\bold A} = \bold A (\bold A^\top \bold A)^{-1} \bold A^\top = \bold A \bold A^+.}
   $$
   
-  Some properties: (1) ${P_{\bold A}}^2 = P_{\bold A}$ &mdash; reduces to the identity when restricted to $\mathsf{C}(\bold A)$, and (2) ${P_{\bold A}}^\top = P_{\bold A}.$
+<br>
+
+* **Projection matrix properties.** (1) ${P_{\bold A}}^2 = P_{\bold A}$ so it reduces to the identity when restricted to $\mathsf{C}(\bold A)$ and (2) ${P_{\bold A}}^\top = P_{\bold A}$ the projection matrix is orthogonal.
   In the special case of projecting onto a 1-dimensional subspace of $\mathbb R^2$ spanned by the vector $\boldsymbol a,$ we get
     $$
     \begin{aligned}
@@ -679,9 +681,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \end{aligned}
     $$
 
+
 <br>
 
-* **Code demo:** `src/10_projection.py`. We confirm computationally that $P_{\bold A} \boldsymbol b \perp (\boldsymbol b - P_{\bold A} \boldsymbol b)$ and plot the resulting vectors.
+* **Code demo:** `src/10_projection.py`. We confirm computationally that $P_{\bold A} \boldsymbol b \perp (\boldsymbol b - P_{\bold A} \boldsymbol b)$ and plot the resulting vectors. Algebraically, this is equivalent to ${P_{\bold A}}^\top (\bold I - P_{\bold A}).$
+
 
   <p align="center">
       <img src="img/10_projection.png" title="drawing" width=80% />
@@ -693,9 +697,9 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Projection matrix with orthonormal columns.** Suppose $\bold U$ be an $m \times n$ matrix with columns $\boldsymbol u_1, \ldots, \boldsymbol u_n$ in $\mathbb R^m$ that are orthonormal in $\mathbb R^m.$ Then, $\bold U^\top \bold U = \bold I_n$ so the projection matrix reduces to
+* **Projection matrix with orthonormal columns.** Suppose $\bold U$ be an $m \times n$ matrix with columns $\boldsymbol u_1, \ldots, \boldsymbol u_n$ in $\mathbb R^m$ that are orthonormal in $\mathbb R^m.$ Then, $\bold U^\top \bold U = \bold I_n$ so that $\bold U^+$ reduces to $\bold U^\top$. Thus
   $$
-  P_{\bold U} = \bold U \bold U^\top = \sum_{i=1}^n \boldsymbol u_j \boldsymbol u_j^\top.
+  \boxed{P_{\bold U} = \bold U \bold U^\top = \sum_{i=1}^n \boldsymbol u_j \boldsymbol u_j^\top.}
   $$
 
   This makes sense, i.e. we simply project into each unit vector. Since the vectors are orthonormal, there will be no redundancy in the projection. (The job of the factor $(\bold A^\top \bold A)^{-1}$ in the general formula is to correct this redundancy.)
@@ -751,7 +755,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 * **Inverse from QR.** The QR decomposition allows for easy computation of the inverse: 
   $$
-  \bold A^{-1} = \bold R^{-1} \bold Q^\top.
+  \boxed{\bold A^{-1} = \bold R^{-1} \bold Q^\top.}
   $$ 
 
   The inverse of $\bold R$ is faster to compute since it is upper triangular. An experiment for this is done in `src/10_solve_triangular.py` with the ff. results:
@@ -768,7 +772,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 * **Sherman-Morrison inverse.** From [(24)](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf), $\det( \bold I + \boldsymbol u \boldsymbol v^\top) = 1 + \boldsymbol v^\top \boldsymbol u.$ Thus, the identity perturbed by a rank $1$ matrix is invertible if and only if $1 + \boldsymbol v^\top \boldsymbol u \neq 0.$ In this case the we have a formula for the inverse:
   $$
-  \left(\bold I + \boldsymbol u \boldsymbol v^\top\right)^{-1} = \bold I - \dfrac{\boldsymbol u \boldsymbol v^\top}{1 + \boldsymbol v^\top \boldsymbol u}.
+  \boxed{\left(\bold I + \boldsymbol u \boldsymbol v^\top\right)^{-1} = \bold I - \dfrac{\boldsymbol u \boldsymbol v^\top}{1 + \boldsymbol v^\top \boldsymbol u}.}
   $$
   
 <br>
@@ -782,12 +786,49 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
+* (11.128) **Linear least squares.** The linear least squares problem is
+  $$
+  \hat \boldsymbol w = \argmin_{\boldsymbol w} \lVert \bold X \boldsymbol w - \bold y \rVert^2. 
+  $$ 
 
-todo
-- least squares via left inv / pseudo-inverse
-- least squares via orthogonal proj.
-- least squares via gradient descent.
-- least squares via QR.
+  Here $\lVert \cdot \rVert$ is the Euclidean norm. That is we want to find the optimal choice of parameters $\boldsymbol w$ such that the squared error of the linear model $\bold X\boldsymbol w$ from the target vector $\bold y$ is minimized. 
+  
+  This is used in modelling a linear system in $\mathbb R^d \to \mathbb R.$ Here $\bold y \in \mathbb R^n$ is a sample of all output values, while $\bold X \in \mathbb R^{n \times d}$ is a sample of $n$ input values, then $\boldsymbol w \in \mathbb R^d$ is a weights vector which act as the parameters of the linear model.  
+
+<br>
+
+* (11.129) **Solution to the linear least squares problem.** Recall that if $\bold X$ has full column rank, then the Moore-Penrose pseudo-inverse is given by $\bold X^{+} = (\bold X^\top \bold X)^{-1} \bold X^\top.$ This can be used to find the weights $\bold X^+ \bold y$ such that $\bold X \boldsymbol (\bold X^+ \bold y) = \bold{y}$ whenever $\bold y \in \mathsf{C}(\bold X).$ But what if $\bold y \not\in \mathsf{C}(\bold X)$? Then, there exists no weight vector $\boldsymbol w$ such that $\bold X \boldsymbol w = \boldsymbol y.$ It turns out however that  
+  $$
+  \boxed{\bold X^+ \bold y = \argmin_{\boldsymbol w} \lVert \bold X \boldsymbol w - \bold y \rVert^2.} 
+  $$ 
+
+  Recall from the section on projection matrix that $P_{\bold X}\bold{y} = \bold X\bold X^+ \bold y =: \hat \bold y$ is the orthogonal projection of $\bold y$ onto $\mathsf{C}(\bold X).$ Let $\bold z$ be any vector of $\mathsf{C}(\bold X).$ Then, we know that $(\bold z - \hat \bold y) \perp (\hat \bold y - \bold y).$ Thus, by the Pythagorean theorem on inner products,
+    $$
+    \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \hat \bold y \rVert^2 + \lVert \hat \bold y - \bold y \rVert^2 \geq  \lVert \hat \bold y -\bold y  \rVert^2.
+    $$
+  
+  It follows that the orthogonal projection $\hat \bold y$ is the closest point in $\mathsf{C}(\bold X)$ to $\bold y.$ Interestingly, this involves the Moore-Penrose pseudo-inverse which gives a left inverse. From here, we see that the Moore-Penrose pseudo-inverse should be interpreted as giving the coordinates of the closest point in the column space. So in the case where the point is in the column space, i.e. $\bold X \boldsymbol w$ for some $\boldsymbol w,$ then it correctly gives the unique left inverse $\boldsymbol w.$
+
+<br>
+
+* **Linear least squares via gradient descent.** Consider the objective function 
+  $$
+  J(\boldsymbol w) = \frac{1}{n}\sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right)^2.
+  $$
+
+  For the bias term, we assume $x_{i1} = 1.$ Then, the gradient step is
+  $$
+  \partial_k J = \frac{2}{n} \sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right) x_{ik}.
+  $$
+
+  We will use this to update $\boldsymbol w = \boldsymbol{w} - \eta\nabla_{\boldsymbol{w}} J.$ for some step-size $\eta > 0.$ This should be easy to vectorize, e.g. `2*((X @ w - y) * X[:, k]).mean()` for each $k.$ See `src/11_leastsquares_descent.py` (it's awesome) where we perform gradient descent on a synthetic dataset &mdash; here we vectorize the formula further by broadcasting. For simplicity, i.e. so we can plot, we model the signal $y = -1 + 3 x$ where $x \in [-1, 1]$ and with some Gaussian measurement noise. Let us see if gradient descent can find $w_0 = 1$ and $w_1 = 3.$ 
+
+  <br>
+
+  <p align="center">
+  <img src="img/11_leastsquares_descent.png" title="drawing" />
+
+  </p> 
 
 <br>
 
