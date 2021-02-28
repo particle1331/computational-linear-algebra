@@ -935,10 +935,10 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     <br>
 
     <p align="center">
-    Independent columns
+    Independent columns <br>
     <img src="img/11_loss_independent.png">
     <br><br>
-    Dependent columns
+    Dependent columns <br>
     <img src="img/11_loss_dependent.png">
     </p>
 
