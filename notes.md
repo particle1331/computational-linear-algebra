@@ -667,7 +667,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is defined to be  the unique vector in $\bold y^+ \in \mathsf{C}(\bold X)$ such that $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A).$ To show uniqueness, consider two orthogonal vectors to $\bold y_1^+$ and $\bold y_2^+$ to $\bold y.$ Then
     $$\lVert\bold y - \bold y_1^+ \rVert^2 = \lVert\bold y - \bold y_2^+ \rVert^2 + \lVert\bold y_2^+ - \bold y_1^+ \rVert^2.$$
   
-  By minimality and symmetry, $\lVert\bold y - \bold y_1^+ \rVert^2  = \lVert\bold y - \bold y_2^+ \rVert^2.$ Thus, $\lVert\bold y_2^+ - \bold y_1^+ \rVert^2 = 0$ which implies $\bold y_1^+ = \bold y_2^+.$ Now that we know it is unique, we can proceed to construct it.
+  By minimality and symmetry, $\lVert\bold y - \bold y_1^+ \rVert^2  = \lVert\bold y - \bold y_2^+ \rVert^2.$ Thus, $\lVert\bold y_2^+ - \bold y_1^+ \rVert^2 = 0$ which implies $\bold y_1^+ = \bold y_2^+.$ Now that we know it is unique, we now proceed with its construction.
 
 <br>  
 
@@ -889,7 +889,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
   
-* **Code demo: gradient descent with LLS loss.** In `src/11_leastsquares_descent.py`, we perform gradient descent on a synthetic dataset. For simplicity, i.e. so we can plot, we model the signal $y = -1 + 3 x$ where $x \in [-1, 1]$ and with some Gaussian measurement noise. The gradient step can be vectorized as follows:
+* **Code demo: gradient descent with LLS loss.** In `src/11_leastsquares_descent.py`, we perform gradient descent on a synthetic dataset. For simplicity, i.e. so we can plot, we model the signal $y = -1 + 3 x$ where $x \in [-1, 1]$ and with some Gaussian measurement noise. That is, we set 
+  * `X[:, 0] = 1` and `X[:, 1] = np.random.uniform(low=-1, high=1, size=n)`, and 
+  * `y = X @ w_true + 0.01*np.random.randn(n)` where `w_true = np.array([-1, 3])`. 
+  
+  The gradient step can be vectorized as follows:
   ```python
   2*((X @ w - y) * X[:, k]).mean()
   ``` 
@@ -897,7 +901,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   ```python
   2*((X @ w - y).reshape(-1, 1) * X).mean(axis=0)
   ```
-  i.e. multiplies `X @ w - y` to each column of `X` followed by taking the mean of each column. This gives us the gradient vector of length 2. Let us see whether gradient descent can find $w_0 = -1$ and $w_1 = 3.$
+  i.e. multiplies `X @ w - y` to each column of `X` followed by taking the mean of each column. This gives us the gradient vector of length 2. Let us see whether gradient descent can find `w_true`.
 
   <br>
 
@@ -908,8 +912,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   <br>
 
-  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change &mdash; it will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional to the amplitude of the noise. 
-
   ```python
   MSE(y, X @ w_true) = 9.343257744523987e-05
   MSE(y, X @ w_best) = 0.01446739159531978
@@ -918,6 +920,8 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   w_best = [-1.00332668  2.79325696]
   X_pinv @ y = [-0.99971352  2.99951481]
   ```
+
+  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change &mdash; it will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional to the square of `0.01` the amplitude of the noise (best MSE is `9.34e-05` ~ `1e-4`). Try this by changing `y = (X @ w_true) + 0.01 * np.random.randn(n)` in Line 25.
 
 <br>
 
