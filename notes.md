@@ -855,21 +855,23 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \begin{aligned}
     \lVert \bold y - {\bold U \bold \Sigma} {\bold V}^\top \bold w \rVert^2
     &= \lVert {\bold U}^\top \bold y - {\bold \Sigma} {\bold V}^\top \bold w \rVert^2 \\ 
-    &= \lVert {\bold U_r}^\top\bold y - \bold \Sigma_r {\bold V_r}^\top \bold w \rVert^2 + \lVert {\bold U_{r+1:}}^\top\bold y \rVert^2. 
+    &= \lVert {\bold U_d}^\top\bold y - \bold \Sigma_d {\bold V_d}^\top \bold w \rVert^2 + \lVert {\bold U_{d+1:}}^\top\bold y \rVert^2. 
     \end{aligned}
     $$
 
-  We can ignore the second term since it does not depend on $\bold w$ &mdash; this is precisely the normal distance of $\bold y$ from $\mathsf{C}(\bold X).$ The unique minimal solution is obtained by setting all components of the first term zero, i.e. finding $\bold w$ such that ${\bold U_r}^\top\bold y = \bold \Sigma_r {\bold V_r}^\top \bold w.$ To satisfy this, simply take 
+  We can ignore the second term since it does not depend on $\bold w$ &mdash; this is precisely the normal distance of $\bold y$ from $\mathsf{C}(\bold X).$ The unique minimal solution is obtained by setting all components of the first term zero, i.e. finding $\bold w$ such that ${\bold U_d}^\top\bold y = \bold \Sigma_d {\bold V_d}^\top \bold w.$ To satisfy this, simply take 
   $$
   \bold w = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
   $$
   
-  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\bold y^+ = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ As a unit test, observe that for any $\bold z \in \mathsf{C}(\bold X),$
+  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\bold y^+ = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$
     $$
-    \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \bold y^+ \rVert^2 + \lVert \bold y^+ - \bold y \rVert^2 \geq  \lVert \bold y^+ -\bold y  \rVert^2.
+    \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \bold y^+ \rVert^2 + \lVert \bold y^+ - \bold y \rVert^2 \geq  \lVert \bold y^+ -\bold y  \rVert^2.
     $$  
+
+  <br>
   
-  Note that weights $\bold w$ such that $\bold X \bold w = \bold y^+$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, see more below.
+  **Remark.** Note that weights $\bold w$ such that $\bold X \bold w = \bold y^+$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j.$ Thus, the optimal weights is a subspace of $d - r$ dimensions! 
   
 <br>
 
@@ -919,13 +921,21 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Loss surfaces.** If $\bold X$ has linearly dependent columns, we expect that the optimal weight vector $\bold w$ is not unique. The loss surfaces are plotted below, see `11/loss_surface.py`, where we plot the loss surface with $\bold X$ having dependent columns with `X[:, 0] = 2 * X[:, 1]`; observe the whole strip of optimal weights (left), and the loss surface where $\bold X$ has independent columns with a unique optimal point (right).
+* **Loss surfaces.** If $\bold X$ has linearly dependent columns, we expect that the optimal weight vector $\bold w$ is not unique. The loss surfaces are plotted below, see `11/loss_surface.py`, where we plot the loss surface with $\bold X$ having dependent columns (top) with `X[:, 0] = 2 * X[:, 1]` &mdash; observe the whole strip of optimal weights; and the loss surface where $\bold X$ has independent columns with a unique optimal point (bottom). Recall that the equation for optimal weights is given by 
+  $$
+  \bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j
+  $$ 
+    
+  for coefficients $\alpha_j.$ In this example, $d = 2$ and $r = 1$ so the optimal weights occupy 1-dimension in the parameter space spanned by the second left singular vector $\bold v_2$ offset by $\bold w^+.$ This is implemented in the code and the optimal weights plotted as a scatterplot. (The 3D plots on the left can be moved around and inspected using `plt.show()` in the script.) Note that the optimal points are generated using the equation for the optimal weight (see code), i.e. not manually plotted. Thus, the code demonstrates uniqueness and nonuniqueness of optimal weights depending on the rank of $\bold X$ as well as the correctness of the equation. 
 
     <br>
 
     <p align="center">
-    <img src="img/11_loss_dependent.png"> &nbsp;&nbsp;&nbsp;&nbsp;
+    Independent columns
     <img src="img/11_loss_independent.png">
+    <br><br>
+    Dependent columns
+    <img src="img/11_loss_dependent.png">
     </p>
 
 <br>

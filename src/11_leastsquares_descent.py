@@ -55,7 +55,6 @@ ax[1].scatter(w_hist[:, 0], w_hist[:, 1], marker='2', facecolors='k')
 ax[1].set_xlabel(f'$w_0$')
 ax[1].set_ylabel(f'$w_1$')
 
-
 # plot loss history
 ax[0].plot(loss_hist, linestyle='--', c='red', linewidth=0.8)
 ax[0].scatter(list(range(epochs)), loss_hist, marker='o', facecolors='None', edgecolors='k')
@@ -63,11 +62,9 @@ ax[0].set_ylabel(f'loss')
 ax[0].xaxis.set_major_locator(MaxNLocator(integer=True))
 ax[0].set_xlabel(f'epoch')
 
-
 # save
 fig.tight_layout()
-plt.show()
-# plt.savefig('../img/11_leastsquares_descent.png')
+plt.savefig('../img/11_leastsquares_descent.png')
 
 
 # check with pinv

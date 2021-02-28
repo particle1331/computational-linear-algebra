@@ -24,8 +24,11 @@ def plot_loss_surface(independent):
 
 
     # plot loss surface
-    fig, ax = plt.subplots(2, 1, figsize=(3, 3))
-    N = 200 # size of grid
+    fig = plt.figure(figsize=(6, 3))
+    ax1 = fig.add_subplot(121, projection='3d')
+    ax2 = fig.add_subplot(122)
+
+    N = 400 # size of grid
     row = np.linspace(-5, 5, N)
     XX, YY = np.meshgrid(row, row)
     ZZ = np.zeros_like(XX)
@@ -34,18 +37,41 @@ def plot_loss_surface(independent):
             ZZ[i, j] = loss(np.array([XX[i, j], YY[i, j]]), X, y)
 
 
-    # plot 3D surface
-    ax = plt.axes(projection ='3d') 
-    ax.plot_surface(XX, YY, ZZ, cmap='Reds') 
-    ax.set_xlabel(f'$w_0$')
-    ax.set_ylabel(f'$w_1$')
+    # plot 3D surface 
+    ax1.plot_surface(XX, YY, ZZ, cmap='Reds') 
+    ax1.set_xlabel(f'$w_0$')
+    ax1.set_ylabel(f'$w_1$')
+
+    # plot contour and optimal weights
+    ax2.contourf(XX, YY, ZZ, cmap='Reds', levels=30)
+    ax2.set_xlabel(f'$w_0$')
+    ax2.set_ylabel(f'$w_1$')
+    u, s, vT = np.linalg.svd(X)
+    r = np.count_nonzero((s > 1e-8).astype(int)) # rank of X
+    d = X.shape[1]
+    
+    sample_size = 20
+    optimal_weights = np.zeros(shape=[sample_size, d])
+    optimal_weights[:, 0] = (np.linalg.pinv(X) @ y.reshape(-1, 1))[0]
+    optimal_weights[:, 1] = (np.linalg.pinv(X) @ y.reshape(-1, 1))[1]
+    
+    alpha = np.linspace(-5, 5, sample_size)
+    for j in range(r, d): # r+1, ..., d -> r, ..., d-1
+        for i in range(sample_size):
+            optimal_weights[i, :] = alpha[i] * vT[j, :] # see discussion
+
+    ax2.scatter(optimal_weights[:, 0], optimal_weights[:, 1], 
+                marker='o', facecolors='k', s=1)
+
     fig.tight_layout()
+    # plt.show() # can move 3d plot around
 
     # save
     if independent:
         plt.savefig('../img/11_loss_independent.png')
     else:
         plt.savefig('../img/11_loss_dependent.png')
+
 
 
 if __name__ == '__main__':
