@@ -846,7 +846,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \hat \bold w = \argmin_{\bold w} \lVert \bold X \bold w - \bold y \rVert^2. 
   $$ 
 
-  Here $\lVert \cdot \rVert$ is the Euclidean norm. That is, we want to find the optimal choice of parameters $\bold w \in \mathbb R^d$ such that the squared error of the output of the linear model $\bold X\bold w$ from the target vector $\bold y$ is minimized. This objective is used to model a linear system $\mathbb R^d \to \mathbb R.$ Here $\bold y \in \mathbb R^n$ is a sample of all output values, while $\bold X \in \mathbb R^{n \times d}$ is a sample of $n$ input values, then $\bold w \in \mathbb R^d$ is a weights vector which act as the parameters of the linear model.
+  Here $\lVert \cdot \rVert$ is the Euclidean norm. That is, we want to find the optimal choice of parameters $\bold w$ such that the squared error of the output of the linear model $\bold X\bold w$ from the target vector $\bold y$ is minimized. This objective is used to model a linear system $\mathbb R^d \to \mathbb R$ perhaps with measurement noise (in the code demo, we use Gaussian noise). Here $\bold y \in \mathbb R^n$ is a sample of all output values, while $\bold X \in \mathbb R^{n \times d}$ is a sample of $n$ input values, then $\bold w \in \mathbb R^d$ is a weights vector which act as the parameters of the linear model.
 
 <br>
 
@@ -864,12 +864,12 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \bold w = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
   $$
   
-  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\bold y^+ = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ To test this, observe that for any $\bold z \in \mathsf{C}(\bold X),$
+  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\bold y^+ = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ As a unit test, observe that for any $\bold z \in \mathsf{C}(\bold X),$
     $$
     \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \bold y^+ \rVert^2 + \lVert \bold y^+ - \bold y \rVert^2 \geq  \lVert \bold y^+ -\bold y  \rVert^2.
     $$  
   
-  Note that weights $\bold w$ such that $\bold X \bold w = \bold y^+$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima.
+  Note that weights $\bold w$ such that $\bold X \bold w = \bold y^+$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, see more below.
   
 <br>
 
@@ -906,7 +906,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   <br>
 
-  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better.
+  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change &mdash; it will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional to the amplitude of the noise. 
 
   ```python
   MSE(y, X @ w_true) = 9.343257744523987e-05
@@ -919,8 +919,18 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
+* **Loss surfaces.** If $\bold X$ has linearly dependent columns, we expect that the optimal weight vector $\bold w$ is not unique. The loss surfaces are plotted below, see `11/loss_surface.py`, where we plot the loss surface with $\bold X$ having dependent columns with `X[:, 0] = 2 * X[:, 1]`; observe the whole strip of optimal weights (left), and the loss surface where $\bold X$ has independent columns with a unique optimal point (right).
+
+    <br>
+
+    <p align="center">
+    <img src="img/11_loss_dependent.png"> &nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="img/11_loss_independent.png">
+    </p>
+
 <br>
 
+<br>
 
 ## Eigendecomposition
 

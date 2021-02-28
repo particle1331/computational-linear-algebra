@@ -69,6 +69,7 @@ fig.tight_layout()
 plt.show()
 # plt.savefig('../img/11_leastsquares_descent.png')
 
+
 # check with pinv
 w_best = w_hist[np.argmin(loss_hist)]   
 print('MSE(y, X @ w_true) =', ((y - X @ w_true)**2).mean())
