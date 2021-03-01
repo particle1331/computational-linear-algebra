@@ -64,13 +64,13 @@ def plot_loss_surface(independent):
                 marker='o', facecolors='k', s=1)
 
     fig.tight_layout()
-    plt.show() # can move 3d plot around
+    # plt.show() # can move 3d plot around
 
-    # # save
-    # if independent:
-    #     plt.savefig('../img/11_loss_independent.png')
-    # else:
-    #     plt.savefig('../img/11_loss_dependent.png')
+    # save
+    if independent:
+        plt.savefig('../img/11_loss_independent.png')
+    else:
+        plt.savefig('../img/11_loss_dependent.png')
 
 
 
