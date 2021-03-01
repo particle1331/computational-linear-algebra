@@ -304,7 +304,7 @@ In the case of $2 \times 2$ matrices, this is satisfied most naturally by  matri
 The lack of symmetry turns out to be extremely important in machine-learning, multivariate statistics, and signal processing, and is a core part of the reason why linear classifiers are so successful [[Lec 56, Q&A]](https://www.udemy.com/course/linear-algebra-theory-and-implementation/learn/lecture/10738628#questions/13889570/): 
     >  "The lack of symmetry means that $\bold C=\bold B^{-1} \bold A$ is not symmetric, which means that $\bold C$ has non-orthogonal eigenvectors. In stats/data science/ML, most linear classifiers work by using generalized eigendecomposition on two data covariance matrices $\bold B$ and $\bold A$, and the lack of symmetry in $\bold C$ turns a compression problem into a separation problem."
 
-    (???)
+    (?)
     
 <br>
 
@@ -316,7 +316,7 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
     2.21 µs ± 369 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
     In [4]: %timeit D * D
     717 ns ± 47.9 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
-    ```     
+    ```
 <br>
 
 
@@ -664,14 +664,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 [Back to top](#notes)
 
 * **Orthogonal projection: definition and uniqueness.** 
-  The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is defined to be  the unique vector in $\bold y^+ \in \mathsf{C}(\bold X)$ such that $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A).$ To show uniqueness, consider two orthogonal vectors to $\bold y_1^+$ and $\bold y_2^+$ to $\bold y.$ Then
-    $$\lVert\bold y - \bold y_1^+ \rVert^2 = \lVert\bold y - \bold y_2^+ \rVert^2 + \lVert\bold y_2^+ - \bold y_1^+ \rVert^2.$$
+  The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is defined to be the unique vector such that (1) $\bold y^+ \in \mathsf{C}(\bold A)$, and (2) $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A).$ To show uniqueness, suppose $\bold y_1^+$ and $\bold y_2^+$ are two orthogonal vectors to $\bold y.$ Then,
+    $$\lVert\bold y - \bold y_1^+ \rVert^2 = \lVert\bold y - \bold y_2^+ \rVert^2 + \lVert\bold y_2^+ - \bold y_1^+ \rVert^2 \leq \lVert\bold y - \bold y_2^+ \rVert^2.$$
   
-  By minimality and symmetry, $\lVert\bold y - \bold y_1^+ \rVert^2  = \lVert\bold y - \bold y_2^+ \rVert^2.$ Thus, $\lVert\bold y_2^+ - \bold y_1^+ \rVert^2 = 0$ which implies $\bold y_1^+ = \bold y_2^+.$ Now that we know it is unique, we now proceed with its construction.
+  By symmetry, $\lVert\bold y - \bold y_1^+ \rVert^2  = \lVert\bold y - \bold y_2^+ \rVert^2.$ Thus, $\lVert\bold y_2^+ - \bold y_1^+ \rVert^2 = 0$ which implies $\bold y_1^+ = \bold y_2^+.$ Now that we have shown uniqueness, we proceed a constructive proof of its existence.
 
 <br>  
 
-* **Independent columns.** Suppose $\bold A \in \mathbb R^{m \times n}$ has linearly independent columns and $\bold y$ be any vector on the output space $\mathbb R^m.$ To find the projection of $\bold y$ in $\mathsf{C}(\bold A),$ we solve for weights $\bold x$ such that $\bold A^\top( \bold y - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \bold y = \bold A^+ \bold y.$ Thus, we can define the projection operator onto $\mathsf{C}(\bold A)$ as
+* **Orthogonal projection: independent columns.** Suppose $\bold A \in \mathbb R^{m \times n}$ has linearly independent columns and $\bold y$ be any vector on the output space $\mathbb R^m.$ To find the projection of $\bold y$ in $\mathsf{C}(\bold A),$ we solve for weights $\bold x$ such that $\bold A^\top( \bold y - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \bold y = \bold A^+ \bold y.$ Thus, $\bold y^+ = \bold A \bold A^+ \bold y$ which allows us to define the projection operator onto $\mathsf{C}(\bold A)$ as
   $$
   \begin{aligned}
   P_{\bold A} 
@@ -681,13 +681,13 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* **General case.** Does $P_{\bold A} = \bold A \bold A^+$ hold in the general case? Recall that the right singular vectors $\boldsymbol u_1, \ldots, \boldsymbol u_r$ form a basis for $\mathsf{C}(\bold A).$ It follows that we can decompose $\bold y$ into two components, one orthogonal and one parallel to the subspace:
+* **Orthogonal projection: general case.** Does $P_{\bold A} = \bold A \bold A^+$ hold in the general case? Recall that the right singular vectors $\boldsymbol u_1, \ldots, \boldsymbol u_r$ form a basis for $\mathsf{C}(\bold A).$ It follows that we can decompose $\bold y$ into two components, one orthogonal and one parallel to the subspace:
     $$
     \bold y = \left(\sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y\right) + 
     \left( \sum_{i=r+1}^{m} \boldsymbol u_i \boldsymbol u_i^\top \bold y \right).
     $$
     
-    Then, the orthogonal projection of $\bold y$ can be constructed as $\bold y^+ = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.$ It is clear that $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A).$ We now prove the claim that $\bold y^+ = \bold A \bold A^+ \bold y.$ This is actually pretty trivial:
+    Then, the orthogonal projection of $\bold y$ can be constructed as $\bold y^+ = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.$ It is clear that $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A)$ and $\bold y^+ \in \mathsf{C}(\bold A).$ We now prove the claim that $\bold y^+ = \bold A \bold A^+ \bold y.$ This is actually pretty trivial:
     $$
     \bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top.
     $$
@@ -715,7 +715,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Moore-Penrose pseudoinverse as left inverse: wider perspective.** 
+* **Moore-Penrose pseudoinverse as left inverse: a wider perspective.** 
   Interestingly, the  orthogonal projection involves the Moore-Penrose pseudoinverse $\bold A^+$ which is a left inverse for $\bold A$ when the columns of $\bold A$ are independent. 
   This can actually be read off from the structure of the formula $\bold A^+ \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y.$ Note that $\bold U \bold U^\top \bold y = \bold y$ and $\bold U_r^\top \bold y$ is the components of the projection of $\bold y$ onto $\mathsf{C}(\bold A)$ with respect to the right singular vectors. Since the pseudoinverse $\bold \Sigma^+$ pads latter columns and rows with zero, this means that we only invert with respect to that subset of the right singular vectors that span the column space, hence only get to reconstruct the component of $\bold y$ parallel to $\mathsf{C}(\bold A).$ This is the essence of the equation $\bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top$ above. If $\bold y \in \mathsf{C}(\bold A)$, then $\bold A^+ \bold y$ gives a left inverse of $\bold y.$ The bigger picture is that the pseudoinverse gives the weights to reconstruct the projection of $\bold y$ which in this case is itself, since it lies in $\mathsf{C}(\bold A).$ The pseudoinverse $\bold A^+$ gives the weights for the "best approximation" to $\bold y$ as is possible for a vector $\mathsf{C}(\bold A)$ in a Euclidean least squares sense. (See section on least squares.)
   
@@ -739,12 +739,15 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Code demo:** `src/10_projection.py`. We confirm computationally that $P_{\bold A} \bold y \perp (\bold y - P_{\bold A} \bold y)$ and plot the resulting vectors. Algebraically, this is equivalent to ${P_{\bold A}}^\top (\bold I - P_{\bold A}).$
-
+* **Code demo:** `src/10_projection.py`. We confirm computationally that $P_{\bold A} \bold y \perp (\bold y - P_{\bold A} \bold y)$ and plot the resulting vectors. Algebraically, this is equivalent to ${P_{\bold A}}^\top (\bold I - P_{\bold A}).$ 
+  
+  <br>
 
   <p align="center">
       <img src="img/10_projection.png" title="drawing" width=80% />
       </p> 
+
+  <br>
 
   ```python
   (Ax - b) @ Ax = -2.3678975447083417e-16
@@ -773,7 +776,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   1. Copy $\boldsymbol v_k = \boldsymbol a_k$ for $k = 1, \ldots, n.$
   2. Normalize $\boldsymbol u_k = \boldsymbol v_k / \lVert \boldsymbol v_k \rVert,$ then update $\boldsymbol v_j = \boldsymbol v_j -  \boldsymbol u_k \boldsymbol u_k^\top \boldsymbol v_j$ for $j > k.$ 
   
-  The modification is that instead of projecting the column vector on the whole subspace spanned by earlier vectors, each vector is iteratively projected in the 1-dimensional subspace spanned by earlier vectors. In exact arithmetic, this algorithm returns the same set of orthonormal vectors as the classical GS (use pen and paper to calculate three vectors, i.e. proof by $n=3$). However, the modified GS is more numerically stable as we will show experimentally. Perhaps one reason is that errors are projected away in each prior iteration. (???) The operation count for modified GS is about $\mathcal{O}(mn^2).$
+  The modification is that instead of projecting the column vector on the whole subspace spanned by earlier vectors, each vector is iteratively projected in the 1-dimensional subspace spanned by earlier vectors. In exact arithmetic, this algorithm returns the same set of orthonormal vectors as the classical GS (use pen and paper to calculate three vectors, i.e. proof by $n=3$). However, the modified GS is more numerically stable as we will show experimentally. Perhaps one reason is that errors are projected away in each prior iteration. (?) The operation count for modified GS is about $\mathcal{O}(mn^2).$
 
 <br>
 
@@ -864,14 +867,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \bold w = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
   $$
   
-  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\bold y^+ = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$
+  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\bold y^+ = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X$ (!). Again, this should come as no surprise, considering the geometry. As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$,
     $$
     \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \bold y^+ \rVert^2 + \lVert \bold y^+ - \bold y \rVert^2 \geq  \lVert \bold y^+ -\bold y  \rVert^2.
     $$  
 
   <br>
   
-  **Remark.** Note that weights $\bold w$ such that $\bold X \bold w = \bold y^+$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j.$ Thus, the optimal weights is a subspace of $d - r$ dimensions! 
+  **Remark.** Note that weights $\bold w$ such that $\bold X \bold w = \bold y^+$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
   
 <br>
 
@@ -882,7 +885,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   This is essentially a shallow neural network with identity activation, i.e. a linear model, with MSE loss. Then, the gradient step is
   $$
-  \nabla_k J = \frac{2}{n} \sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right) x_{ik}.
+  \nabla_k J (\bold w) = \frac{2}{n} \sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right) x_{ik}.
   $$
 
   We will use this to update $\bold w = \bold{w} - \eta\;\nabla J$ for some fixed learning rate $\eta > 0.$ For each iteration, the weights $\bold w$ move to some (locally) optimal weight that minimizes the objective $J.$ For a linear model with nonzero bias term $w_0$, we can set $x_{i0} = 1.$
@@ -921,7 +924,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   X_pinv @ y = [-0.99971352  2.99951481]
   ```
 
-  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change &mdash; it will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional to the square of `0.01` the amplitude of the noise (best MSE is `9.34e-05` ~ `1e-4`). Try this by changing `y = (X @ w_true) + 0.01 * np.random.randn(n)` in Line 25.
+  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change. It will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional equal to the square of the amplitude $c$ of the noise. To derive this, we use [the mean of squared Gaussian](https://math.stackexchange.com/questions/620045/mean-and-variance-of-squared-gaussian-y-x2-where-x-sim-mathcaln0-sigma) so $\mathbb E[c^2 X^2] = c^2 E[X^2] = c^2\sigma^2 = c^2.$ This agrees with the best MSE of `9.34e-05` ~ `1e-4`. 
 
 <br>
 
