@@ -509,14 +509,15 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* **Determinant nonzero $\Leftrightarrow$ Full rank.** Consider the SVD of a square matrix $\bold A = \bold U \bold \Sigma \bold V^\top.$ Then 
+* **Determinant not zero iff. full rank.** Consider the SVD of a square matrix $\bold A = \bold U \bold \Sigma \bold V^\top.$ Since the determinant of orthogonal matrices is equal to $\pm 1$, then 
   $$
-  |\det \bold A | = \prod_{i=1}^n \sigma_i.
+  \left|\det (\bold A) \right| = \prod_{i=1}^n \sigma_i.
   $$ 
-  Since $\sigma_i > 0$ for $i \leq r$, $\det \bold A \neq 0$ if and only if $r = n.$ Geometrically, this means that the ellipse has zero volume. It can be shown that the determinant is the volume of the image of the unit parallelepiped in the output space. Consequently, once dimensions have been collapsed the corresponding input vector for each output vector becomes intractable, i.e. $\bold A$ cannot be invertible. Recall that this is also equivalent to $\bold A$ not being full-rank where the column space occupies a flat surface on its output space.
-  <br><br>
+  This is nonzero if and only if $r = n,$ i.e. full rank. Geometrically, this means that the ellipse has zero volume. It can be shown that the determinant is the volume of the image of the unit parallelepiped in the output space. Consequently, once dimensions have been collapsed, the corresponding input vector for each output vector becomes intractable, i.e. $\bold A$ cannot be invertible. This is equivalent to $\bold A$ not being full-rank where the column space occupies a surface of lower dimension compared to its output space.
 
-  To prove the volume-det formula for the unit parallelepiped, we use the polar decomposition $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ where $\sqrt{\bold A^\top \bold A} = \bold V \sqrt{\bold \Sigma^\top \bold \Sigma} \bold V^\top$ is a spectral decomposition such that $\bold V$ is an ONB for $\mathbb R^n$ and $\bold Q$ is an isometry, i.e. has determinant $1$ by the product and transpose formula. The unit parallelepiped spanned by $(\bold v_1, \ldots, \bold v_n)$ is transformed to $(\sigma_1 \bold v_1, \ldots, \sigma_n \bold v_n)$ by $\bold A.$ This has (unsigned) volume 
+<br>
+
+* **Determinant as scale factor for vol. transformation.** To prove the volume formula for the unit parallelepiped, we use the polar decomposition $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ where $\sqrt{\bold A^\top \bold A} = \bold V \sqrt{\bold \Sigma^\top \bold \Sigma} \bold V^\top$ is a spectral decomposition such that $\bold V$ is an ONB for $\mathbb R^n$ and $\bold Q$ is an isometry, i.e. has determinant $1$ by the product and transpose formula. The unit parallelepiped spanned by $(\bold v_1, \ldots, \bold v_n)$ is transformed to $(\sigma_1 \bold v_1, \ldots, \sigma_n \bold v_n)$ by $\bold A.$ This has (unsigned) volume 
   $$
   \mathsf{vol}(\sigma_1 \bold v_1, \ldots, \sigma_n \bold v_n) = \sigma_1 \ldots, \sigma_n = |\det \bold A \;|.
   $$ 
@@ -541,7 +542,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* (9.101) **Full rank $\Leftrightarrow$ Invertible.** Let $\bold A \in \mathbb R^{n \times n}.$ TFAE
+* (9.101) **Full rank iff. invertible.** Let $\bold A \in \mathbb R^{n \times n}.$ TFAE
   1. $\text{rank }\bold A = n.$
   2. $\bold A$ is one-to-one.
   3. $\bold A$ is onto.
@@ -955,7 +956,25 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* 
+
+- Ax = \lambda x iff (A - \lambda I) x = 0 iff det ( A - \lambda I) = 0 iff 
+
+- An nxn matrix has n eigenvalues (as a consequence of FTA). 
+and the fact that 
+
+- l^2 - (a + d) l + (ad - bc) = 0
+l^2 - (tr A) l + det A = 0
+
+- eigenvalues of diagonal and triangular matrices
+
+- eigenvalues of random matrices (simple form)
+
+- tr A = \sum \lambda
+- det A = \prod \lambda (may be complex)
+- characteristic polynomial
+- conjugate pairs -> explains why product is real.
+- (−1)^(n−1)(a11+a22+⋯ann)=(−1)^(n−1) tr(A).
+
 
 <br>
 
