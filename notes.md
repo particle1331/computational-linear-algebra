@@ -631,7 +631,8 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not both the third and fourth! Example:
   <br>
   ```python
-  In [31]: A = np.vstack([ np.eye(3), [0, 0, 1] ])                                         In [33]: B = np.hstack([ np.eye(3), [[0], [0], [0]] ])     
+  In [31]: A = np.vstack([ np.eye(3), [0, 0, 1] ])
+  In [33]: B = np.hstack([ np.eye(3), [[0], [0], [0]] ])     
   In [34]: A @ B       
   Out[34]: 
   array([[1., 0., 0., 0.],
