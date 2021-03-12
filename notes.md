@@ -27,7 +27,7 @@
 <br>
   
   - (2.30) **Complexity of checking independence**.
-  Suppose $n \leq m.$ What is the time complexity of showing n vectors in $\mathbb R^m$ are linearly independent? i.e. solving for nonzero solutions to $\bold A\bold x = \bold 0$. For instance, we have $\mathcal{O}(\frac{2}{3} mn^2)$ using Gaussian elimination assuming $\mathcal{O}(1)$ arithmetic which is a naive assumption as careless implementation can easily create numbers with with [exponentially many bits](https://cstheory.stackexchange.com/questions/3921/what-is-the-actual-time-complexity-of-gaussian-elimination)! In practice, the best way to compute the rank of $\bold A$ is through its SVD. This is, for example, how `numpy.linalg.matrix_rank` is implemented.
+  Suppose $n \leq m.$ What is the time complexity of showing n vectors in $\mathbb R^m$ are linearly independent? i.e. solving for nonzero solutions to $\bold A\bold x = \bold 0$. For instance, we have $\mathcal{O}(\frac{2}{3} mn^2)$ using Gaussian elimination assuming $\mathcal{O}(1)$ arithmetic which is a naive assumption as careless implementation can easily create numbers that can be [exponentially large](https://cstheory.stackexchange.com/questions/3921/what-is-the-actual-time-complexity-of-gaussian-elimination)! In practice, the best way to compute the rank of $\bold A$ is through its SVD. This is, for example, how `numpy.linalg.matrix_rank` is implemented.
 
 <br>
 
@@ -73,9 +73,10 @@
     ```
     AB[:, j] = sum(k, A[:, k] B[k, j]) 
     ```
-  <br>
 
-## Geometry of linear operators
+<br>
+
+## Geometry of linear operators 
 
 ---
 
@@ -691,7 +692,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     
     Then, the orthogonal projection of $\bold y$ can be constructed as $\hat\bold y = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.$ It is clear that $(\bold y - \hat\bold y) \perp \mathsf{C}(\bold A)$ and $\hat\bold y \in \mathsf{C}(\bold A).$ We now prove the claim that $\hat\bold y = \bold A \bold A^+ \bold y.$ This is actually pretty trivial:
     $$
-    \bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top.
+    \bold A \bold A^+ = {\bold U \bold \Sigma \bold \Sigma}^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top.
     $$
     
     Note that unlike the previous case where the columns of $\bold A$ are independent, the weights that make up the projection vector is not anymore unique. (See next bullet for further discussion of this nonuniqueness.)
@@ -869,7 +870,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \bold w = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
   $$
   
-  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\hat\bold y = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X$ (!). Again, this should come as no surprise, considering the geometry. As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$,
+  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\hat\bold y = \bold X \bold X^+ \bold y$ which is precisely the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ This should come as no surprise, considering the geometry. As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$,
     $$
     \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
     $$  
@@ -935,7 +936,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j
   $$ 
     
-  for coefficients $\alpha_j.$ In this example, $d = 2$ and $r = 1$ so the optimal weights occupy 1-dimension in the parameter space spanned by the second left singular vector $\bold v_2$ offset by $\bold w^+.$ This is implemented in the code and the optimal weights plotted as a scatterplot. (The 3D plots on the left can be moved around and inspected using `plt.show()` in the script, if you actually run the code!) Note that the optimal points are generated using the equation for the optimal weight (see code), i.e. not manually plotted. Thus, the code demonstrates uniqueness and nonuniqueness of optimal weights depending on the rank of $\bold X$ as well as the correctness of the equation. Interesting that the geometry of the loss surface is affected by the rank of $\bold X$ and affected in a tractable manner &mdash; i.e. by counting dimensions!
+  for coefficients $\alpha_j \in \mathbb R.$ In this example, $d = 2$ and $r = 1$ so the optimal weights occupy 1-dimension in the parameter space spanned by the second left singular vector $\bold v_2$ offset by $\bold w^+.$ This is implemented in the code and the optimal weights plotted as a scatterplot. (The 3D plots on the left can be moved around and inspected using `plt.show()` in the script, if you actually run the code!) Note that the optimal points are generated using the equation for the optimal weight (see code), i.e. not manually plotted. Thus, the code demonstrates uniqueness and nonuniqueness of optimal weights depending on the rank of $\bold X$ as well as the correctness of the equation. Interesting that the geometry of the loss surface is affected by the rank of $\bold X$ and affected in a tractable manner &mdash; i.e. by counting dimensions!
 
     <br>
 
@@ -957,25 +958,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-
-- Ax = \lambda x iff (A - \lambda I) x = 0 iff det ( A - \lambda I) = 0 iff 
-
-- An nxn matrix has n eigenvalues (as a consequence of FTA). 
-and the fact that 
-
-- l^2 - (a + d) l + (ad - bc) = 0
-l^2 - (tr A) l + det A = 0
-
-- eigenvalues of diagonal and triangular matrices
-
-- eigenvalues of random matrices (simple form)
-
-- tr A = \sum \lambda
-- det A = \prod \lambda (may be complex)
-- characteristic polynomial
-- conjugate pairs -> explains why product is real.
-- (−1)^(n−1)(a11+a22+⋯ann)=(−1)^(n−1) tr(A).
-
+* 
 
 <br>
 
