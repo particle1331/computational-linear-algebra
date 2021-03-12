@@ -7,7 +7,7 @@ My notes and code experiments for linear algebra done SVD. The idea is to constr
 * Code: `/src`
 
 
-The selection and progression of topics follow the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/), though all content &mdash; and all errors &mdash; in this repo are my own writing.
+The selection and progression of topics follow the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/), though all writing (code and prose), and the errors that come with it, in this repo are my own. Check the course out, it's awesome. :=)
 
 <!---
 <br>
