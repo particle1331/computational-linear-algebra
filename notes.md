@@ -667,9 +667,9 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 * **Orthogonal projection: definition and uniqueness.** 
   The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is the unique vector $\hat\bold y$ such that (1) $\hat\bold y \in \mathsf{C}(\bold A)$, and (2) $(\bold y - \hat\bold y) \perp \mathsf{C}(\bold A).$ To show uniqueness, suppose $\hat\bold y_1$ and $\hat\bold y_2$ are two orthogonal vectors to $\bold y.$ Then,
-    $$\lVert\bold y - \hat\bold y_1 \rVert^2 = \lVert\bold y - \hat\bold y_2 \rVert^2 + \lVert\hat\bold y_2 - \hat\bold y_1 \rVert^2 \leq \lVert\bold y - \hat\bold y_2 \rVert^2.$$
+    $$\lVert\bold y - \hat\bold y_2 \rVert^2 = \lVert\bold y - \hat\bold y_1 \rVert^2 + \lVert\hat\bold y_1 - \hat\bold y_2 \rVert^2 \geq \lVert\bold y - \hat\bold y_1 \rVert^2.$$
   
-  By symmetry, $\lVert\bold y - \hat\bold y_1 \rVert^2  = \lVert\bold y - \hat\bold y_2 \rVert^2.$ Thus, $\lVert\hat\bold y_2 - \hat\bold y_1 \rVert^2 = 0$ which implies $\hat\bold y_1 = \hat\bold y_2.$ Now that we have shown uniqueness, we proceed a constructive proof of its existence.
+  By symmetry, $\lVert\bold y - \hat\bold y_1 \rVert^2  = \lVert\bold y - \hat\bold y_2 \rVert^2.$ Thus, $\lVert\hat\bold y_2 - \hat\bold y_1 \rVert^2 = 0$ which implies $\hat\bold y_1 = \hat\bold y_2.$ Now that we have shown uniqueness, we proceed with a constructive proof of its existence.
 
 <br>  
 
