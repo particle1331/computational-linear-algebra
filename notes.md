@@ -876,7 +876,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   <br>
   
-  **Remark.** Note that weights $\bold w$ such that $\bold X \bold w = \hat\bold y$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
+  **Remark.** Note that weights $\hat\bold w$ such that $\bold X \bold w = \hat\bold y$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j$ parametrized by $\alpha_{r+1}, \alpha_d \in \mathbb R.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
   
 <br>
 
@@ -932,7 +932,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 * **Loss surfaces.** If $\bold X$ has linearly dependent columns, we expect that the optimal weight vector $\bold w$ is not unique. The loss surfaces are plotted below, see `11/loss_surface.py`, where we plot the loss surface with $\bold X$ having dependent columns (top) with `X[:, 0] = 2 * X[:, 1]` &mdash; observe the whole strip of optimal weights; and the loss surface where $\bold X$ has independent columns with a unique optimal point (bottom). Recall that the equation for optimal weights is given by 
   $$
-  \bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j
+  \hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j
   $$ 
     
   for coefficients $\alpha_j.$ In this example, $d = 2$ and $r = 1$ so the optimal weights occupy 1-dimension in the parameter space spanned by the second left singular vector $\bold v_2$ offset by $\bold w^+.$ This is implemented in the code and the optimal weights plotted as a scatterplot. (The 3D plots on the left can be moved around and inspected using `plt.show()` in the script, if you actually run the code!) Note that the optimal points are generated using the equation for the optimal weight (see code), i.e. not manually plotted. Thus, the code demonstrates uniqueness and nonuniqueness of optimal weights depending on the rank of $\bold X$ as well as the correctness of the equation. Interesting that the geometry of the loss surface is affected by the rank of $\bold X$ and affected in a tractable manner &mdash; i.e. by counting dimensions!
