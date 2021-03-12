@@ -488,16 +488,16 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 * **Basis for fundamental subspaces.** Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ for $i = 1, \ldots, r = \text{rank }\bold A.$ From this fact, the above decomposition, and counting dimensions we have the ff. table: 
 
-  <center>
+<center>
 
-  subspace | basis
-  ------ | ------
-  $\mathsf{C}(\bold A^\top)$ | $\bold v_1, \ldots, \bold v_r$
-  $\mathsf{N}(\bold A)$ | $\bold v_{r+1}, \ldots, \bold v_n$
-  $\mathsf{C}(\bold A)$ | $\bold u_1, \ldots, \bold u_r$
-  $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
-  
-  </center>
+Subspace | Basis
+------ | ------
+$\mathsf{C}(\bold A^\top)$ | $\bold v_1, \ldots, \bold v_r$
+$\mathsf{N}(\bold A)$ | $\bold v_{r+1}, \ldots, \bold v_n$
+$\mathsf{C}(\bold A)$ | $\bold u_1, \ldots, \bold u_r$
+$\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
+
+</center>
 
 <br>
 
