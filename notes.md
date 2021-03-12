@@ -856,7 +856,13 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* (11.129) **Solution to the LLS objective.** Geometrically, it is intuitive that the unique vector in $\mathsf{C}(\bold X)$ that minimizes the distance from $\bold y$ is the orthogonal projection. We give a proof using the right singular vectors of $\bold X.$ The linear least squares problem can be solved by minimizing
+* (11.129) **Solution to the LLS objective.** 
+  Geometrically, it is intuitive that the unique vector in $\mathsf{C}(\bold X)$ that minimizes the distance from $\bold y$ is the orthogonal projection. Observe that for any $\bold x \in \mathsf{C}(\bold X)$,
+    $$
+    \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
+    $$   
+
+  Thus, projections are solutions to the LLS, i.e. we can take $\hat \bold w = \bold X^+ \bold y.$ We show that these are the *only* solutions. We prove this using the singular vectors of $\bold X.$ The LLS objective in terms of the SVD can be written as
     $$
     \begin{aligned}
     \lVert \bold y - {\bold U \bold \Sigma} {\bold V}^\top \bold w \rVert^2
@@ -870,10 +876,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \bold w = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
   $$
   
-  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\hat\bold y = \bold X \bold X^+ \bold y$ which is precisely the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ This should come as no surprise, considering the geometry. As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$,
-    $$
-    \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
-    $$  
+  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\hat\bold y = \bold X \bold X^+ \bold y$ which is precisely the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ This should come as no surprise, considering the geometry. As a unit test, 
 
   <br>
   
