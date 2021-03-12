@@ -8,7 +8,7 @@ Notes and code demos for *linear algebra done SVD*. The idea is to construct the
   * An extensive discussion of the Moore-Penrose pseudoinverse.
   * Stability of the Gram-Schmidt algorithm.
 
-I wrote these while following the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/). Do check the course out, it's the best course out there for people interested in doing machine learning. :=)
+I wrote these to supplement the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/) that I followed in Udemy. Do check the course out, it's the best course out there for people interested in doing machine learning. :=)
 
 <br>
 
