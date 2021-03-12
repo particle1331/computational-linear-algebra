@@ -1,7 +1,12 @@
 # cohen-linalg
 
 
-My notes and code experiments for linear algebra done SVD. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertbility to parametrizing the loss surface of linear regression with linearly dependent data columns. 
+My notes and code experiments for linear algebra done SVD. The idea is to construct the SVD as soon as possible, then use it for everything else that follow &mdash; from characterizing invertbility to parametrizing the loss surface of linear regression with linearly dependent data columns. Some interesting stuff that I cover:
+  * Proof of the real spectral theorem, and a code demo.
+  * Proof of the singular value decomposition (SVD). 
+  * Characterizing the loss surface of a linear regression problem.
+  * An extensive discussion of the Moore-Penrose pseudoinverse.
+
 
 * Notes: `notes.md`
 * Code: `/src`
