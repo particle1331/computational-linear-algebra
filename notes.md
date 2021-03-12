@@ -421,8 +421,7 @@ Another way to construct a basis for $\mathsf{C}(\bold A)$ is to perform Gaussia
   **Remark.** This also geometrically makes sense, i.e. automorphism on the input and output spaces. Applying $\bold U$ to a basis of $\mathsf C(\bold A)$ results in a basis of the same cardinality. So that $\mathsf C(\bold U \bold A)$ has the same dimension. On the other hand, transforming the input space by $\bold U,$ we still get $\mathbb R^n$ so that $\mathsf C(\bold A) = \mathsf C (\bold A \bold U).$ Then, we can prove equality of row and column rank by constructing a CR decomposition by means of left and right multiplying elementary matrices which do not change rank, and whose products have independent columns and rows, respectively. <br><br>
 
   <p align="center">
-  <img src="img/cr_decomp.svg" alt="drawing" width="500"/>
-  <br>
+  <img src="img/CR_decomp.svg" alt="drawing" width="400"/> <br> 
   <b>Figure.</b> Visualizing the CR decomposition.
   </p>
 
