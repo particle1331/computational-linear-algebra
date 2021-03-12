@@ -876,7 +876,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   <br>
   
-  **Remark.** Note that weights $\hat\bold w$ such that $\bold X \bold w = \hat\bold y$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j$ parametrized by $\alpha_{r+1}, \alpha_d \in \mathbb R.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
+  **Remark.** Note that weights $\hat\bold w$ such that $\bold X \bold w = \hat\bold y$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j$ parametrized by $\alpha_{r+1}, \ldots, \alpha_d \in \mathbb R.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
   
 <br>
 
