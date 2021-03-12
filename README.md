@@ -7,11 +7,6 @@ My notes and code experiments for linear algebra done SVD. The idea is to constr
   * Characterizing the loss surface of a linear regression problem.
   * An extensive discussion of the Moore-Penrose pseudoinverse.
 
-
-* Notes: `notes.md`
-* Code: `/src`
-
-
 The selection and progression of topics follow the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/). But all writing in this repo (code and prose) and the errors that come with it are my own. Check the course out, it's awesome. :-) 
 
 <br>
