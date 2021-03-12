@@ -782,7 +782,7 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 <br>
 
-* **Code demo: stability of GS algorithms**. In `src/10_stability_gram-schmidt.py`, we implement the two algorithms and apply it a matrix that is badly-conditioned. We apply these to the columns of the matrix 
+* **Code demo: stability of GS algorithms**. In `src/10_stability_gram-schmidt.py`, we implement the two algorithms and apply it a matrix that almost has identical columns, i.e. the matrix 
   $$ \bold A = 
   \begin{bmatrix}
     1 & 1 & 1 \\
@@ -791,7 +791,7 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
     0 & 0 & \epsilon
   \end{bmatrix}.
   $$
-  where $\epsilon = 10^{-8}.$ Finally, we compute the L1 error $\lVert \bold U^\top \bold U - \bold I_m \rVert_1$:
+  where $\epsilon = 10^{-8}.$ We compute how close the results is to being orthonormal, i.e. calculate the L1 error $\lVert \bold U^\top \bold U - \bold I_m \rVert_1$:
 
   ```python
   In [78]: %run 10_stability_gram-schmidt.py
