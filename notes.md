@@ -666,14 +666,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 [Back to top](#notes)
 
 * **Orthogonal projection: definition and uniqueness.** 
-  The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is the unique vector such that (1) $\bold y^+ \in \mathsf{C}(\bold A)$, and (2) $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A).$ To show uniqueness, suppose $\bold y_1^+$ and $\bold y_2^+$ are two orthogonal vectors to $\bold y.$ Then,
-    $$\lVert\bold y - \bold y_1^+ \rVert^2 = \lVert\bold y - \bold y_2^+ \rVert^2 + \lVert\bold y_2^+ - \bold y_1^+ \rVert^2 \leq \lVert\bold y - \bold y_2^+ \rVert^2.$$
+  The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is the unique vector $\hat\bold y$ such that (1) $\hat\bold y \in \mathsf{C}(\bold A)$, and (2) $(\bold y - \hat\bold y) \perp \mathsf{C}(\bold A).$ To show uniqueness, suppose $\hat\bold y_1$ and $\hat\bold y_2$ are two orthogonal vectors to $\bold y.$ Then,
+    $$\lVert\bold y - \hat\bold y_1 \rVert^2 = \lVert\bold y - \hat\bold y_2 \rVert^2 + \lVert\hat\bold y_2 - \hat\bold y_1 \rVert^2 \leq \lVert\bold y - \hat\bold y_2 \rVert^2.$$
   
-  By symmetry, $\lVert\bold y - \bold y_1^+ \rVert^2  = \lVert\bold y - \bold y_2^+ \rVert^2.$ Thus, $\lVert\bold y_2^+ - \bold y_1^+ \rVert^2 = 0$ which implies $\bold y_1^+ = \bold y_2^+.$ Now that we have shown uniqueness, we proceed a constructive proof of its existence.
+  By symmetry, $\lVert\bold y - \hat\bold y_1 \rVert^2  = \lVert\bold y - \hat\bold y_2 \rVert^2.$ Thus, $\lVert\hat\bold y_2 - \hat\bold y_1 \rVert^2 = 0$ which implies $\hat\bold y_1 = \hat\bold y_2.$ Now that we have shown uniqueness, we proceed a constructive proof of its existence.
 
 <br>  
 
-* **Orthogonal projection: independent columns.** Suppose $\bold A \in \mathbb R^{m \times n}$ has linearly independent columns and $\bold y$ be any vector on the output space $\mathbb R^m.$ To find the projection of $\bold y$ in $\mathsf{C}(\bold A),$ we solve for weights $\bold x$ such that $\bold A^\top( \bold y - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \bold y = \bold A^+ \bold y.$ Thus, $\bold y^+ = \bold A \bold A^+ \bold y$ which allows us to define the projection operator onto $\mathsf{C}(\bold A)$ as
+* **Orthogonal projection: independent columns.** Suppose $\bold A \in \mathbb R^{m \times n}$ has linearly independent columns and $\bold y$ be any vector on the output space $\mathbb R^m.$ To find the projection of $\bold y$ in $\mathsf{C}(\bold A),$ we solve for weights $\bold x$ such that $\bold A^\top( \bold y - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \bold y = \bold A^+ \bold y.$ Thus, $\hat\bold y = \bold A \bold A^+ \bold y$ which allows us to define the projection operator onto $\mathsf{C}(\bold A)$ as
   $$
   \begin{aligned}
   P_{\bold A} 
@@ -689,7 +689,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \left( \sum_{i=r+1}^{m} \boldsymbol u_i \boldsymbol u_i^\top \bold y \right).
     $$
     
-    Then, the orthogonal projection of $\bold y$ can be constructed as $\bold y^+ = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.$ It is clear that $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A)$ and $\bold y^+ \in \mathsf{C}(\bold A).$ We now prove the claim that $\bold y^+ = \bold A \bold A^+ \bold y.$ This is actually pretty trivial:
+    Then, the orthogonal projection of $\bold y$ can be constructed as $\hat\bold y = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.$ It is clear that $(\bold y - \hat\bold y) \perp \mathsf{C}(\bold A)$ and $\hat\bold y \in \mathsf{C}(\bold A).$ We now prove the claim that $\hat\bold y = \bold A \bold A^+ \bold y.$ This is actually pretty trivial:
     $$
     \bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top.
     $$
@@ -869,14 +869,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \bold w = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
   $$
   
-  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\bold y^+ = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X$ (!). Again, this should come as no surprise, considering the geometry. As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$,
+  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\hat\bold y = \bold X \bold X^+ \bold y$ which is the orthogonal projection of $\bold y$ onto the column space of $\bold X$ (!). Again, this should come as no surprise, considering the geometry. As a unit test, observe that for any $\bold x \in \mathsf{C}(\bold X)$,
     $$
-    \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \bold y^+ \rVert^2 + \lVert \bold y^+ - \bold y \rVert^2 \geq  \lVert \bold y^+ -\bold y  \rVert^2.
+    \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
     $$  
 
   <br>
   
-  **Remark.** Note that weights $\bold w$ such that $\bold X \bold w = \bold y^+$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
+  **Remark.** Note that weights $\bold w$ such that $\bold X \bold w = \hat\bold y$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
   
 <br>
 
