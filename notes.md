@@ -666,7 +666,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 [Back to top](#notes)
 
 * **Orthogonal projection: definition and uniqueness.** 
-  The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is defined to be the unique vector such that (1) $\bold y^+ \in \mathsf{C}(\bold A)$, and (2) $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A).$ To show uniqueness, suppose $\bold y_1^+$ and $\bold y_2^+$ are two orthogonal vectors to $\bold y.$ Then,
+  The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is the unique vector such that (1) $\bold y^+ \in \mathsf{C}(\bold A)$, and (2) $(\bold y - \bold y^+) \perp \mathsf{C}(\bold A).$ To show uniqueness, suppose $\bold y_1^+$ and $\bold y_2^+$ are two orthogonal vectors to $\bold y.$ Then,
     $$\lVert\bold y - \bold y_1^+ \rVert^2 = \lVert\bold y - \bold y_2^+ \rVert^2 + \lVert\bold y_2^+ - \bold y_1^+ \rVert^2 \leq \lVert\bold y - \bold y_2^+ \rVert^2.$$
   
   By symmetry, $\lVert\bold y - \bold y_1^+ \rVert^2  = \lVert\bold y - \bold y_2^+ \rVert^2.$ Thus, $\lVert\bold y_2^+ - \bold y_1^+ \rVert^2 = 0$ which implies $\bold y_1^+ = \bold y_2^+.$ Now that we have shown uniqueness, we proceed a constructive proof of its existence.
