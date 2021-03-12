@@ -1,7 +1,7 @@
 # cohen-linalg
 
 
-My notes and code experiments for linear algebra. The topics follow the structure of the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/), although most of the content are mine.
+My notes and code experiments for linear algebra done using SVD. The idea is to construct the SVD as soon as possible. Almost all later arguments rely on the SVD &mdash; very powerful. The selection and progression of topics follow the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/); though approximately all content in this repo are my own writing.
 
 <!---
 <br>
