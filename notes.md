@@ -766,7 +766,7 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 <br>
 
-* **Gram-Schmidt process.** Given the columns of $\bold A,$ we want to construct an orthonormal basis for $\mathsf{C}(\bold A).$ To do this, we can perform what is called the Gram-Schmidt process. Let $\boldsymbol a_1, \ldots, \boldsymbol a_n$ be the columns of $\bold A.$ Then, an ONB $\boldsymbol u_1, \ldots, \boldsymbol u_r$ for $\mathsf{C}(\bold A)$ can be constructed as follows:
+* **Gram-Schmidt process.** Given the columns of $\bold A,$ we want to construct an orthonormal basis for $\mathsf{C}(\bold A).$ To do this, we can perform what is called the Gram-Schmidt process. Let $\boldsymbol a_1, \ldots, \boldsymbol a_n$ be the columns of $\bold A.$ Then an ONB $\boldsymbol u_1, \ldots, \boldsymbol u_r$ for $\mathsf{C}(\bold A)$ can be constructed as follows:
   1. $\boldsymbol u_1 = \boldsymbol a_1 / \lVert \boldsymbol a_1 \rVert.$
   2. $\boldsymbol u_k = \gamma \left( {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} \right) = \gamma \left( {\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k} \right)$ 
   
