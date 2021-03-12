@@ -1,7 +1,7 @@
 # cohen-linalg
 
 
-My notes and code experiments for linear algebra done SVD. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertbility to parametrizing the loss surface of a linear regression problem with linearly dependent data columns. The selection and progression of topics follow the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/); though approximately all content in this repo are my own writing.
+My notes and code experiments for linear algebra done SVD. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertbility to parametrizing the loss surface of linear regression with linearly dependent data columns. The selection and progression of topics follow the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/); though approximately all content in this repo are my own writing.
 
 * Notes: `notes.md`
 * Code: `/src`
