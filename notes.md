@@ -907,7 +907,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
     $$   
 
-  Thus, projections are solutions to the LLS, i.e. we can take $\hat \bold w = \bold X^+ \bold y.$ We show that these are *precisely* the solutions. We prove this using the singular vectors of $\bold X.$ The LLS objective in terms of the SVD can be written as
+  Thus, projections are solutions to the LLS, e.g. we can take $\hat \bold w = \bold X^+ \bold y.$ We show that projections are *precisely* the solutions. We prove this using the singular vectors of $\bold X.$ The objective function in terms of the SVD can be written as
     $$
     \begin{aligned}
     \lVert \bold y - {\bold U \bold \Sigma} {\bold V}^\top \bold w \rVert^2
@@ -916,7 +916,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \end{aligned}
     $$
 
-  We can ignore the second term since it does not depend on $\bold w$ &mdash; this is precisely the normal distance of $\bold y$ from $\mathsf{C}(\bold X).$ The unique minimal solution is obtained by setting all components of the first term zero, i.e. finding $\bold w$ such that ${\bold U_d}^\top\bold y = \bold \Sigma_d {\bold V_d}^\top \bold w.$ One such solution is
+  We ignore the second term since it does not depend on $\bold w$ &mdash; this is precisely the normal distance of $\bold y$ from $\mathsf{C}(\bold X).$ The unique minimal solution is obtained by setting all components of the first term zero, i.e. finding $\bold w$ such that ${\bold U_d}^\top\bold y = \bold \Sigma_d {\bold V_d}^\top \bold w.$ One such solution is
   $$
   \begin{aligned}
   \hat \bold w 
@@ -925,7 +925,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \end{aligned}
   $$
   
-  Note that there is gap of $d - r$ right singular vectors that get zeroed out by $\bold \Sigma^+.$ Thus, the most general solution is $\hat \bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j$ 
+  Note that there is gap of $d - r$ right singular vectors that get zeroed out by $\bold \Sigma^+.$ So the most general solution is $\hat \bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j$ 
   for parameters $\alpha_j \in \mathbb R.$ If the columns are independent, then there is a unique optimal weight. Otherwise, the optimal weights occupy an affine space of $d - r$ dimensions!
   
 <br>
