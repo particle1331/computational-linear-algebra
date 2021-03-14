@@ -10,18 +10,21 @@ eigvals, eigvecs = np.linalg.eig(B)
 eigvecs = eigvecs[:, np.argsort(-eigvals)]
 eigvals = -np.sort(-eigvals)
 
-# compact SVD -- too lazy to code Gram-Schmidt completion
-Sigma = np.zeros_like(A)
-U = np.zeros(shape=(A.shape[0], A.shape[0]))
-V = eigvecs
+# compact SVD -- too lazy to code Gram-Schmidt
+# UPDATE: see 10_stability_gram-schmidt.py
+Sigma = np.zeros(shape=(A.shape[1], A.shape[1]))
+U = np.zeros(shape=(A.shape[0], A.shape[1]))
+V = eigvecs[: A.shape[1]]
 for i in range(len(eigvals)):
     Sigma[i, i] = np.sqrt(eigvals[i])
     U[:, i] = A @ eigvecs[:, i] / np.sqrt(eigvals[i])
 
-print('U @ Sigma @ V.T =') 
-print( U @ Sigma @ V.T )
+# print the results
 print('\nA=')
-print(A)
-print('\nL1 error =', np.abs(U @ Sigma @ V.T - A).sum() )
-print('\nU.T @ U =')
-print( U.T @ U )
+print(np.round(A, 4))
+print('\nU @ Sigma @ V.T =') 
+print(np.round(A, 4))
+print('\nFrobenius norms:')
+print('|| A - U @ Sigma @ V.T || =', np.linalg.norm(U @ Sigma @ V.T - A))
+print('|| V.T @ V - I || =', np.linalg.norm(V.T @ V - np.eye(4)))
+print('|| U.T @ U - I || =', np.linalg.norm(U.T @ U - np.eye(4)))

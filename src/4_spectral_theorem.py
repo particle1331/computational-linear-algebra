@@ -37,7 +37,9 @@ V = V[:, np.argsort(-Lambda)]
 Lambda = np.diag(-np.sort(-Lambda))
 
 # print results
-print('B =')
+print('A =')
+print(A)
+print('\nB =')
 print(B) # symmetric?
 print('\nV =')
 print(V) # symmetric?

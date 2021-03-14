@@ -1,14 +1,13 @@
-# cohen-linalg
+# cohen-linear-algebra
 
+Notes and code demos in Python for linear algebra. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertbility, to parametrizing the loss surface of a linear regression model with linearly dependent data columns. Some of the interesting stuff that is covered:
+  * Proof of the real spectral theorem, and a code demo
+  * Proof of the singular value decomposition (SVD)
+  * Characterizing the loss surface of a linear regression problem
+  * An extensive discussion of the Moore-Penrose pseudoinverse
+  * Stability of the Gram-Schmidt algorithm
 
-Notes and code demos for linear algebra done SVD. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertbility, to parametrizing the loss surface of a linear regression model with linearly dependent data columns. Some of the interesting stuff that is covered:
-  * Proof of the real spectral theorem, and a code demo.
-  * Proof of the singular value decomposition (SVD). 
-  * Characterizing the loss surface of a linear regression problem.
-  * An extensive discussion of the Moore-Penrose pseudoinverse.
-  * Stability of the Gram-Schmidt algorithm.
-
-I wrote these to supplement the course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/) that I followed in Udemy. Do check the course out, it's the best course out there for people interested in doing machine learning. :=)
+I wrote these while following the Udemy course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/). Check the course out if you're a beginner interested in machine learning. :=)
 
 <br>
 

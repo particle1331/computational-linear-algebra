@@ -129,29 +129,24 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
     <br>
 
   ```python
-  In [1]: %run 4_svd_from_scratch.py                                                                                                                                    
-  U @ Sigma @ V.T =
-  [[ 1.76405235  0.40015721  0.97873798  2.2408932 ]
-   [ 1.86755799 -0.97727788  0.95008842 -0.15135721]
-   [-0.10321885  0.4105985   0.14404357  1.45427351]
-   [ 0.76103773  0.12167502  0.44386323  0.33367433]
-   [ 1.49407907 -0.20515826  0.3130677  -0.85409574]]
-
   A=
-  [[ 1.76405235  0.40015721  0.97873798  2.2408932 ]
-   [ 1.86755799 -0.97727788  0.95008842 -0.15135721]
-   [-0.10321885  0.4105985   0.14404357  1.45427351]
-   [ 0.76103773  0.12167502  0.44386323  0.33367433]
-   [ 1.49407907 -0.20515826  0.3130677  -0.85409574]]
+  [[ 1.7641  0.4002  0.9787  2.2409]
+  [ 1.8676 -0.9773  0.9501 -0.1514]
+  [-0.1032  0.4106  0.144   1.4543]
+  [ 0.761   0.1217  0.4439  0.3337]
+  [ 1.4941 -0.2052  0.3131 -0.8541]]
 
-  L1 error = 8.229528170033973e-15
+  U @ Sigma @ V.T =
+  [[ 1.7641  0.4002  0.9787  2.2409]
+  [ 1.8676 -0.9773  0.9501 -0.1514]
+  [-0.1032  0.4106  0.144   1.4543]
+  [ 0.761   0.1217  0.4439  0.3337]
+  [ 1.4941 -0.2052  0.3131 -0.8541]]
 
-  U.T @ U =
-  [[ 1.00000000e+00  7.85139767e-17 -2.70399175e-16  4.08696943e-15 0.00000000e+00]
-   [ 7.85139767e-17  1.00000000e+00 -9.81442401e-16  6.71377649e-16 0.00000000e+00]
-   [-2.70399175e-16 -9.81442401e-16  1.00000000e+00  1.27931484e-14 0.00000000e+00]
-   [ 4.08696943e-15  6.71377649e-16  1.27931484e-14  1.00000000e+00 0.00000000e+00]
-   [ 0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00 0.00000000e+00]]
+  Frobenius norms:
+  || A - U @ Sigma @ V.T || = 2.371802853223825e-15
+  || V.T @ V - I ||         = 3.642425835603599e-15
+  || U.T @ U - I ||         = 2.230019691426858e-14
   ```
 
 <br>
@@ -185,12 +180,13 @@ We know $\bold A \bold v_i$ for $i = 1, 2, \ldots, n$ span the image of $\bold A
 
 <br>
 
-* **Computing the SVD.** In `4_compute_svd.py` we calculate 3 things: (1) equality between the eigenvalues of $\sqrt{\bold A^\top \bold A}$ and the singular values of $\bold A$, (2) difference bet. max. singular value $\sigma_1$ and $\max_{\lVert \bold x \rVert_2 = 1} \lVert \bold A \bold x \rVert_2$, and (3) whether $\bold A\bold v_i = \sigma_i \bold u_i$ for $i = 1, 2$. Here $\bold A$ is a 2x2 matrix with elements sampled from a standard normal.
+* **Computing the SVD.** In `4_compute_svd.py`, we calculate 3 things for a random matrix $\bold A[i, j] \sim \mathcal{N}(0, 1)$: (1) equality between the eigenvalues of $\sqrt{\bold A^\top \bold A}$ and the singular values of $\bold A$; (2) difference bet. max. singular value $\sigma_1$ and $\max_{\lVert \bold x \rVert_2 = 1} \lVert \bold A \bold x \rVert_2$; and (3) whether $\bold A\bold v_i = \sigma_i \bold u_i$ for $i = 1, 2$.
   ```python
-    eigvals of sqrt(A^T A):  [1.29375301 2.75276951]
-    singular values of A:    [2.75276951 1.29375301]
-    max norm - max s.value:  1.6732994501111875e-07
-    || Av - su ||.max():     2.220446049250313e-16
+  λ(√AᵀA):  [2.75276951 1.29375301]
+  σ(A):     [2.75276951 1.29375301]
+
+  | Av - σu |.max()   = 2.220446049250313e-16
+  σ₁ - max ‖Ax‖ / ‖x‖ = 1.6732994501111875e-07
   ```
   <br>
 
@@ -262,6 +258,11 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
   ```python
   In [123]: %run 4_spectral_theorem.py                                                                                               
+  A =
+  [[ 9.03615101  4.74709353 -0.56149735]
+   [ 4.74709353  3.67080764 -1.41785114]
+   [-0.56149735 -1.41785114  1.92365423]]
+
   B =
   [[ 0.37139617 -0.36034904]
    [-0.36034904  2.30840586]]
@@ -288,7 +289,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$ 
+* **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$
 
 <br>
 
@@ -462,7 +463,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* (6.80) **Four Fundamental Subspaces.** The so-called four fundamental subspaces $\bold A$ are subspaces that form an orthogonal direct sum decomposition of its input and output spaces, namely:
+* (6.80) **Four Fundamental Subspaces.** The so-called four fundamental subspaces of matrix $\bold A \in \mathbb R^{m \times n}$ are subspaces form an orthogonal direct sum decomposition of its input space $\mathbb R^n$ and its output spaces $\mathbb R^m.$ Namely:
 
   * $\mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A) =\, \mathbb R^n \;\; \text{s.t.} \;\; \mathsf{C}(\bold A^\top) \perp \mathsf{N}(\bold A)$
 
@@ -476,30 +477,50 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   \bold A^\top \tilde \bold x = {\bold V} {\bold \Sigma} {\bold U}^\top \left( \bold x - \bold U \bold U^\top \bold x \right) = \bold 0.
   $$
 
-  It follows that $\mathbb R^m = \mathsf{N}(\bold A^\top) + \mathsf{C}(\bold A).$ To complete the proof, we show the intersection is zero. Suppose $\bold y \in  {\mathsf{N}(\bold A^\top)} \cap {\mathsf{C}(\bold A)}.$ Then, $\bold A^\top\bold y = \bold 0$ and $\bold y = \bold A \bold x$ for some $\bold x \in \mathbb R^n.$ Thus, $\bold A^\top \bold A \bold x = \bold 0$ which implies $\bold A \bold x = \bold 0.$ In other words, $\bold y = \bold 0.$ This proves the direct sum decomposition. To prove orthogonality, observe that $\bold A \bold x = \bold 0$ implies $\bold x \perp \mathsf{C}(\bold A^\top).$ The other follows  by duality. $\square$ 
+  It follows that $\mathbb R^m = \mathsf{N}(\bold A^\top) + \mathsf{C}(\bold A).$ To complete the proof, we show the intersection is zero. Suppose $\bold y \in  {\mathsf{N}(\bold A^\top)} \cap {\mathsf{C}(\bold A)}.$ Then, $\bold A^\top\bold y = \bold 0$ and $\bold y = \bold A \bold x$ for some $\bold x \in \mathbb R^n.$ Thus, $\bold A^\top \bold A \bold x = \bold 0$ which implies $\bold A \bold x = \bold 0.$ In other words, $\bold y = \bold 0.$ This proves the direct sum decomposition. To prove orthogonality, observe that $\bold A \bold x = \bold 0$ implies $\bold x \perp \mathsf{C}(\bold A^\top)$ since it is orthogonal to each vector that spans it. The other follows  by duality. $\square$ 
   
   <br>
 
     <p align="center">
-    <img src="img/fourfundamental.png" alt="drawing" width="500"/>
+    <img src="img/6_fourfundamental.png" alt="drawing" width="500"/>
     </p>
 
 <br>
 
-* **Basis for fundamental subspaces.** Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ for $i = 1, \ldots, r = \text{rank }\bold A.$ From this fact, the above decomposition, and counting dimensions we have the ff. table: 
+* **Basis for fundamental subspaces.** 
+  Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ or for $i = 1, \ldots, r = \text{rank }\bold A.$ Thus, $\bold v_1, \ldots, \bold v_r$ forms a basis for $\mathsf{C}(\bold A).$ Moreover, $\bold v_{r+1}, \ldots, \bold v_{n}$ are $n - r$ vectors in $\mathsf{N}(\bold A),$ hence a basis by counting. Applying the same argument for the output space, we get the ff. table: 
 
-<center>
+  <center>
 
-Subspace | Basis
------- | ------
-$\mathsf{C}(\bold A^\top)$ | $\bold v_1, \ldots, \bold v_r$
-$\mathsf{N}(\bold A)$ | $\bold v_{r+1}, \ldots, \bold v_n$
-$\mathsf{C}(\bold A)$ | $\bold u_1, \ldots, \bold u_r$
-$\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
+  Subspace | Basis | Subspace | Basis
+  ------ | ------ | ------ | ------
+  $\mathsf{C}(\bold A^\top)$ | $\bold v_1, \ldots, \bold v_r$ | $\mathsf{C}(\bold A)$ | $\bold u_1, \ldots, \bold u_r$
+  $\mathsf{N}(\bold A)$ | $\bold v_{r+1}, \ldots, \bold v_n$ | $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$ 
 
-</center>
+  </center>
+
+  <br>
+    
+  **Remark.** Observe that from these bases, we obtain $\mathbb R^n = \mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A)$ the orthogonality of these subspaces for free! 
 
 <br>
+
+<p align="center">
+    <img src="img/6_four_subspace_svd.png" alt="drawing" width="500"/> <br>
+    <b>Figure.</b> Visualizing the above table. Here R(A) on the right denotes the row space. 
+</p>
+
+<br>
+
+* **Solutions to linear equations.** Consider the linear system $\bold A \bold x = \bold y.$ Then, because $\mathbb R^n = \mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A)$, the solution set for this system is given by
+  $$\bold x = \bold h + \sum_{k=1}^r c_k\bold v_k$$
+
+  where $\bold h \in \mathsf{N}(\bold A)$ and $c_1, \ldots, c_r \in \mathbb R.$ The parameters $c_k$ are sometimes called free variables and $\bold h$ a solution to the homogeneous system $\bold A \bold x = \bold 0.$ 
+
+<br>
+
+* **Understanding the direct sum decomposition.** 
+  Geometrically, the whole subspace $\mathsf{N}(\bold A)$ gets collapsed to the zero of the output space, while the orthogonal subspace, which turns out to be $\mathsf{C}(\bold A^\top)$, gets mapped to $\mathsf{C}(\bold A).$ Come to think of it, it's not surprising that the row space is spanned by the left singular vectors $\bold v_k$ for $k = 1, \ldots, r$ that is orthogonal to the null space. Consider the operation $\bold y^\top \bold A$ which is a linear combination of the row vectors. This turns out to be $\bold y^\top \bold U \bold \Sigma \bold V^\top$ which is a linear combination of the first $r$ row vectors of $\bold V.$
 
 <br>
 
@@ -622,13 +643,20 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 <br>
 
+<p align="center">
+      <img src="img/9_sigma_pseudoinverse.png" width=80%/> <br>
+      <b>Figure.</b> Pseudo-inverse of the singular values matrix.
+</p> 
+
+<br>
+
 * **Moore-Penrose pseudo-inverse as left and right inverse.** Let $\bold A \in \mathbb R^{m \times n}$ with maximal rank. It turns out the left and right inverses we constructed above is the Moore-Penrose pseudo-inverse of $\bold A$ in each case:
 
   * $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ (tall)
   
   * $\bold A^+ = \bold A^\top(\bold A \bold A^\top)^{-1}$ (wide) 
 
-  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not both the third and fourth! Example:
+  This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not both the third and fourth! For example:
   <br>
   ```python
   In [31]: A = np.vstack([ np.eye(3), [0, 0, 1] ])
@@ -648,12 +676,12 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 <br>
   
-* **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula for $\bold A^+$ obtained for matrices with maximal rank. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
+* **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ which is true for matrices with linearly independent columns. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
     $$
     \bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top
     = \bold V (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top \bold U^\top.
     $$
-    Since $\bold \Sigma$ is a tall matrix with maximal rank as well, we have $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ Similarly for when $\bold A$ is right invertible. This completes the exercise.
+    Since $\bold \Sigma$ is a tall matrix having linearly independent columns, we have $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ Thus, $(\bold A^\top \bold A)^{-1} \bold A^\top = \bold V \bold \Sigma^+\bold U^\top.$ We get the same agreement when $\bold A$ is right invertible. This completes the exercise.
 
 <br>
 
@@ -719,11 +747,12 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 * **Moore-Penrose pseudoinverse as left inverse: a wider perspective.** 
   Interestingly, the  orthogonal projection involves the Moore-Penrose pseudoinverse $\bold A^+$ which is a left inverse for $\bold A$ when the columns of $\bold A$ are independent. 
-  This can actually be read off from the structure of the formula $\bold A^+ \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y.$ Note that $\bold U \bold U^\top \bold y = \bold y$ and $\bold U_r^\top \bold y$ is the components of the projection of $\bold y$ onto $\mathsf{C}(\bold A)$ with respect to the right singular vectors. Since the pseudoinverse $\bold \Sigma^+$ pads latter columns and rows with zero, this means that we only invert with respect to that subset of the right singular vectors that span the column space, hence only get to reconstruct the component of $\bold y$ parallel to $\mathsf{C}(\bold A).$ This is the essence of the equation $\bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top$ above. If $\bold y \in \mathsf{C}(\bold A)$, then $\bold A^+ \bold y$ gives a left inverse of $\bold y.$ The bigger picture is that the pseudoinverse gives the weights to reconstruct the projection of $\bold y$ which in this case is itself, since it lies in $\mathsf{C}(\bold A).$ The pseudoinverse $\bold A^+$ gives the weights for the "best approximation" to $\bold y$ as is possible for a vector $\mathsf{C}(\bold A)$ in a Euclidean least squares sense. (See section on least squares.)
+  This can actually be read off from $\bold A^+ \bold y = \bold V_r \bold \Sigma^+_r \bold U_r^\top \bold y.$ Note that $\bold U \bold U^\top \bold y = \bold y$ and $\bold U_r^\top \bold y$ is the components of the projection of $\bold y$ onto $\mathsf{C}(\bold A)$ with respect to the right singular vectors. Since the pseudoinverse $\bold \Sigma^+$ pads latter columns and rows with zero, we only get to invert that part of the vector that is in the column space of $\bold A,$ meanwhile the part that is normal to $\mathsf{C}(\bold A)$ is zeroed out. This is essentially what $\bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top$ tells us. If $\bold y \in \mathsf{C}(\bold A)$, then $\bold A^+ \bold y$ gives a left inverse of $\bold y.$ The bigger picture is that the pseudoinverse gives the weights to reconstruct the projection of $\bold y$ which, in this case, is itself since it lies in $\mathsf{C}(\bold A).$ 
   
-  <br>
+<br>
 
-  **Remark.** Note that the formula for the projection is the same whether or not $\bold A$ has independent columns. Why is this the case? If $\bold A$ does not have independent columns, then $\bold A^+ \bold A \neq \bold I.$ This is a consequence of the non-uniqueness of the weights that reconstructs the orthogonal projection. Suppose $\bold y \in \mathsf{C}(\bold A),$ then $\bold A \bold A^+ \bold A = \bold A$ even if $\bold A^+ \bold A \neq \bold I$ (from the axioms). That is, we can get $\bold A^+ (\bold A \bold w_1) = \bold w_2$ where $\bold w_1 \neq \bold w_2$ and $\bold A \bold w_1 = \bold A \bold w_2.$ This is exactly what this Penrose equation means.
+* **First Penrose equation.** 
+  If $\bold A$ does not have independent columns, then $\bold A^+ \bold A \neq \bold I.$ This is a consequence of the non-uniqueness of the weights that reconstructs the projection. Suppose $\bold y \in \mathsf{C}(\bold A),$ then $\bold A \bold A^+ \bold A = \bold A$ even if $\bold A^+ \bold A \neq \bold I$ (from the axioms). That is, we can get $\bold A^+ (\bold A \bold w_1) = \bold w_2$ where $\bold w_1 \neq \bold w_2$ and $\bold A \bold w_1 = \bold A \bold w_2.$ This is exactly what this equation means. The second equation is the same but for right invertibility.
 
 <br>
 
@@ -747,7 +776,7 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
   <p align="center">
       <img src="img/10_projection.png" title="drawing" width=80% />
-      </p> 
+  </p> 
 
   <br>
 
@@ -813,9 +842,22 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 <br>
 
+* **Computing the Gram-Schmidt in Numpy.** To perfom the Gram-Schmidt algorithm on the columns of a matrix `A` in numpy, simply call `Q, R = np.linalg.qr(A)` to get the orthogonal matrix `Q` having the same colum span as `A`. 
+  
+  ```python
+  >>> A = np.random.randn(20, 20)
+  >>> Q, R = np.linalg.qr(A)
+  >>> np.abs(Q @ Q.T - np.eye(20)).mean()
+  7.281778314245426e-17
+  >>> np.abs(Q.T @ Q - np.eye(20)).mean()
+  6.498340689575483e-17
+  ```
+
+<br>
+
 * **Inverse from QR.** The QR decomposition allows for easy computation of the inverse: 
   $$
-  \boxed{\bold A^{-1} = \bold R^{-1} \bold Q^\top.}
+  \boxed{\phantom{\Big]}\bold A^{-1} = \bold R^{-1} \bold Q^\top.\phantom{\Big]}}
   $$ 
 
   The inverse of $\bold R$ is faster to compute since it is upper triangular. An experiment for this is done in `src/10_solve_triangular.py` with the ff. results:
@@ -851,17 +893,21 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
   \hat \bold w = \argmin_{\bold w} \lVert \bold X \bold w - \bold y \rVert^2. 
   $$ 
 
-  Here $\lVert \cdot \rVert$ is the Euclidean norm. That is, we want to find the optimal choice of parameters $\bold w$ such that the squared error of the output of the linear model $\bold X\bold w$ from the target vector $\bold y$ is minimized. This objective is used to model a linear system $\mathbb R^d \to \mathbb R$ perhaps with measurement noise (in the code demo, we use Gaussian noise). Here $\bold y \in \mathbb R^n$ is a sample of all output values, while $\bold X \in \mathbb R^{n \times d}$ is a sample of $n$ input values, then $\bold w \in \mathbb R^d$ is a weights vector which act as the parameters of the linear model.
+  Here we use the Euclidean norm. In other words, we want to find the optimal choice of parameters $\bold w$ such that gives the best least squares approximation of $\bold y$ as a linear combination of columns of $\bold X$, i.e. the closest point in $\mathsf{C}(\bold X)$ to $\bold y.$ 
+  
+  <br>
+
+  In applications, we use objective is used to model the data as a linear system perhaps under some measurement noise. Here $\bold y \in \mathbb R^n$ is a sample of output values, while $\bold X \in \mathbb R^{n \times d}$ is a sample of $n$ input values, then $\bold w \in \mathbb R^d$ is the weights vector which act as parameters of the model. 
 
 <br>
 
 * (11.129) **Solution to the LLS objective.** 
-  Geometrically, it is intuitive that the unique vector in $\mathsf{C}(\bold X)$ that minimizes the distance from $\bold y$ is the orthogonal projection. Observe that for any $\bold x \in \mathsf{C}(\bold X)$,
+  Geometrically, it is intuitive that the unique vector in $\mathsf{C}(\bold X)$ that minimizes the distance from $\bold y$ is the orthogonal projection. Observe that for any $\bold z \in \mathsf{C}(\bold X)$,
     $$
-    \lVert \bold x - \bold y \rVert^2 = \lVert \bold x - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
+    \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
     $$   
 
-  Thus, projections are solutions to the LLS, i.e. we can take $\hat \bold w = \bold X^+ \bold y.$ We show that these are the *only* solutions. We prove this using the singular vectors of $\bold X.$ The LLS objective in terms of the SVD can be written as
+  Thus, projections are solutions to the LLS, i.e. we can take $\hat \bold w = \bold X^+ \bold y.$ We show that these are *precisely* the solutions. We prove this using the singular vectors of $\bold X.$ The LLS objective in terms of the SVD can be written as
     $$
     \begin{aligned}
     \lVert \bold y - {\bold U \bold \Sigma} {\bold V}^\top \bold w \rVert^2
@@ -870,16 +916,17 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
     \end{aligned}
     $$
 
-  We can ignore the second term since it does not depend on $\bold w$ &mdash; this is precisely the normal distance of $\bold y$ from $\mathsf{C}(\bold X).$ The unique minimal solution is obtained by setting all components of the first term zero, i.e. finding $\bold w$ such that ${\bold U_d}^\top\bold y = \bold \Sigma_d {\bold V_d}^\top \bold w.$ To satisfy this, simply take 
+  We can ignore the second term since it does not depend on $\bold w$ &mdash; this is precisely the normal distance of $\bold y$ from $\mathsf{C}(\bold X).$ The unique minimal solution is obtained by setting all components of the first term zero, i.e. finding $\bold w$ such that ${\bold U_d}^\top\bold y = \bold \Sigma_d {\bold V_d}^\top \bold w.$ One such solution is
   $$
-  \bold w = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
+  \begin{aligned}
+  \hat \bold w 
+    = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y 
+    = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
+  \end{aligned}
   $$
   
-  The least square best approximation for $\bold y$ in $\mathsf{C}(\bold X)$ is therefore $\hat\bold y = \bold X \bold X^+ \bold y$ which is precisely the orthogonal projection of $\bold y$ onto the column space of $\bold X.$ This should come as no surprise, considering the geometry. As a unit test, 
-
-  <br>
-  
-  **Remark.** Note that weights $\hat\bold w$ such that $\bold X \bold w = \hat\bold y$ is not unique when the columns of $\bold X$ are not independent. In this case, we expect the objective function to have multiple local minima. Indeed, $r < d$ and we can set $\hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j$ parametrized by $\alpha_{r+1}, \ldots, \alpha_d \in \mathbb R.$ Thus, the optimal weights is an (affine) subspace of $d - r$ dimensions! 
+  Note that there is gap of $d - r$ right singular vectors that get zeroed out by $\bold \Sigma^+.$ Thus, the most general solution is $\hat \bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j$ 
+  for parameters $\alpha_j \in \mathbb R.$ If the columns are independent, then there is a unique optimal weight. Otherwise, the optimal weights occupy an affine space of $d - r$ dimensions!
   
 <br>
 
@@ -897,11 +944,12 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 <br>
   
-* **Code demo: gradient descent with LLS loss.** In `src/11_leastsquares_descent.py`, we perform gradient descent on a synthetic dataset. For simplicity, i.e. so we can plot, we model the signal $y = -1 + 3 x$ where $x \in [-1, 1]$ and with some Gaussian measurement noise. That is, we set 
-  * `X[:, 0] = 1` and `X[:, 1] = np.random.uniform(low=-1, high=1, size=n)`, and 
-  * `y = X @ w_true + 0.01*np.random.randn(n)` where `w_true = np.array([-1, 3])`. 
+* **Code demo: gradient descent with LLS loss.** In `src/11_leastsquares_descent.py`, we perform gradient descent on a synthetic dataset. For simplicity, i.e. so we can plot, we model the signal $y = -1 + 3 x$ where $x \in [-1, 1]$ and with some Gaussian measurement noise:
+  * `X[:, 0] = 1`
+  * `X[:, 1] = np.random.uniform(low=-1, high=1, size=n)`
+  * `y = X @ w_true + 0.01*np.random.randn(n)` 
   
-  The gradient step can be vectorized as follows:
+  where `w_true = np.array([-1, 3])`. The gradient step can be vectorized as follows:
   ```python
   2*((X @ w - y) * X[:, k]).mean()
   ``` 
@@ -929,7 +977,7 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
   X_pinv @ y = [-0.99971352  2.99951481]
   ```
 
-  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change. It will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional equal to the square of the amplitude $c$ of the noise. To derive this, we use [the mean of squared Gaussian](https://math.stackexchange.com/questions/620045/mean-and-variance-of-squared-gaussian-y-x2-where-x-sim-mathcaln0-sigma) so $\mathbb E[c^2 X^2] = c^2 E[X^2] = c^2\sigma^2 = c^2.$ This agrees with the best MSE of `9.34e-05` ~ `1e-4`. 
+  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change. It will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional equal to the square of the amplitude $a$ of the noise. To derive this, observe that since $\mu = 0$, the variance is $\mathbb E[a^2 X^2] = a^2 \mathbb E[X^2] = a^2\sigma^2 = a^2.$ This agrees with the best MSE of `9.34e-05` ~ `1e-4`.
 
 <br>
 
@@ -972,6 +1020,12 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 [Back to top](#notes)
 
+* 
+
+
+* 13_condition_number_spheres.png
+* 13_code_challenge.png
+
 
 <br>
 
@@ -983,8 +1037,12 @@ $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$
 
 [Back to top](#notes)
 
+* 
 
+<br>
 
 <br>
 
-<br>
+---
+
+[Back to top](#notes)
