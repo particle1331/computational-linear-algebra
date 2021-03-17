@@ -2,7 +2,7 @@
 
 - [Notes](#notes)
   - [Vectors and matrices](#vectors-and-matrices)
-  - [Geometry of linear operators](#geometry-of-linear-operators)
+  - [Singular value decomposition](#singular-value-decomposition)
   - [Matrix multiplication and norms](#matrix-multiplication-and-norms)
   - [Rank and dimension](#rank-and-dimension)
   - [Four fundamental subspaces](#four-fundamental-subspaces)
@@ -11,7 +11,6 @@
   - [Projection and orthogonalization](#projection-and-orthogonalization)
   - [Least squares for model fitting](#least-squares-for-model-fitting)
   - [Eigendecomposition](#eigendecomposition)
-  - [Singular value decomposition](#singular-value-decomposition)
   - [Quadratic form and definiteness](#quadratic-form-and-definiteness)
 
 <br>
@@ -76,7 +75,7 @@
 
 <br>
 
-## Geometry of linear operators 
+## Singular value decomposition
 
 ---
 
@@ -289,7 +288,67 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$
+* **Condition number as measure of stability.** The **condition number** of a matrix is the ratio of its largest to its smallest eigenvalue, i.e. $\kappa(\bold A) = \dfrac{\sigma_1}{\sigma_r}$ where $r = \text{rank }\bold A \geq 1.$ Recall that $\sigma_1$ is the maximum stretching while $\sigma_r$ gives the minimum for unit vector inputs. Consider $\bold A \bold x = \bold b$ and a perturbation $\delta\bold x$ on the input $\bold x.$ By linearity,
+  $$\bold A (\bold x + \delta\bold x) = \bold b + \delta \bold b$$
+  
+  where $\delta\bold b = \bold A (\delta \bold x).$ We know that $\lVert \bold b \rVert \leq \sigma_1 \lVert \bold x \rVert$ and $\lVert \delta\bold b \rVert \geq \sigma_r \lVert \delta \bold x \rVert.$ Dividing the right inequality by the left, we preserve the right inequality
+  $$\dfrac{\lVert \delta\bold b \rVert}{\lVert \bold b \rVert} \kappa(\bold A) \geq \dfrac{\lVert \delta \bold x \rVert} {\lVert \bold x \rVert}.$$
+
+  Thus, the relative perturbation on the input is bounded by the relative perturbation of the output multiplied by the condition number $\kappa(\bold A).$ Changes in the right-hand side can cause changes $\kappa(\bold A)$ times as large in the solution. Note that the quantities on the input and output are dimensionless and scale independent.
+
+  <p>
+    <img src='img/13_condition_number_spheres.png'>
+  </p>
+
+
+<br>
+
+* **Scree plots.** Scree plots are plots of singular values of a matrix. These allow us to visualize the relative sizes of singular values. In particular, see which $k$ singular values are dominant. We will show an example in the next code challenge. 
+
+<br>
+
+* **Layer perspective and layer weight.** We can write $\bold A = \sum_{k=1}^{\min{(m, n)}} \sigma_k \bold u_k \bold v_k^\top.$ Note that since the singular vectors have norm $1.$ Then, $\sigma_k$ can be interpreted as the importance of the $k$th layer. Most matrices with a definite structure have only a few relatively large singular values with significant values, while most are close to zero. On the other hand, random / noisy matrices have a large number of nonzero singular values. For example, for the image of a dog (`13_img_svd.py`):
+
+  <p>
+    <img src='img/dog.jpg'>
+  </p>
+
+  We construct the first $k$ layers to make an image. Note that the layers are additive and we can write 
+    $$\bold A = \sum_{j \leq k} \sigma_k \bold u_k \bold v_k^\top +\sum_{j > k} \sigma_k \bold u_k \bold v_k^\top$$
+    
+  to reconstruct the image. Left term for the left image, right term for the right:
+
+  <p>
+    <img src='img/13_img_svd-reconstruction.jpg'>
+  </p>
+
+  By only using 30 layers, we are able to reconstruct almost all semantically meaningful information content of the image. The rest of the ~1000 layers provides information about the noise as evidenced by the scree plot. In contrast, a random matrix has a scree plot that has almost a linear shape which is okay since there is no semantic meaning in the matrix.
+
+  <p>
+    <img src='img/13_img_svd-scree.png'>
+  </p>
+
+<br>
+
+* **Code challenge: random matrix with a given condition number.** Construct a random matrix with condition number 42. To do this, construct a linear function $f(\sigma) = a\sigma + b$ such that $f(\sigma_1) = 42$ and $f(\sigma_r) = 1.$ Let $\bold A$ be a random matrix with SVD $\bold A = {\bold U \bold \Sigma \bold V}^\top.$ Then, the solution is given by
+  $$\bold A_{42} = \bold U \cdot f(\bold \Sigma) \cdot \bold V^\top.$$
+ 
+  Not sure about uniqueness but let's try to plot. Looks okay!
+  <p>
+    <img src='img/13_kappa=42.png'>
+  </p>
+
+<br>
+
+* **Smooth KDE.** Dog image too large, instead we make an artificial example of a sum of 2D Gaussians to demonstrate the idea of how the relatively low number of layers in the SVD decomposition provide the majority of information in a matrix. The nonzero singular values occupy a small bright streak on the upper left of the middle plot. Moreover, the first few singular vectors look meaningful whereas the rest look more and more like noise &mdash; these are the singular vectors that reconstruct most of the meaningful structure in the matrix. This is not the case for the random matrix where there is no low-dimensional or low-rank structure.
+
+  <p>
+    <img src='img/13_kde.png'>
+  </p>
+
+<br>
+
+* **Eckart-Young Theorem.** 
 
 <br>
 
@@ -332,6 +391,7 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
   \lVert \bold A \rVert_F = \sqrt{\langle \bold A, \bold A\rangle_F} = \sqrt{\text{tr} (\bold A^\top \bold A)} = \sqrt{\sum\sum {a_{ij}}^2}.
   $$ 
     The fastest way to calculate this in NumPy is the straightforward `(A * B).sum()`. Other ways of calculating (shown in the video) are slower: (1) `np.dot(A.reshape(-1, order='F'), B.reshape(-1, order='F'))` where `order='F'` means Fortran-like indexing or along the columns, and (2) `np.trace(A @ B)`. 
+
     ```python
     In [14]: A = np.random.randn(2, 2)
     In [15]: B = np.random.randn(2, 2)
@@ -348,11 +408,12 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 <br>
 
 
-* (4.60) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_p = \sup_{\bold x \neq \bold 0} \lVert \bold A \bold x \rVert_p / \lVert \bold x \rVert_p$ where we use the $p$-norm for vectors with $1 \leq p \leq \infty$. This just measures how much $\bold A$ scales the space, e.g. for isometries $\lVert \bold A \rVert_{p} = 1$. Another matrix norm, which unfortunately bears the same notation, is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left( \sum_{i=1}^r \sigma_i^p \right)^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
+* (4.60) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_2 = \sup_{\bold x \neq \bold 0} \lVert \bold A \bold x \rVert_2 / \lVert \bold x \rVert_2.$ This just measures how much $\bold A$ scales the space, e.g. for isometries $\lVert \bold A \rVert = 1$. Another matrix norm, which unfortunately bears the same notation, is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left( \sum_{i=1}^r \sigma_i^p \right)^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
   
 <br>
 
-* (4.60) **Operator norm and singular values.** Note that $\lVert \bold A \rVert_{p} = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_p$ for the operator norm. Recall that the unit circle is transformed $\bold A$ to an ellipse whose axes have length corresponding to the singular values of $\bold A$. Geometrically, we can guess that $\lVert \bold A \rVert_{p} = \max_{j} \sigma_j$  where $\sigma_j$ are the singular values of $\bold A$. Indeed, we can verify this:
+* (4.60) **Operator norm and singular values.** Note that $\lVert \bold A \rVert_2 = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_2$ for the operator norm. Recall that the unit circle is transformed $\bold A$ to an ellipse whose axes have length corresponding to the singular values of $\bold A$. Geometrically, we can guess that $\lVert \bold A \rVert_2 = \max_{j} \sigma_j$  where $\sigma_j$ are the singular values of $\bold A$. Indeed, we can verify this:
+  
     ```python
     In [6]: A = np.random.randn(2, 2)
     In [7]: abs(np.linalg.norm(A, 2) - np.linalg.svd(A)[1][0])
@@ -930,12 +991,12 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* **Linear least squares via gradient descent.** Consider the objective function 
+* **Linear least squares via gradient descent.** Note that the least squares objective can be written as 
   $$
   J(\bold w) = \frac{1}{n}\sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right)^2.
   $$
 
-  This is essentially a shallow neural network with identity activation, i.e. a linear model, with MSE loss. Then, the gradient step is
+  This is essentially a shallow neural network with identity activation with MSE loss! Then, we can solve this using SGD or batch GD with the gradient step
   $$
   \nabla_k J (\bold w) = \frac{2}{n} \sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right) x_{ik}.
   $$
@@ -1008,28 +1069,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* 
+* **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$
+
+- trace formula -> Frobenius norm sum = norm of singular values vector.
 
 <br>
 
 <br>
 
-## Singular value decomposition
-
----
-
-[Back to top](#notes)
-
-* 
-
-
-* 13_condition_number_spheres.png
-* 13_code_challenge.png
-
-
-<br>
-
-<br>
 
 ## Quadratic form and definiteness
 
