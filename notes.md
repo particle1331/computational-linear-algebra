@@ -11,7 +11,6 @@
   - [Projection and orthogonalization](#projection-and-orthogonalization)
   - [Least squares for model fitting](#least-squares-for-model-fitting)
   - [Eigendecomposition](#eigendecomposition)
-  - [Quadratic form and definiteness](#quadratic-form-and-definiteness)
 
 <br>
 
@@ -316,13 +315,19 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
   We construct the first $k$ layers to make an image. Note that the layers are additive and we can write 
     $$\bold A = \sum_{j \leq k} \sigma_k \bold u_k \bold v_k^\top +\sum_{j > k} \sigma_k \bold u_k \bold v_k^\top$$
     
-  to reconstruct the image. Left term for the left image, right term for the right:
+  to reconstruct the image. In each row below, the left term corresponds to the left image, the right term for the right image. These images sum to the original image (grayscaled). Each rank 1 layer looks the the left image for $k=1.$
+
+  <br>
 
   <p>
     <img src='img/13_img_svd-reconstruction.jpg'>
   </p>
 
-  By only using 30 layers, we are able to reconstruct almost all semantically meaningful information content of the image. The rest of the ~1000 layers provides information about the noise as evidenced by the scree plot. In contrast, a random matrix has a scree plot that has almost a linear shape which is okay since there is no semantic meaning in the matrix.
+  <br>
+
+  By only using 30 layers, we are able to reconstruct almost all semantically meaningful information content of the image. The rest of the ~1000 layers provides information about the noise as evidenced by the scree plot. In contrast, a random matrix has a scree plot that has almost a linear shape which indicates that there is no semantic meaning in the matrix which manifests as a low-dimensional structure.
+
+  <br>
 
   <p>
     <img src='img/13_img_svd-scree.png'>
@@ -333,7 +338,10 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 * **Code challenge: random matrix with a given condition number.** Construct a random matrix with condition number 42. To do this, construct a linear function $f(\sigma) = a\sigma + b$ such that $f(\sigma_1) = 42$ and $f(\sigma_r) = 1.$ Let $\bold A$ be a random matrix with SVD $\bold A = {\bold U \bold \Sigma \bold V}^\top.$ Then, the solution is given by
   $$\bold A_{42} = \bold U \cdot f(\bold \Sigma) \cdot \bold V^\top.$$
  
-  Not sure about uniqueness but let's try to plot. Looks okay!
+  Not sure about uniqueness, but let's try to plot. Looks okay!
+
+  <br>
+  
   <p>
     <img src='img/13_kappa=42.png'>
   </p>
@@ -348,7 +356,22 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **Eckart-Young Theorem.** 
+* **Low-dimensional structure.** One feature of the layer perspective is that it reveals the low rank structure of $\bold A$ in terms of $\bold A_k = \sum_{j=1}^k \sigma_j \bold u_j \bold v_j^\top$ as a $k$-rank approximation of $\bold A.$ Recall that it can happen that $k \ll \min(m, n)$ while $\sum_{j = 1}^k \sigma_j  \approx \sum_{j = 1}^{\min(m, n)}  \sigma_j.$ This was demonstrated above in the dog image example where the sum of the first few layers gives a good approximation to the image. In this case, we say that the image has a low-dimensional structure that we are able to approximate using the first $k$ layers with the strongest singular values. 
+
+<br>
+
+* **Eckart-Young Theorem.** In the above bullet, we discussed the concept of low-rank approximation.Knowing that $\bold A$ has a low-rank structure from the scree plot, is there a better approximation than the natural $\bold A_k$? It turns out that by the Eckart-Young theorem that there is none:
+
+  > (Eckart-Young). If $\bold B$ is a rank $k$ matrix, then $\lVert \bold A - \bold B \rVert \geq \lVert \bold A - \bold A_k \rVert.$ 
+
+  <br>
+
+  **Proof.** Note that $\dim \mathsf{N}(\bold B) = n-k$ (rank-nullity) and $\dim \mathsf{C}(\bold v_1, \ldots, \bold v_{k+1}) = k+1.$ So the dimensions of the two subspaces sum to $n + 1.$ It follows that one of the basis vectors $\bold u$ of $\mathsf{N}(\bold B)$ is a linear combination of $\bold v_1, \ldots, \bold v_{k+1}$, otherwise we exceed the dimension of the space. WLOG let $\bold u = \sum_{j=1}^{k+1} c_i \bold v_i$ be a unit vector. Then
+    $$
+    \|\bold A-\bold B\|_{2}^{2} \geq\|(\bold A-\bold B) \bold u\|_{2}^{2}=\|\bold A \bold u \|_{2}^{2}=\sum_{i=1}^{k+1} {c_i}^2 {\sigma_{i}}^{2} \geq \sigma_{k+1}^{2} \sum_{i=1}^{k+1}{c_i}^2 = \sigma_{k+1}^{2}.
+    $$
+
+    We know that $\|\bold A-\bold A_k\|_{2} = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\bold A-\bold B\|_{2} \geq \|\bold A-\bold A_k\|_{2}.$ $\square$
 
 <br>
 
@@ -408,17 +431,11 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 <br>
 
 
-* (4.60) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_2 = \sup_{\bold x \neq \bold 0} \lVert \bold A \bold x \rVert_2 / \lVert \bold x \rVert_2.$ This just measures how much $\bold A$ scales the space, e.g. for isometries $\lVert \bold A \rVert = 1$. Another matrix norm, which unfortunately bears the same notation, is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left( \sum_{i=1}^r \sigma_i^p \right)^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
+* (4.60) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_2 = \sup_{\bold x \neq \bold 0} {\lVert \bold A \bold x \rVert_2} / {\lVert \bold x \rVert_2} = \sup_{\lVert\bold x\rVert_2 = 1} {\lVert \bold A \bold x \rVert_2} = \sigma_1.$ Another matrix norm is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left[ \sum_{i=1}^r \sigma_i^p \right]^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
   
 <br>
 
-* (4.60) **Operator norm and singular values.** Note that $\lVert \bold A \rVert_2 = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_2$ for the operator norm. Recall that the unit circle is transformed $\bold A$ to an ellipse whose axes have length corresponding to the singular values of $\bold A$. Geometrically, we can guess that $\lVert \bold A \rVert_2 = \max_{j} \sigma_j$  where $\sigma_j$ are the singular values of $\bold A$. Indeed, we can verify this:
-  
-    ```python
-    In [6]: A = np.random.randn(2, 2)
-    In [7]: abs(np.linalg.norm(A, 2) - np.linalg.svd(A)[1][0])
-    Out[7]: 0.0
-    ```
+* (4.60) **Operator norm and singular values.** Note that $\lVert \bold A \rVert_2 = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_2$ for the operator norm. Recall that the unit circle is transformed $\bold A$ to an ellipse whose axes have length corresponding to the singular values of $\bold A$. Geometrically, we can guess that $\lVert \bold A \rVert_2 = \sigma_1$ with $\sigma_1$ being the largest singular value of $\bold A$. Indeed, we verified this in `4_compute_svd.py` where it was shown that `σ₁ - max ‖Ax‖ / ‖x‖ = 1.67e-07`. 
 
 
 <br>
@@ -1069,26 +1086,149 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* **A nondiagonalizable matrix.** The matrix $\bold A = [[1, 0], [1, 1]]$ has eigenvalues are $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, t]^\top$ for nonzero $t \in \mathbb R$. It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb R^2.$
+* **Eigenvalues and eigenvectors.** Let $\bold A$ be a real square matrix which we interpret as an automorphism of the space $\mathbb R^n.$ Eigenvector directions $\bold v \neq \bold 0$ are directions where the action of $\bold A$ is simple: $\bold A \bold v = \lambda \bold v.$ The scalar $\lambda$ is called the eigenvalue. Note that if $\bold A$ has a zero eigenvalue, then $\bold A$ has a nontrivial null space, i.e. dimension at least one. 
 
-- trace formula -> Frobenius norm sum = norm of singular values vector.
+<br>
+
+- **Gershgorin circle theorem.** Let $\bold A$ be an $n \times n$ real or complex matrix. For each $1 \leq i \leq n,$ define the $i$th **Gershgorin disk** $D_i = \{ z \in \mathbb C \mid | z - a_{ii} | \leq r_i \}$ where $r_i = \sum_{j \neq i} | a_{ij}|.$ Thus, the $i$th Gershgorin disk is the subset of $\mathbb C$ that is centered on the $i$th diagonal entry of $\bold A$ with radius equal to the modulus of the off-diagonal entries of $\bold A$ on the $i$th row. The **Gershgorin domain** $D_{\bold A} = \bigcup_{i=1}^n D_i \subset \mathbb C$ is simply the union of the Gershgorin disks. The theorem states that all real and complex eigenvalues of $\bold A$ lie in its Gershgorin domain $D_{\bold A}.$ See [p. 421 of Olver, 2018] for the proof of this theorem. For instance, consider 
+  $$
+  \bold A = 
+  \begin{bmatrix}
+  2 & -1 & 0 \\
+  1 & 4 & -1 \\
+  -1 & -1 & -3 \\
+  \end{bmatrix}
+  $$
+  
+  The Gershgorin domain of $\bold A$ is the plotted below. The eigenvalues of $\bold A$ are $3.162, 3.,$ and $-3.162$ all of which lie in $D_{\bold A}.$
+
+<br>
+<p align='center'>
+<img src="img/18_gershgorin_disks.png"
+     width=65% />
+<br>
+[Olver, 2018] p. 421
+</p>
+
+<br>
+
+* **Diagonalization.** A matrix $\bold A \in \mathbb R^n$ is diagonalizable if it has $n$ independent eigenvectors. This means that we can write $\bold A\bold U = \bold U \bold \Lambda$ where $\bold U = [\bold v_1, \ldots, \bold v_n]$ and $\bold \Lambda = \text{diag}(\lambda_1, \ldots, \lambda_n)$ not necessarily distinct. Since the eigenvectors are linearly independent, they span the whole space so they form a basis for $\mathbb R^n.$ Moreover $\bold U$ is invertible so that 
+  $$\bold A = \bold U \bold \Lambda \bold U^{-1}.$$
+
+  That is, under the basis $\bold U$ the matrix $\bold A$ acts like a diagonal matrix. Very cool. This is very convenient, e.g. $\bold A^k = \bold U \bold \Lambda^k \bold U^{-1}.$ Moreover, this allows the layer perspective $\bold A = \sum_{i=1}^n \lambda_i \bold u_i\bold u_i^\top$ as a sum of rank 1 matrices.
+
+<br>
+
+* **Counterexample: a nondiagonalizable matrix.** The matrix 
+    $$\bold A = 
+    \begin{bmatrix}
+        1 & 0 \\ 
+        1 & 1 \\
+    \end{bmatrix}$$
+    has eigenvalues $\lambda_1 = \lambda_2 = 1$ with eigenvectors of the form $\bold v = [0, z]^\top$ for nonzero $z \in \mathbb C.$ It follows that $\bold A$ is not diagonalizable since it has at most one linearly independent eigenvectors &mdash; not enough to span $\mathbb C^2.$
+    
+<br>
+
+* **Existence of eigenvalues.** Let $\bold A \in \mathbb R^{n \times n}.$ Observe that $\lambda$ is an eigenvalue of $\bold A$ iff. it is a zero of the polynomial $p_\bold A(\lambda) = \det (\lambda \bold I_n - \bold A).$ This $n$-degree is called the **characteristic polynomial** of $\bold A.$ From the Fundamental Theorem of Algebra, we can write
+    $$p_\bold A(\lambda) = \prod_{i=1}^s (\lambda - \lambda_i)^{r_i}$$
+    
+    such that $r_1 + \ldots + r_s = n$ and $\lambda_1, \ldots, \lambda_s \in \mathbb C.$ It follows that $\bold A$ has at most $n$ distinct eigenvalues. The number $r_i \in \mathbb N$ is called the **algebraic multiplicity** of $\lambda_i.$ 
+    
+    <br>
+
+    **Remark.** The eigenvalues and the corresponding eigenvectors of a real matrix can be complex valued. In the example below, the matrix $\bold B$ is diagonalizable in $\mathbb C$ but not in $\mathbb R.$ This can be tested in numpy.
+
+<br>
+
+* **Eigenspaces.** Given any eigenvalue $\lambda,$ we can solve for all corresponding eigenvectors by finding $\bold v$ such that $(\lambda \bold I_n - \bold A)\bold v = \bold 0,$ e.g. by Gaussian elimination. The eigenvectors of $\lambda$ form a subspace 
+  $$E_\lambda = \mathsf{N}(\lambda \bold I_n - \bold A)$$ 
+  
+  called the **eigenspace** of $\lambda.$ In a diagonalization of $\bold A$ with respect to an eigenbasis, the eigenspace $E_\lambda$ corresponds to a block $\lambda \bold I_{k}$ where $k= \dim E_\lambda$ is called the **geometric multiplicity** of $\lambda.$ It turns out that the geometric multiplicity of $\lambda$ is bounded above by its algebraic multiplicity. This applies to all matrices $\bold A,$ i.e. not just for diagonalizable ones.
+  
+  <br>
+
+  **Proof.** (Geometric mult. $\leq$ algebraic mult.) Let $\lambda_1$ be an eigenvalue of $\bold A.$ To see why the inequality should be true, consider a basis for $E_{\lambda_1}$ consisting of $k$ vectors, we can extend this to a basis for $\mathbb R^n$ which we collect in the columns of a matrix $\bold V.$ Then 
+    $$\bold A = \bold V \begin{bmatrix}
+        {\lambda_1} \bold I_k & \bold C \\ 
+        \bold 0 & \bold D \\
+    \end{bmatrix} \bold V^{-1}$$ 
+
+    for some matrices $\bold C$ and $\bold D$ which can have arbitrary structure. Thus, with the determinants of $\bold V$ and its inverse $\bold V^{-1}$ cancelling out, we get
+    $$
+    \begin{aligned}
+    p_\bold A(\lambda) 
+    = \det (\lambda \bold I - \bold A)
+    = (\lambda - {\lambda_1})^k\det(\lambda \bold I_{n-k} - \bold D).
+    \end{aligned}
+    $$
+
+    Since the latter determinant can have a factor of $(\lambda - {\lambda_1}),$ this implies that the algebraic multiplicity of ${\lambda_1}$ is at least $k$ proving the result. $\square$
+
+    <br>
+
+    **Remark.** In a diagonalizable matrix, we get equality between algebraic and geometric multiplicities obtaining an eigenbasis for $\mathbb R^n$ since eigenvectors belonging to different eigenspaces are linearly independent.  
+
+<br>
+
+* **Eigenspace as invariant subspace.** Note that eigenspaces are necessarily invariant subspaces of $\bold A.$ This automatically sets restrictions on the geometry. Consider
+  $$\bold B = 
+  \begin{bmatrix}
+     0 & 1 &  0 \\ 
+    -1 & 0 &  0 \\
+     0 & 0 & -5
+  \end{bmatrix}$$
+    which is a rotation matrix with $\theta = \frac{\pi}{2}$ on the $xy$-plane and a stretching on the $z$ plane. From the geometry, we can already see that there cannot exist a real eigendecomposition of $\bold B$ since the $xy$-plane which is a 2-dimensional invariant subspace undergoes a rotation.
+
+<br> 
+
+* **Eigenvalues of triangular matrices.** The eigenvalues of triangular matrices can be read off from its diagonal. This follows from the fact that the only nonzero term in the determinant expansion of the characteristic polynomial is that which follows the path along the diagonal. For an upper triangular matrix, you have to start with $a_{11}-\lambda.$ Thus, the next factor can only be chosen from $a_{22} -\lambda$ and $a_{j2} = 0$ for $j > 2.$ This forces $j = 2,$ and we have $(a_{11} -\lambda)(a_{22}-\lambda)$ so far. And so on, getting all diagonal entries.
+
+<br>
+
+* **Trace and determinant formula.** We prove two formulas: 
+  * $\det \bold A=\prod_{i=1}^n \lambda_i$
+
+  * $\text{tr} \bold A = \sum_{i=1}^n \lambda_i$
+  
+  <br>
+
+  **Proof.** (1) To prove the first, set $\lambda = 0$ in the characteristic polynomial, we get
+    $$p_\bold A(0) = \det (0\bold I - \bold A) = \det(-\bold A) = \prod_{i=1}^n (-\lambda_i) = (-1)^n\prod_{i=1}^n \lambda_i.
+    $$
+
+    Incidentally, this is $c_0$ coefficient of the characteristic polynomial. Note that $\det(-\bold A) = (-1)^n\det(\bold A).$ Thus, $\det \bold A=\prod_{i=1}^n \lambda_i.$ 
+    
+    <br>
+
+    (2) Consider the coefficient $c_{n-1}$ of the characteristic polynomial. These are the terms in the determinant function that takes $n-1$ of the diagonal entries, and one that is off diagonal. However, this forces us to multiply *all* diagonal entries. Thus, $c_{n-1}$ is the coefficient of $\lambda^{n-1}$ in $\det(\lambda \bold I_n - \bold A).$ Note that expansion when multiplying out binary terms is akin to a binary tree expansion. The terms we're iterested in chooses $n-1$ of $\lambda$ and one of the other factor. These occur in $n$ leaves, i.e. $-a_{11} \lambda^{n-1}, \ldots, -a_{nn} \lambda^{n-1}.$ Thus, $c_{n-1} = -\lambda^{n-1}\text{tr} \bold A.$ On the other hand, solving for $c_{n-1}$ in the expansion of $p_\bold A(\lambda) = \prod_{i=1}^n(\lambda - \lambda_i)$ we get $c_{n-1} = -\lambda^{n-1}\sum_{i=1}^{n} \lambda_i.$ Thus, $\text{tr}\bold A = \sum_{i=1}^n \lambda_i.$ $\square$
+
+<br>
+
+* **Eigenvalues occur in conjugate pairs.** Complex eigenvalues of a real (!) matrix come in conjugate pairs. This is obtained by taking the conjugate of both sides of the eigenvalue equation. This explains why $\det \bold A = \prod_{i=1}^n \lambda_i$ is real even if the eigenvalues can be complex.
+
+<br>
+
+- **Growth of iterated maps**. Let $\lambda$  be the principal eigenvalue of $\bold A$, then
+
+    $$\dfrac{\lVert \bold A^k \bold v\rVert}{\lVert \bold A^{k-1} \bold v\rVert} \approx |\lambda| .$$
+
+    That is the vector $\bold A^k\bold v$ gets squashed into a principal eigenvector direction. If there are more than one, then it's like being stuck at a local minima, e.g. oscillation. If $|\lambda| > 1$, then $\lVert \bold A^k \bold v \rVert$ explodes. To  prevent this, we can scale $\bold A \leftarrow |\lambda|^{-1}\bold A$. So that 
+
+    $$\dfrac{|{\lambda}|^{k-1}}{|\lambda|^{k}}\dfrac{\lVert \bold A^k \bold v\rVert}{\lVert \bold A^{k-1} \bold v\rVert} =  \dfrac{1}{|\lambda|}\dfrac{\lVert \bold A^k \bold v\rVert}{\lVert \bold A^{k-1} \bold v\rVert} \approx 1.$$
+
+    as $k \to \infty$ (right) so the norm stabilizes to some fixed value (left). This is simulated in `18_iterated_maps.py`. Observe some oscillation because two of the eigenvalues of $\bold A$ are $3$ and ~$3.16$ are close to each other, i.e. $\frac{|\lambda_1|}{|\lambda_2|} \to 0$ at a slower rate. See equations (9) and (10) in this [blog post on power iteration](https://andrewcharlesjones.github.io/posts/2021/01/power-iteration/) which gives a proof of this behavior of iterated maps. It is assumed that $\bold A$ is diagonalizable. 
+    
+    <br>
+
+    <p align='center'>
+    <img src="img/18_iterated_maps.png"
+        width=600 />
+    </p>
 
 <br>
 
 <br>
 
-
-## Quadratic form and definiteness
-
----
-
-[Back to top](#notes)
-
-* 
-
-<br>
-
-<br>
 
 ---
 
