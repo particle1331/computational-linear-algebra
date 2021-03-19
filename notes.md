@@ -1250,7 +1250,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
   <br>
 
-  **Remark.** Note that if a square matrix $\bold A$ is not symmetric, then we can always symmetrize it in the quadratic form: $\bold x^\top \bold A \bold x =  \bold x^\top\frac{1}{2}\left(\bold A^\top + \bold A\right)\bold x.$ Thus, we limit the discussion of quadratic forms to symmetric matrices.
+  **Remark.** If a square matrix $\bold A$ is not symmetric, then we can always symmetrize it in the quadratic form: $\bold x^\top \bold A \bold x =  \bold x^\top\frac{1}{2}\left(\bold A^\top + \bold A\right)\bold x.$ Thus, we can limit the discussion of quadratic forms to symmetric matrices without loss of generality.
 
 <br> 
 
@@ -1262,10 +1262,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   * **Indefinite** if $f_\bold Q(\bold x)$ can be negative and positive. 
 
-
-  <br>
-
-  **Remark.** Some authors also define negative definite and negative semidefinite. This doesn't add to theory, i.e. $\bold Q$ is negative definite if $-f_\bold Q$ is positive definite. 
 
 <br>
 
