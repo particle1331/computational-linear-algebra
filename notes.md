@@ -1246,20 +1246,21 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 [Back to top](#notes)
 
 * **Quadratic forms.** 
-  Let $\bold Q \in \mathbb R^{n\times n}$ be a symmetric matrix. The associated **quadratic form** $f_\bold Q$ is a function that sends vectors $\bold x \in \mathbb R^n$ to real numbers $\bold x^\top \bold Q \bold x$ where $\bold Q.$ The quadratic form, or more precisely its normalization
-  $$f_\bold Q(\bold x) = \dfrac{\bold x^\top \bold Q \bold x}{\bold x^\top \bold x}$$
+  Let $\bold Q \in \mathbb R^{n\times n}$ be a symmetric matrix. The associated **quadratic form** is defined as $f_\bold Q(\bold x) = \bold x^\top\bold Q \bold x$ for $\bold x \in \mathbb R^n$ to real numbers $\bold x^\top \bold Q \bold x.$ The quadratic form can be interpreted as the corresponding energy function of the matrix. Below we will classify quadratic forms based on its energy profile. And we will see that this profile is intimately connected with the spectrum of the matrix. 
   
-  can be interpreted as the corresponding energy function of the matrix. Below we will classify quadratic forms based on its energy profile. This profile is intimately connected with the spectrum of the matrix. Note that if a square matrix $\bold A$ is not symmetric, then we can always symmetrize it in the quadratic form: $\bold x^\top \bold A \bold x = \frac{1}{2} \bold x^\top\left(\bold A^\top + \bold A\right)\bold x.$ Thus, we limit the discussion to symmetric matrices.
+  <br>
+
+  **Remark.** Note that if a square matrix $\bold A$ is not symmetric, then we can always symmetrize it in the quadratic form: $\bold x^\top \bold A \bold x =  \bold x^\top\frac{1}{2}\left(\bold A^\top + \bold A\right)\bold x.$ Thus, we limit the discussion of quadratic forms to symmetric matrices.
 
 <br> 
 
-* **Classifying quadratic forms.** A matrix $\bold Q$ is classified according to the possible signs that its quadratic form $f_\bold Q$ can take.
+* **Classifying quadratic forms.** A matrix $\bold Q$ is classified according to the possible signs that its quadratic form can take:
 
-  * **Positive definite**: $f_\bold Q(\bold x) > 0$ for nonzero $\bold x.$
+  * **Positive definite** if $f_\bold Q(\bold x) > 0$ for nonzero $\bold x.$
 
-  * **Positive semidefinite:** $f_\bold Q(\bold x) \geq 0$.
+  * **Positive semidefinite** if $f_\bold Q(\bold x) \geq 0$ for all $\bold x.$
 
-  * **Indefinite:** $f_\bold Q(\bold x)$ can be negative and positive. 
+  * **Indefinite** if $f_\bold Q(\bold x)$ can be negative and positive. 
 
 
   <br>
@@ -1276,11 +1277,12 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Principal axes theorem and maximal directions.** This is simply an extension of the real spectral theorem. Recall that any real symmetric matrix $\bold Q$ has a spectral decomposition $\bold Q = \bold U \bold \Lambda \bold U^\top$ such that $\bold \Lambda$ is a real matrix of eigenvalues and $\bold U = [\bold u_1, \ldots, \bold u_n]$ is an orthogonal matrix composed of the corresponding orthogonal eigenvectors. This allows us to 'diagonalize' the quadratic form:
-    $$f_\bold Q (\bold x) = (\bold U^\top \bold x)^\top \bold \Lambda\; (\bold U^\top \bold x).$$
+* **Principal axes theorem and maximal directions.** 
+  This is simply an extension of the real spectral theorem. Recall that any real symmetric matrix $\bold Q$ has a spectral decomposition $\bold Q = \bold U \bold \Lambda \bold U^\top$ such that $\bold \Lambda$ is a real matrix of eigenvalues and $\bold U = [\bold u_1, \ldots, \bold u_n]$ is an orthogonal matrix composed of the corresponding orthogonal eigenvectors. This allows us to 'diagonalize' the quadratic form:
+  
+  $$f_\bold Q (\bold x) = (\bold U^\top \bold x)^\top \bold \Lambda\; (\bold U^\top \bold x).$$
 
-    This allows us to obtain orthogonal directions of maximal increase and decrease in $f_\bold Q$ &mdash; the principal axes of $\bold Q$ &mdash; by taking unit eigenvector directions $\bold x = \bold u_i$ according to the sign of the eigenvalue $\lambda_i.$ Note that $\bold U$ is an isometry so applying this doesn't affect the magnitude of $\bold x,$ only its direction. This is important if we want to pick out directions of maximal increase or decrease in energy.
-    In fact, assuming $\lambda_1 \geq \ldots \geq \lambda_n,$ then the maximal increase in energy is alongs $\pm\bold u_1$ where $f_\bold Q(\pm\bold u_1) = \lambda_1.$ On the other hand, the maximal decrease in energy is along $\pm\bold u_n$ where $f_\bold Q(\pm\bold u_n) = \lambda_n.$ For any other direction, we get a suboptimal weighting of eigenvalues.
+  This makes clear the action of the quadratic form. First, project the vector $\bold x$ onto the principal axes getting $x_i = \bold u_i^\top \bold x.$ The resulting vector is dotted to itself weighted by the eigenvalues: $f_\bold Q (\bold x) = \sum_{i=1}^n \lambda_i {x_i}^2.$ Observe that the principal axes are orthogonal directions of fixed rates of increase or decrease of energy. For instance, assuming $\lambda_1 \geq \ldots \geq \lambda_n,$ then the maximal increase in energy is alongs $\pm\bold u_1$ where $f_\bold Q(\pm\bold u_1) = \lambda_1.$ On the other hand, the maximal decrease in energy is along $\pm\bold u_n$ where $f_\bold Q(\pm\bold u_n) = \lambda_n.$ For any other direction, we get a suboptimal weighting of eigenvalues. See above figure for such directions in the graph of $f_\bold Q.$
     
 <br>
 
@@ -1306,7 +1308,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     <br>
 
     <p align="center">
-    <img src='img/quadratic_form_invertibility.png' width=60%>
+    <img src='img/quadratic_form_invertibility.png' width=80%>
     <br>
     <b>Figure.</b> Summary of results of this section.
     </p>
