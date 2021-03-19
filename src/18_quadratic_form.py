@@ -63,8 +63,8 @@ if __name__ == '__main__':
     plot_QF_surface(Q, fn='../img/18_indefiniteQF.png')
     
     Q = np.array([
-        [1, 2],
-        [1, 2]
+        [1, 1],
+        [1, 1]
     ])
     plot_QF_surface(Q, fn='../img/18_semidefiniteQF.png')
     

@@ -1343,7 +1343,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 * **Normalized QF.** One other way of analyzing the energy function is by 'normalizing' it, i.e. computing 
   $$\tilde f_\bold Q(\bold x) = \frac{\bold x^\top \bold Q \bold x}{\bold x^\top\bold x} = \sum_{i,j=1}^n q_{ij} \frac{x_i x_j}{\sum_{i=1}^n {x_i}^2}.$$
 
-  Since we are only dividing the the norm squared of $\bold x,$ the two principal axes $\pm\bold u_1$ and $\pm\bold u_n$ should still be the same directions of greatest increase and decrease. Indeed, this is verified by the ff. plots generated in `18_normalized_QF.py`. Observe that, unlike before, the plots are now bounded, i.e. by $\lambda_1$ and $\lambda_n.$ It has, however, a singularity at the origin. 
+  Since we are only dividing the the norm squared of $\bold x,$ the two principal axes $\pm\bold u_1$ and $\pm\bold u_n$ should still be the same directions of greatest increase and decrease. Indeed, this is verified by the ff. plots generated in `18_normalized_QF.py`. Observe that, unlike before, the plots are now bounded, i.e. by $\lambda_1$ and $\lambda_n.$ It has, however, a singularity at the origin. Having 'fixed rate' of energy increase now along the principal axes is more straightforward to see now that the energy function actually fixed along these directions: $\tilde f_\bold Q(a\bold u_i) = \lambda_i$ for any scalar $a.$ 
   
   <br>
 
