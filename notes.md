@@ -296,8 +296,10 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
   Thus, the relative perturbation on the input is bounded by the relative perturbation of the output multiplied by the condition number $\kappa(\bold A).$ Changes in the right-hand side can cause changes $\kappa(\bold A)$ times as large in the solution. Note that the quantities on the input and output are dimensionless and scale independent.
 
-  <p>
-    <img src='img/13_condition_number_spheres.png'>
+  <br>
+
+  <p align="center">
+    <img src='img/13_condition_number_spheres.png' width=60%>
   </p>
 
 
@@ -309,8 +311,10 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 * **Layer perspective and layer weight.** We can write $\bold A = \sum_{k=1}^{\min{(m, n)}} \sigma_k \bold u_k \bold v_k^\top.$ Note that since the singular vectors have norm $1.$ Then, $\sigma_k$ can be interpreted as the importance of the $k$th layer. Most matrices with a definite structure have only a few relatively large singular values with significant values, while most are close to zero. On the other hand, random / noisy matrices have a large number of nonzero singular values. For example, for the image of a dog (`13_img_svd.py`):
 
-  <p>
-    <img src='img/dog.jpg'>
+  <br>
+
+  <p align="center">
+    <img src='img/dog.jpg' width=60%>
   </p>
 
   We construct the first $k$ layers to make an image. Note that the layers are additive and we can write 
@@ -320,7 +324,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
   <br>
 
-  <p>
+  <p align="center">
     <img src='img/13_img_svd-reconstruction.jpg'>
   </p>
 
@@ -330,7 +334,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
   <br>
 
-  <p>
+  <p align="center">
     <img src='img/13_img_svd-scree.png'>
   </p>
 
@@ -343,7 +347,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
   <br>
   
-  <p>
+  <p align="center">
     <img src='img/13_kappa=42.png'>
   </p>
 
@@ -351,7 +355,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 * **Smooth KDE.** Dog image too large, instead we make an artificial example of a sum of 2D Gaussians to demonstrate the idea of how the relatively low number of layers in the SVD decomposition provide the majority of information in a matrix. The nonzero singular values occupy a small bright streak on the upper left of the middle plot. Moreover, the first few singular vectors look meaningful whereas the rest look more and more like noise &mdash; these are the singular vectors that reconstruct most of the meaningful structure in the matrix. This is not the case for the random matrix where there is no low-dimensional or low-rank structure.
 
-  <p>
+  <p align="center">
     <img src='img/13_kde.png'>
   </p>
 
@@ -854,7 +858,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   <br>
 
   <p align="center">
-      <img src="img/10_projection.png" title="drawing" width=80% />
+      <img src="img/10_projection.png" title="drawing" width=40% />
   </p> 
 
   <br>
@@ -944,7 +948,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   <br>
 
   <p align="center">
-  <img src="img/10_solve_triangular.png" title="drawing" width="80%" />
+  <img src="img/10_solve_triangular.png" title="drawing" width="50%" />
 
   <b>Figure.</b> Wall time for computing the inverse of a full (blue) and upper triangular (orange) randomly generated n-by-n matrix. 
   </p> 
@@ -1111,7 +1115,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 <br>
 <p align='center'>
 <img src="img/18_gershgorin_disks.png"
-     width=65% />
+     width=45% />
 <br>
 [Olver, 2018] p. 421
 </p>
@@ -1302,7 +1306,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     <br>
 
     <p align="center">
-    <img src='img/quadratic_form_invertibility.png' width=80%>
+    <img src='img/quadratic_form_invertibility.png' width=60%>
     <br>
     <b>Figure.</b> Summary of results of this section.
     </p>
