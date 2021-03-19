@@ -1289,17 +1289,17 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   <p align="center">
   <center> 
   
-  **Definite** 
+  **Definite** (green positive, blue positive)
   <br>
   <img src="img/18_definiteQF.png">
   
   <br>
 
-  **Semidefinite** 
+  **Semidefinite** (green positive, blue zero)
   <br>
   <img src="img/18_semidefiniteQF.png">
 
-  **Indefinite** 
+  **Indefinite** (green positive, blue negative)
   <br>
   <img src="img/18_indefiniteQF.png">
 
@@ -1323,7 +1323,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
     * All eigenvalues positive iff. $\bold Q$ is positive definite.
     * All eigenvalues nonnegative iff. $\bold Q$ is positive semidefinite.
-    * Mix of positive and negative eigenvalues iff. $\bold Q$ is indefinite.
+    * Positive and negative eigenvalues iff. $\bold Q$ is indefinite.
 
 <br>
 
