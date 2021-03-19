@@ -12,7 +12,7 @@ Notes and code experiments for linear algebra. The idea is to construct the SVD 
 
 <br>
 
-I wrote the notes while following the Udemy course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/). 
+I wrote the notes while following the Udemy course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/) between January and March of 2021.
 
 <br>
 
