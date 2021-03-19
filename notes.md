@@ -1282,8 +1282,36 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
   $$f_\bold Q (\bold x) = (\bold U^\top \bold x)^\top \bold \Lambda\; (\bold U^\top \bold x).$$
 
-  This makes clear the action of the quadratic form. First, project the vector $\bold x$ onto the principal axes getting $x_i = \bold u_i^\top \bold x.$ The resulting vector is dotted to itself weighted by the eigenvalues: $f_\bold Q (\bold x) = \sum_{i=1}^n \lambda_i {x_i}^2.$ Observe that the principal axes are orthogonal directions of fixed rates of increase or decrease of energy. For instance, assuming $\lambda_1 \geq \ldots \geq \lambda_n,$ then the maximal increase in energy is alongs $\pm\bold u_1$ where $f_\bold Q(\pm\bold u_1) = \lambda_1.$ On the other hand, the maximal decrease in energy is along $\pm\bold u_n$ where $f_\bold Q(\pm\bold u_n) = \lambda_n.$ For any other direction, we get a suboptimal weighting of eigenvalues. See above figure for such directions in the graph of $f_\bold Q.$
+  This makes clear the action of the quadratic form. First, project the vector $\bold x$ onto the principal axes getting $x_i = \bold u_i^\top \bold x.$ The resulting vector is dotted to itself weighted by the eigenvalues: $f_\bold Q (\bold x) = \sum_{i=1}^n \lambda_i {x_i}^2.$ Observe that the principal axes are orthogonal directions of fixed rates of increase or decrease of energy. For instance, assuming $\lambda_1 \geq \ldots \geq \lambda_n,$ then the maximal increase in energy is alongs $\pm\bold u_1$ where $f_\bold Q(\pm\bold u_1) = \lambda_1.$ On the other hand, the maximal decrease in energy is along $\pm\bold u_n$ where $f_\bold Q(\pm\bold u_n) = \lambda_n.$ For any other direction, we get a suboptimal weighting of eigenvalues. 
+  
+<br>
+
+* **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we plot the principal axes of each matrix (symmetrized) in the above figure except the upper right. The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative). Note that $\lambda_0$ (max increase) $\geq$ $\lambda_1$ (max decrease).
     
+  <br>
+
+  <p align="center">
+  <center> 
+  
+  **Definite** 
+  <br>
+  <img src="img/18_definiteQF.png">
+  
+  <br>
+
+  **Semidefinite** 
+  <br>
+  <img src="img/18_semidefiniteQF.png">
+
+  **Indefinite** 
+  <br>
+  <img src="img/18_indefiniteQF.png">
+
+  </center>
+  </p>
+
+
+
 <br>
 
 * **Definiteness and eigenvalues.** 
