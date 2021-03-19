@@ -7,7 +7,7 @@ Notes and code demos in Python for linear algebra. The idea is to construct the 
   * An extensive discussion of the Moore-Penrose pseudoinverse
   * Stability of the Gram-Schmidt algorithm
 
-I wrote these while following the Udemy course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/). Check the course out if you're a beginner interested in machine learning. :=)
+I wrote the notes while following the Udemy course [Complete linear algebra: theory and implementation in code](https://www.udemy.com/course/linear-algebra-theory-and-implementation/) by [Prof. Mike X Cohen](http://mikexcohen.com/). Check the course out if you're a beginner interested in machine learning. :=)
 
 <br>
 

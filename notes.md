@@ -11,6 +11,7 @@
   - [Projection and orthogonalization](#projection-and-orthogonalization)
   - [Least squares for model fitting](#least-squares-for-model-fitting)
   - [Eigendecomposition](#eigendecomposition)
+  - [Quadratic form and definiteness](#quadratic-form-and-definiteness)
 
 <br>
 
@@ -985,7 +986,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
     $$   
 
-  Thus, projections are solutions to the LLS, e.g. we can take $\hat \bold w = \bold X^+ \bold y.$ We show that projections are *precisely* the solutions. We prove this using the singular vectors of $\bold X.$ The objective function in terms of the SVD can be written as
+  Thus, projections are solutions to the LLS, e.g. we can take $\hat \bold w = \bold X^+ \bold y.$ In fact, projections are the only solutions. We prove this using the singular vectors of $\bold X.$ The objective function in terms of the SVD can be written as
     $$
     \begin{aligned}
     \lVert \bold y - {\bold U \bold \Sigma} {\bold V}^\top \bold w \rVert^2
@@ -1055,7 +1056,12 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   X_pinv @ y = [-0.99971352  2.99951481]
   ```
 
-  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change. It will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional equal to the square of the amplitude $a$ of the noise. To derive this, observe that since $\mu = 0$, the variance is $\mathbb E[a^2 X^2] = a^2 \mathbb E[X^2] = a^2\sigma^2 = a^2.$ This agrees with the best MSE of `9.34e-05` ~ `1e-4`.
+  Here `w_best` is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change. It will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional equal to the square of the amplitude $a$ of the noise. To derive this, observe that since $\mu = 0$, the variance is $\mathbb E[a^2 X^2] = a^2 \mathbb E[X^2] = a^2\sigma^2 = a^2.$ This agrees with the best MSE of `9.34e-05` ~ `1e-4`. This can be derived analytically by writing the loss function as 
+  $(\bold y - \bold X \bold w)^\top (\bold y - \bold X \bold w).$ If we substitute $\bold y = \bold X \bold w_{\text{true}} + \boldsymbol{\epsilon},$ then 
+  $$J(\bold w) = (\bold w - \bold w_{\text{true}})^\top \bold X^\top \bold X (\bold w - \bold w_{\text{true}}) - 2 \boldsymbol{\epsilon}^\top \bold X (\bold w - \bold w_{\text{true}}) + \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon}. 
+  $$
+
+  This is a quadratic surface centered at $\bold w_{\text{true}}$ with value $J = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon}$ at the minimum $\bold w = \bold w_{\text{true}}.$
 
 <br>
 
@@ -1229,6 +1235,81 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
+## Quadratic form and definiteness
+
+---
+
+[Back to top](#notes)
+
+* **Quadratic forms.** 
+  Let $\bold Q \in \mathbb R^{n\times n}$ be a symmetric matrix. The associated **quadratic form** $f_\bold Q$ is a function that sends vectors $\bold x \in \mathbb R^n$ to real numbers $\bold x^\top \bold Q \bold x$ where $\bold Q.$ The quadratic form, or more precisely its normalization
+  $$f_\bold Q(\bold x) = \dfrac{\bold x^\top \bold Q \bold x}{\bold x^\top \bold x}$$
+  
+  can be interpreted as the corresponding energy function of the matrix. Below we will classify quadratic forms based on its energy profile. This profile is intimately connected with the spectrum of the matrix. Note that if a square matrix $\bold A$ is not symmetric, then we can always symmetrize it in the quadratic form: $\bold x^\top \bold A \bold x = \frac{1}{2} \bold x^\top\left(\bold A^\top + \bold A\right)\bold x.$ Thus, we limit the discussion to symmetric matrices.
+
+<br> 
+
+* **Classifying quadratic forms.** A matrix $\bold Q$ is classified according to the possible signs that its quadratic form $f_\bold Q$ can take.
+
+  * **Positive definite**: $f_\bold Q(\bold x) > 0$ for nonzero $\bold x.$
+
+  * **Positive semidefinite:** $f_\bold Q(\bold x) \geq 0$.
+
+  * **Indefinite:** $f_\bold Q(\bold x)$ can be negative and positive. 
+
+
+  <br>
+
+  **Remark.** Some authors also define negative definite and negative semidefinite. This doesn't add to theory, i.e. $\bold Q$ is negative definite if $-f_\bold Q$ is positive definite. 
+
+<br>
+
+<p align='center'>
+    <img src='img/quadratic_forms.png'>
+    <br>
+    <b>Figure.</b> Classification of quadratic forms.
+</p>
+
+<br>
+
+* **Principal axes theorem and maximal directions.** This is simply an extension of the real spectral theorem. Recall that any real symmetric matrix $\bold Q$ has a spectral decomposition $\bold Q = \bold U \bold \Lambda \bold U^\top$ such that $\bold \Lambda$ is a real matrix of eigenvalues and $\bold U = [\bold u_1, \ldots, \bold u_n]$ is an orthogonal matrix composed of the corresponding orthogonal eigenvectors. This allows us to 'diagonalize' the quadratic form:
+    $$f_\bold Q (\bold x) = (\bold U^\top \bold x)^\top \bold \Lambda\; (\bold U^\top \bold x).$$
+
+    This allows us to obtain orthogonal directions of maximal increase and decrease in $f_\bold Q$ &mdash; the principal axes of $\bold Q$ &mdash; by taking unit eigenvector directions $\bold x = \bold u_i$ according to the sign of the eigenvalue $\lambda_i.$ Note that $\bold U$ is an isometry so applying this doesn't affect the magnitude of $\bold x,$ only its direction. This is important if we want to pick out directions of maximal increase or decrease in energy.
+    In fact, assuming $\lambda_1 \geq \ldots \geq \lambda_n,$ then the maximal increase in energy is alongs $\pm\bold u_1$ where $f_\bold Q(\pm\bold u_1) = \lambda_1.$ On the other hand, the maximal decrease in energy is along $\pm\bold u_n$ where $f_\bold Q(\pm\bold u_n) = \lambda_n.$ For any other direction, we get a suboptimal weighting of eigenvalues.
+    
+<br>
+
+* **Definiteness and eigenvalues.** 
+  Suppose $\bold Q$ has positive eigenvalues, then $f_\bold Q(\bold x) = \sum_{i=1}^n \lambda_i y_i^2 > 0.$ Similarly, $f_\bold Q(\bold x) = \sum_{i=1}^n \lambda_i y_i^2 \geq 0$ whenever $\bold Q$ has nonnegative eigenvalues. Conversely, we can use eigenvector inputs to pick out individual eigenvalues so that positive definiteness implies positive eigenvalues. Similarly, positive semidefiniteness implies having nonnegative eigenvalues. 
+
+  <br>
+
+  Now suppose $\bold Q$ has eigenvalues of mixed signs. Then, we can pick out these directions to show that $\bold Q$ is indefinite. To prove the converse, suppose $\bold Q$ is indefinite. Assume $\bold U = \bold I_n$ for ease of writing in the principal axes expansion of $f_\bold Q.$ Let $f_{\bold Q}(\boldsymbol p) > 0.$ Then, $\sum_{i=1}^n \lambda_i p_i^2 > 0.$ It follows that some $\lambda_i > 0.$ Similarly, suppose $f_{\bold Q}(\boldsymbol q) < 0$ for some $\boldsymbol q,$ then there exists $\lambda_j < 0.$ Thus, $\bold Q$ has eigenvalues of mixed signs. 
+  
+  <br>
+  
+  In summary:
+
+    * All eigenvalues positive iff. $\bold Q$ is positive definite.
+    * All eigenvalues nonnegative iff. $\bold Q$ is positive semidefinite.
+    * Mix of positive and negative eigenvalues iff. $\bold Q$ is indefinite.
+
+<br>
+
+* **Invertibility.** As a consequence of the characterization of the eigenvalues of $\bold Q,$ a positive definite matrix is invertible since it has a trivial null space, whereas a positive semidefinite is noninvertible since it has a nontrivial nullspace which is the eigenspace of zero. 
+
+    <br>
+
+    <p align="center">
+    <img src='img/quadratic_form_invertibility.png' width=80%>
+    <br>
+    <b>Figure.</b> Summary of results of this section.
+    </p>
+
+<br>
+
+<br>
 
 ---
 
