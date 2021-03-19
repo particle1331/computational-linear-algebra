@@ -34,4 +34,5 @@ ax.plot([Ax[0], b[0]],
 
 print('(Ax - b) @ Ax =', (Ax - b) @ Ax )
 plt.legend()
+plt.tight_layout()
 plt.savefig('../img/10_projection.png')

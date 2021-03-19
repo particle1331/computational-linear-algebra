@@ -858,7 +858,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   <br>
 
   <p align="center">
-      <img src="img/10_projection.png" title="drawing" width=40% />
+      <img src="img/10_projection.png" title="drawing" width=60% />
   </p> 
 
   <br>
@@ -948,7 +948,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   <br>
 
   <p align="center">
-  <img src="img/10_solve_triangular.png" title="drawing" width="50%" />
+  <img src="img/10_solve_triangular.png" title="drawing"/>
 
   <b>Figure.</b> Wall time for computing the inverse of a full (blue) and upper triangular (orange) randomly generated n-by-n matrix. 
   </p> 
@@ -1282,30 +1282,31 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we plot the principal axes of each matrix (symmetrized) in the above figure except the upper right. The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative). Note that $\lambda_0$ (max increase) $\geq$ $\lambda_1$ (max decrease).
+* **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we plot the principal axes of each matrix (symmetrized) in the above figure except the upper right. The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative).
     
   <br>
 
   <p align="center">
   <center> 
   
-  **Definite** (green positive, blue positive)
+  **Definite** 
   <br>
   <img src="img/18_definiteQF.png">
   
   <br>
 
-  **Semidefinite** (green positive, blue zero)
+  **Semidefinite**
   <br>
   <img src="img/18_semidefiniteQF.png">
 
-  **Indefinite** (green positive, blue negative)
+  <br>
+
+  **Indefinite**
   <br>
   <img src="img/18_indefiniteQF.png">
 
   </center>
   </p>
-
 
 
 <br>

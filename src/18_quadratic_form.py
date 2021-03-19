@@ -46,7 +46,9 @@ def plot_QF_surface(Q, fn=''):
     eigvec0 = ax2.arrow(0, 0, eigvals[0]*eigvecs[0, 0], eigvals[0]*eigvecs[1, 0], color='green', label=f'$\lambda_0 u_0$')
     eigvec1 = ax2.arrow(0, 0, eigvals[1]*eigvecs[0, 1], eigvals[1]*eigvecs[1, 1], color='blue',  label=f'$\lambda_1 u_1$')
     ax2.legend([eigvec0, eigvec1], [f'$\lambda_0 u_0$', f'$\lambda_1 u_1$'])
-    
+    ax2.set_title(f'$\lambda_0$={eigvals[0]:.2f}, $\lambda_1$={eigvals[1]:.2f}', fontsize=10)
+
+
     fig.tight_layout()
     plt.savefig(fn)
     # plt.show() # can move 3d plot around

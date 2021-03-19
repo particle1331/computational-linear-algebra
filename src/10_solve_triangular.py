@@ -25,7 +25,7 @@ for j in pow_range:
 
 
 # plot
-fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+fig, ax = plt.subplots(1, 1, figsize=(4, 4))
 
 plt.scatter(pow_range, inv_times, marker='o', edgecolors='k', label='np.linalg.inv')
 plt.scatter(pow_range, tri_times, marker='o', edgecolors='k', label='sp.linalg.solve_triangular')
