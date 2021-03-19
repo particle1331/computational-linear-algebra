@@ -1291,7 +1291,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
   <br>
 
-  Now suppose $\bold Q$ has eigenvalues of mixed signs. Then, we can pick out these directions to show that $\bold Q$ is indefinite. To prove the converse, suppose $\bold Q$ is indefinite. Assume $\bold U = \bold I_n$ for ease of writing in the principal axes expansion of $f_\bold Q.$ Let $f_{\bold Q}(\boldsymbol p) > 0.$ Then, $\sum_{i=1}^n \lambda_i p_i^2 > 0.$ It follows that some $\lambda_i > 0.$ Similarly, suppose $f_{\bold Q}(\boldsymbol q) < 0$ for some $\boldsymbol q,$ then there exists $\lambda_j < 0.$ Thus, $\bold Q$ has eigenvalues of mixed signs. 
+  Now suppose $\bold Q$ has eigenvalues of mixed signs. Then, we can pick out these directions to show that $\bold Q$ is indefinite. To prove the converse, suppose $\bold Q$ is indefinite. Let $f_{\bold Q}(\boldsymbol p) > 0$ and let $p_i = \bold u_i^\top \boldsymbol p.$ Then, $\sum_{i=1}^n \lambda_i {p_i}^2 > 0.$ It follows that some $\lambda_i > 0.$ Similarly, assuming $f_{\bold Q}(\boldsymbol q) < 0$ for some $\boldsymbol q$ implies a negative eigenvalue exists. Thus, $\bold Q$ has eigenvalues of mixed signs. 
   
   <br>
   
