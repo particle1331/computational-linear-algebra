@@ -1282,7 +1282,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we plot the principal axes of each matrix (symmetrized) in the above figure except the upper right. The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative).
+* **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we verify the theory by plotting the principal axes of each symmetrized matrix in the above figure (except the upper right). The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative).
     
   <br>
 
