@@ -10,6 +10,22 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 
 <br>
 
+<p align="center">
+    <img src='img/13_kde.png'>
+    <br>
+    <b>Figure.</b> SVD of a sum of Gaussians. 
+</p>
+
+<br>
+
+<p align="center">
+    <img src='img/18_normalized_indefiniteQF.png'>
+    <br>
+    <b>Figure.</b> Energy surface of an indefinite matrix. 
+</p>
+
+<br>
+
 ## Quick links
 
 * [Proofs involving the Moore-Penrose pseudoinverse](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse)
