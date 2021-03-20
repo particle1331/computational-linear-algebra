@@ -1333,13 +1333,13 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
     <p align="center">
     <img src="img/18_normalized_definiteQF.png">
-    <b>Figure.</b> Energy surface of a definite matrix. It has both positive min and max. <br>
+    <b>Figure.</b> Energy surface of a definite matrix. It has both positive minimum and maximum that correspond to the eigenvalues. <br>
     <br><br>
     <img src="img/18_normalized_semidefiniteQF.png">
-    <b>Figure.</b> Energy surface of a semidefinite matrix. It has a positive maximum and zero minimum. <br>
+    <b>Figure.</b> Energy surface of a semidefinite matrix. It has a positive maximum and zero minimum that correspond to the eigenvalues. <br>
     <br><br>
     <img src="img/18_normalized_indefiniteQF.png">
-    <b>Figure.</b> Energy surface of an indefinite matrix. It has a positive maximum and negative minimum. <br>
+    <b>Figure.</b> Energy surface of an indefinite matrix. It has a positive maximum and negative minimum that correspond to the eigenvalues.   <br>
     </p>
 
 
