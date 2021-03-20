@@ -376,7 +376,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
     \|\bold A-\bold B\|_{2}^{2} \geq\|(\bold A-\bold B) \bold u\|_{2}^{2}=\|\bold A \bold u \|_{2}^{2}=\sum_{i=1}^{k+1} {c_i}^2 {\sigma_{i}}^{2} \geq \sigma_{k+1}^{2} \sum_{i=1}^{k+1}{c_i}^2 = \sigma_{k+1}^{2}.
     $$
 
-    We know that $\|\bold A-\bold A_k\|_{2} = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\bold A-\bold B\|_{2} \geq \|\bold A-\bold A_k\|_{2}.$ $\square$
+    We know that $\|\bold A-\bold A_k\|_ {2} = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\bold A-\bold B\|_ {2} \geq \|\bold A-\bold A_k\|_ {2}.$ $\square$
 
 <br>
 
@@ -1283,31 +1283,19 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 <br>
 
 * **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we verify the theory by plotting the principal axes of each symmetrized matrix in the above figure (except the upper right). The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative).
-    
-  <br>
 
-  <p align="center">
-  <center> 
-  
-  **Definite** 
-  <br>
-  <img src="img/18_definiteQF.png">
-  
-  <br>
+    <br>
 
-  **Semidefinite**
-  <br>
-  <img src="img/18_semidefiniteQF.png">
-
-  <br>
-
-  **Indefinite**
-  <br>
-  <img src="img/18_indefiniteQF.png">
-
-  </center>
-  </p>
-
+    <p align="center">
+    <img src="img/18_definiteQF.png">
+    <b>Figure.</b> A definite matrix has a convex quadratic form with unique minimum. <br>
+    <br><br>
+    <img src="img/18_semidefiniteQF.png">
+    <b>Figure.</b> A semidefinite matrix has a convex quadratic form with nonunique minimum. <br>
+    <br><br>
+    <img src="img/18_indefiniteQF.png">
+    <b>Figure.</b> The QF of an indefinite matrix is nonconvex with a stationary point but no minimum. <br>
+    </p>
 
 <br>
 
@@ -1340,30 +1328,19 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   $$\tilde f_\bold Q(\bold x) = \frac{\bold x^\top \bold Q \bold x}{\bold x^\top\bold x} = \sum_{i,j=1}^n q_{ij} \frac{x_i x_j}{\sum_{i=1}^n {x_i}^2}.$$
 
   Since we are only dividing the the norm squared of $\bold x,$ the two principal axes $\pm\bold u_1$ and $\pm\bold u_n$ should still be the same directions of greatest increase and decrease. Indeed, this is verified by the ff. plots generated in `18_normalized_QF.py`. Observe that, unlike before, the plots are now bounded, i.e. by $\lambda_1$ and $\lambda_n.$ It has, however, a singularity at the origin. Having 'fixed rate' of energy increase now along the principal axes is more straightforward to see now that the energy function actually fixed along these directions: $\tilde f_\bold Q(a\bold u_i) = \lambda_i$ for any scalar $a.$ 
-  
-  <br>
 
-  <p align="center">
-  <center> 
-  
-  **Definite** (normalized) 
-  <br>
-  <img src="img/18_normalized_definiteQF.png">
-  
-  <br>
+    <br>
 
-  **Semidefinite** (normalized)
-  <br>
-  <img src="img/18_normalized_semidefiniteQF.png">
-
-  <br>
-
-  **Indefinite** (normalized)
-  <br>
-  <img src="img/18_normalized_indefiniteQF.png">
-
-  </center>
-  </p>
+    <p align="center">
+    <img src="img/18_normalized_definiteQF.png">
+    <b>Figure.</b> Energy surface of a definite matrix. <br>
+    <br><br>
+    <img src="img/18_normalized_semidefiniteQF.png">
+    <b>Figure.</b> Energy surface of a semidefinite matrix. <br>
+    <br><br>
+    <img src="img/18_normalized_indefiniteQF.png">
+    <b>Figure.</b> Energy surface of an indefinite matrix. <br>
+    </p>
 
 
 <br>
