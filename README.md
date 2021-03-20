@@ -13,7 +13,7 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 <p align="center">
     <img src='img/13_kde.png'>
     <br>
-    <b>Figure.</b> SVD of a sum of Gaussians. 
+    <b>Figure.</b> SVD of a sum of Gaussians. Only the first few vectors are meaningful, the rest model noise. 
 </p>
 
 <br>
@@ -21,7 +21,7 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 <p align="center">
     <img src='img/18_normalized_indefiniteQF.png'>
     <br>
-    <b>Figure.</b> Energy surface of an indefinite matrix. 
+    <b>Figure.</b> Energy surface of an indefinite matrix. It has a negative minimum and a positive maximum.
 </p>
 
 <br>
