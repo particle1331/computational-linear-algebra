@@ -373,7 +373,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
   **Proof.** Note that $\dim \mathsf{N}(\bold B) = n-k$ (rank-nullity) and $\dim \mathsf{C}(\bold v_1, \ldots, \bold v_{k+1}) = k+1.$ So the dimensions of the two subspaces sum to $n + 1.$ It follows that one of the basis vectors $\bold u$ of $\mathsf{N}(\bold B)$ is a linear combination of $\bold v_1, \ldots, \bold v_{k+1}$, otherwise we exceed the dimension of the space. WLOG let $\bold u = \sum_{j=1}^{k+1} c_i \bold v_i$ be a unit vector. Then
     $$
-    \|\bold A-\bold B\|_{2}^{2} \geq\|(\bold A-\bold B) \bold u\|_{2}^{2}=\|\bold A \bold u \|_{2}^{2}=\sum_{i=1}^{k+1} {c_i}^2 {\sigma_{i}}^{2} \geq \sigma_{k+1}^{2} \sum_{i=1}^{k+1}{c_i}^2 = \sigma_{k+1}^{2}.
+    \|\bold A-\bold B\|_ {2}^{2} \geq\|(\bold A-\bold B) \bold u\|_ {2}^{2}=\|\bold A \bold u \|_ {2}^{2}=\sum_{i=1}^{k+1} {c_i}^2 {\sigma_{i}}^{2} \geq \sigma_{k+1}^{2} \sum_{i=1}^{k+1}{c_i}^2 = \sigma_{k+1}^{2}.
     $$
 
     We know that $\|\bold A-\bold A_k\|_ {2} = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\bold A-\bold B\|_ {2} \geq \|\bold A-\bold A_k\|_ {2}.$ $\square$
