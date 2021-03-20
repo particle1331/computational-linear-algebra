@@ -12,8 +12,6 @@ Notes and code experiments for linear algebra. The idea is to construct the SVD 
 
 <br>
 
-<br>
-
 ## Quick links
 
 * [Proofs involving the Moore-Penrose pseudoinverse](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse)
