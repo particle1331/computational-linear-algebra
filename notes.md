@@ -990,7 +990,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
     $$   
 
-  Thus, projections are solutions to the LLS, e.g. we can take $\hat \bold w = \bold X^+ \bold y.$ In fact, projections are the only solutions. We prove this using the singular vectors of $\bold X.$ The objective function in terms of the SVD can be written as
+  Thus, projections are solutions to the LLS and we can take $\hat \bold w = \bold X^+ \bold y.$ In fact, projections are the only solutions. We prove this using the singular vectors of $\bold X.$ The objective function in terms of the SVD can be written as
     $$
     \begin{aligned}
     \lVert \bold y - {\bold U \bold \Sigma} {\bold V}^\top \bold w \rVert^2
@@ -1314,11 +1314,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 * **Definiteness and eigenvalues.** 
   Suppose $\bold Q$ has positive eigenvalues, then $f_\bold Q(\bold x) = \sum_{i=1}^n \lambda_i y_i^2 > 0.$ Similarly, $f_\bold Q(\bold x) = \sum_{i=1}^n \lambda_i y_i^2 \geq 0$ whenever $\bold Q$ has nonnegative eigenvalues. Conversely, we can use eigenvector inputs to pick out individual eigenvalues so that positive definiteness implies positive eigenvalues. Similarly, positive semidefiniteness implies having nonnegative eigenvalues. 
 
-  <br>
-
   Now suppose $\bold Q$ has eigenvalues of mixed signs. Then, we can pick out these directions to show that $\bold Q$ is indefinite. To prove the converse, suppose $\bold Q$ is indefinite. Let $f_{\bold Q}(\boldsymbol p) > 0$ and let $p_i = \bold u_i^\top \boldsymbol p.$ Then, $\sum_{i=1}^n \lambda_i {p_i}^2 > 0.$ It follows that some $\lambda_i > 0.$ Similarly, assuming $f_{\bold Q}(\boldsymbol q) < 0$ for some $\boldsymbol q$ implies a negative eigenvalue exists. Thus, $\bold Q$ has eigenvalues of mixed signs. 
-  
-  <br>
   
   In summary:
 
