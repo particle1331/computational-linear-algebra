@@ -800,12 +800,12 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     \left( \sum_{i=r+1}^{m} \boldsymbol u_i \boldsymbol u_i^\top \bold y \right).
     $$
     
-    Then, the orthogonal projection of $\bold y$ can be constructed as $\hat\bold y = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.$ It is clear that $(\bold y - \hat\bold y) \perp \mathsf{C}(\bold A)$ and $\hat\bold y \in \mathsf{C}(\bold A).$ We now prove the claim that $\hat\bold y = \bold A \bold A^+ \bold y.$ This is actually pretty trivial:
+    Then, the orthogonal projection of $\bold y$ can be constructed as $\hat\bold y = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.$ This is clear from the fact that $(\bold y - \hat\bold y) \perp \mathsf{C}(\bold A)$ and $\hat\bold y \in \mathsf{C}(\bold A),$ and the uniqueness of such a vector. We now prove the claim that $\hat\bold y = \bold A \bold A^+ \bold y.$ This is actually pretty trivial:
     $$
     \bold A \bold A^+ = {\bold U \bold \Sigma \bold \Sigma}^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top.
     $$
     
-    Note that unlike the previous case where the columns of $\bold A$ are independent, the weights that make up the projection vector is not anymore unique. (See next bullet for further discussion of this nonuniqueness.)
+    Note that unlike the previous case where the columns of $\bold A$ are independent, the weights that make up the projection vector is not anymore unique. Discussion of nonuniqueness of weights is continued in the next bullet.
 
     <br>
 
