@@ -1,6 +1,3 @@
-# cohen-linear-algebra
-
-<br>
 
 Notes and code experiments for linear algebra. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertbility, to parametrizing the loss surface of a linear regression model. Some of the interesting stuff that is covered:
   * Proof of the real spectral theorem, and a code demo
