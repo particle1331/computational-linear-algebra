@@ -17,8 +17,6 @@
 
 ## Vectors and matrices
 
----
-
 [Back to top](#notes)
 
   - (2.30) **No. of linearly independent vectors in ${\mathbb R^m}$**.  The maximum length $n$ of a list of linearly independent vectors in $\mathbb R^m$ is bounded by $m$.  If $n > m$, then the list is linearly dependent. 
@@ -76,8 +74,6 @@
 <br>
 
 ## Singular value decomposition
-
----
 
 [Back to top](#notes)
 
@@ -384,8 +380,6 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 ## Matrix multiplication and norms
 
----
-
 [Back to top](#notes)
 
 * (4.56) **Symmetric product of two symmetric matrices.** Suppose $\bold S$ and $\bold T$ are symmetric matrices. What is the condition so that their product $\bold S \bold T$ is symmetric, i.e. $(\bold S \bold T)^\top = \bold S \bold T$? Observe that $(\bold S \bold T)^\top = \bold T ^\top \bold S ^\top = \bold T \bold S.$ Thus, the product of two symmetric matrices is symmetric if and only if the matrices commute. This works for a very small class of matrices, e.g. zeros or constant diagonal matrices. 
@@ -446,8 +440,6 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 <br>
 
 ## Rank and dimension
-
----
 
 [Back to top](#notes)
 
@@ -542,8 +534,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 ## Four fundamental subspaces
 
----
-
 [Back to top](#notes)
 
 * (6.80) **Four Fundamental Subspaces.** The so-called four fundamental subspaces of matrix $\bold A \in \mathbb R^{m \times n}$ are subspaces form an orthogonal direct sum decomposition of its input space $\mathbb R^n$ and its output spaces $\mathbb R^m.$ Namely:
@@ -609,8 +599,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 ## Determinant
 
----
-
 [Back to top](#notes)
 
 * **Determinant not zero iff. full rank.** Consider the SVD of a square matrix $\bold A = \bold U \bold \Sigma \bold V^\top.$ Since the determinant of orthogonal matrices is equal to $\pm 1$, then 
@@ -641,8 +629,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 <br>
 
 ## Matrix inverse
-
----
 
 [Back to top](#notes)
 
@@ -771,8 +757,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 <br>
 
 ## Projection and orthogonalization
-
----
 
 [Back to top](#notes)
 
@@ -967,8 +951,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 ## Least squares for model fitting
 
----
-
 [Back to top](#notes)
 
 * (11.128) **Linear least squares.** The linear least squares problem is
@@ -1091,8 +1073,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 <br>
 
 ## Eigendecomposition
-
----
 
 [Back to top](#notes)
 
@@ -1240,8 +1220,6 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 <br>
 
 ## Quadratic form and definiteness
-
----
 
 [Back to top](#notes)
 
