@@ -1064,11 +1064,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     <br>
 
     <p align="center">
-    Independent columns <br>
-    <img src="img/11_loss_independent.png">
-    <br><br>
-    Dependent columns <br>
-    <img src="img/11_loss_dependent.png">
+      <img src="img/11_loss_independent.png"> <br>
+      <b>Figure.</b> Loss surface for X with independent columns; unique minimum.
+      <br><br>
+      <img src="img/11_loss_dependent.png"><br>
+      <b>Figure.</b> Loss surface for X with dedependent columns; nonunique (1-dim) minima.
     </p>
 
 <br>
@@ -1268,14 +1268,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     <br>
 
     <p align="center">
-    <img src="img/18_definiteQF.png">
-    <b>Figure.</b> A definite matrix has a convex quadratic form with unique minimum. <br>
+    <img src="img/18_definiteQF.png"><br>
+    <b>Figure.</b> Quadratic form of a definite matrix; unique minimum. <br>
     <br><br>
-    <img src="img/18_semidefiniteQF.png">
-    <b>Figure.</b> A semidefinite matrix has a convex quadratic form with nonunique minimum. <br>
+    <img src="img/18_semidefiniteQF.png"><br>
+    <b>Figure.</b> Quadratic form of a definite matrix; nonunique minimum (1-dim). <br>
     <br><br>
-    <img src="img/18_indefiniteQF.png">
-    <b>Figure.</b> The QF of an indefinite matrix is nonconvex with a stationary point but no minimum. <br>
+    <img src="img/18_indefiniteQF.png"><br>
+    <b>Figure.</b> Quadratic form of an indefinite matrix; has a stationary point but no minimum. <br>
     </p>
 
 <br>
@@ -1300,7 +1300,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     <p align="center">
     <img src='img/quadratic_form_invertibility.png' width=80%>
     <br>
-    <b>Figure.</b> Summary of results of this section.
+    <b>Figure.</b> Summary of the results of this section.
     </p>
 
 <br>
@@ -1308,19 +1308,19 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 * **Normalized QF.** One other way of analyzing the energy function is by 'normalizing' it, i.e. computing 
   $$\tilde f_\bold Q(\bold x) = \frac{\bold x^\top \bold Q \bold x}{\bold x^\top\bold x} = \sum_{i,j=1}^n q_{ij} \frac{x_i x_j}{\sum_{i=1}^n {x_i}^2}.$$
 
-  Since we are only dividing the the norm squared of $\bold x,$ the two principal axes $\pm\bold u_1$ and $\pm\bold u_n$ should still be the same directions of greatest increase and decrease. Indeed, this is verified by the ff. plots generated in `18_normalized_QF.py`. Observe that, unlike before, the plots are now bounded, i.e. by $\lambda_1$ and $\lambda_n.$ It has, however, a singularity at the origin. Having 'fixed rate' of energy increase now along the principal axes is more straightforward to see now that the energy function actually fixed along these directions: $\tilde f_\bold Q(a\bold u_i) = \lambda_i$ for any scalar $a.$ 
+  Since we are only dividing the the norm squared of $\bold x,$ the two principal axes $\pm\bold u_1$ and $\pm\bold u_n$ should still be the same directions of greatest increase and decrease. Indeed, this is verified by the ff. plots generated in `18_normalized_QF.py`. Observe that, unlike before, the plots are now bounded, i.e. by $\lambda_1 = \sup \tilde f_\bold Q$ and $\lambda_n = \inf \tilde f_\bold Q.$ It has, however, a singularity at the origin. Having 'fixed rate' of energy increase now along the principal axes is more straightforward to see now that the energy function actually fixed along these directions: $\tilde f_\bold Q(a\bold u_i) = \lambda_i$ for any scalar $a.$ 
 
     <br>
 
     <p align="center">
-    <img src="img/18_normalized_definiteQF.png">
-    <b>Figure.</b> Energy surface of a definite matrix. It has both positive minimum and maximum that correspond to the eigenvalues. <br>
+    <img src="img/18_normalized_definiteQF.png"><br>
+    <b>Figure.</b> Energy surface of a definite matrix. <br>
     <br><br>
-    <img src="img/18_normalized_semidefiniteQF.png">
-    <b>Figure.</b> Energy surface of a semidefinite matrix. It has a positive maximum and zero minimum that correspond to the eigenvalues. <br>
+    <img src="img/18_normalized_semidefiniteQF.png"><br>
+    <b>Figure.</b> Energy surface of a semidefinite matrix. <br>
     <br><br>
-    <img src="img/18_normalized_indefiniteQF.png">
-    <b>Figure.</b> Energy surface of an indefinite matrix. It has a positive maximum and negative minimum that correspond to the eigenvalues.   <br>
+    <img src="img/18_normalized_indefiniteQF.png"><br>
+    <b>Figure.</b> Energy surface of an indefinite matrix.  <br>
     </p>
 
 
