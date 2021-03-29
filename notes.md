@@ -7,7 +7,7 @@
   - [Rank and dimension](#rank-and-dimension)
   - [Four fundamental subspaces](#four-fundamental-subspaces)
   - [Determinant](#determinant)
-  - [Matrix inverse](#matrix-inverse)
+  - [Matrix inverse and pseudoinverse](#matrix-inverse-and-pseudoinverse)
   - [Projection and orthogonalization](#projection-and-orthogonalization)
   - [Least squares for model fitting](#least-squares-for-model-fitting)
   - [Eigendecomposition](#eigendecomposition)
@@ -19,41 +19,41 @@
 
 [Back to top](#notes)
 
-  - (2.30) **No. of linearly independent vectors in ${\mathbb R^m}$**.  The maximum length $n$ of a list of linearly independent vectors in $\mathbb R^m$ is bounded by $m$.  If $n > m$, then the list is linearly dependent. 
+  - (1.1) **No. of linearly independent vectors in ${\mathbb R^m}$**.  The maximum length $n$ of a list of linearly independent vectors in $\mathbb R^m$ is bounded by $m$.  If $n > m$, then the list is linearly dependent. 
   
 <br>
   
-  - (2.30) **Complexity of checking independence**.
+  - (1.2) **Complexity of checking independence**.
   Suppose $n \leq m.$ What is the time complexity of showing n vectors in $\mathbb R^m$ are linearly independent? i.e. solving for nonzero solutions to $\bold A\bold x = \bold 0$. For instance, we have $\mathcal{O}(\frac{2}{3} mn^2)$ using Gaussian elimination assuming $\mathcal{O}(1)$ arithmetic which is a naive assumption as careless implementation can easily create numbers that can be [exponentially large](https://cstheory.stackexchange.com/questions/3921/what-is-the-actual-time-complexity-of-gaussian-elimination)! In practice, the best way to compute the rank of $\bold A$ is through its SVD. This is, for example, how `numpy.linalg.matrix_rank` is implemented.
 
 <br>
 
-  - (2.30) **Basis is non-unique.**
+  - (1.3) **Basis is non-unique.**
   A choice of basis is non-unique but gives unique coordinates for each vector once the choice of basis is fixed. Some basis are better than others for a particular task, e.g. describing a dataset better. There are algorithms such as PCA & ICA that try to minimize some objective function.
   
 <br>
 
-  * **Orthogonal matrices are precisely the linear isometries of $\mathbb R^n$.** A matrix $\bold A \in \mathbb R^n$ is an isometry if $\lVert \bold A \bold x\rVert^2 = \lVert \bold x \rVert^2$ for all $\bold x \in \mathbb R^n$. Note that $\lVert \bold A \bold x \rVert^2 = \bold x^\top\bold A^\top \bold A \bold x$ and $\lVert \bold x \rVert^2 = \bold x^\top \bold x$. So orthogonal matrices are isometries. Conversely, if a matrix $\bold A$ is an isometry, we can let $\bold x = \bold e_i - \bold e_j$ to get $\bold e_i^\top (\bold A^\top \bold A) \bold e_j = (\bold A^\top \bold A)_ {ij} = \delta_ {ij}$ where $\delta_{ij}$ is the Kronecker delta or $\bold A^\top\bold A = \bold I$. This tells us that length preserving matrices in $\mathbb R^n$ are necessarily orthogonal. Orthogonal matrices in $\mathbb R^2$ are either rotations or reflections &mdash; both of these are length preserving. The more surprising result is that these are the only length preserving matrices in $\mathbb R^2$!
+  * (1.4) **Orthogonal matrices are precisely the linear isometries of $\mathbb R^n$.** A matrix $\bold A \in \mathbb R^n$ is an isometry if $\lVert \bold A \bold x\rVert^2 = \lVert \bold x \rVert^2$ for all $\bold x \in \mathbb R^n$. Note that $\lVert \bold A \bold x \rVert^2 = \bold x^\top\bold A^\top \bold A \bold x$ and $\lVert \bold x \rVert^2 = \bold x^\top \bold x$. So orthogonal matrices are isometries. Conversely, if a matrix $\bold A$ is an isometry, we can let $\bold x = \bold e_i - \bold e_j$ to get $\bold e_i^\top (\bold A^\top \bold A) \bold e_j = (\bold A^\top \bold A)_ {ij} = \delta_ {ij}$ where $\delta_{ij}$ is the Kronecker delta or $\bold A^\top\bold A = \bold I$. This tells us that length preserving matrices in $\mathbb R^n$ are necessarily orthogonal. Orthogonal matrices in $\mathbb R^2$ are either rotations or reflections &mdash; both of these are length preserving. The more surprising result is that these are the only length preserving matrices in $\mathbb R^2$!
 
 <br>
 
-  - **Orthogonal matrices as projections.** An orthogonal matrix $\bold U$ is defined as a matrix with orthonormal vectors in its column. It follows $\bold U^\top \bold U = \bold I.$ Since $\bold U$ is invertible, we can use uniqueness of inverse to get $\bold U \bold U^\top = \bold I.$ However, we can obtain this latter identity geometrically. Let $\bold x$ be a vector, then $\bold x = \sum_i \bold u_i \bold u_i^\top \bold x.$ This is true by uniqueness of components in a basis. Thus, $\bold U \bold U^\top \bold x = \bold x$ for any $\bold x,$ or $\bold U \bold U^\top  = \bold I.$ 
+  - (1.5) **Orthogonal matrices as projections.** An orthogonal matrix $\bold U$ is defined as a matrix with orthonormal vectors in its column. It follows $\bold U^\top \bold U = \bold I.$ Since $\bold U$ is invertible, we can use uniqueness of inverse to get $\bold U \bold U^\top = \bold I.$ However, we can obtain this latter identity geometrically. Let $\bold x$ be a vector, then $\bold x = \sum_i \bold u_i \bold u_i^\top \bold x.$ This is true by uniqueness of components in a basis. Thus, $\bold U \bold U^\top \bold x = \bold x$ for any $\bold x,$ or $\bold U \bold U^\top  = \bold I.$ 
   
 <br>
 
-  - (3.34) **Shifting a matrix away from degeneracy:**
+  - (1.6) **Shifting a matrix away from degeneracy:**
   $\bold A + \lambda \bold I = \tilde\bold A.$ 
-  Geometric interpretation: inflate a matrix from a degenerate plane towards being a sphere. This is a form of regularization.  See (4.51) which shows how linear maps transform the unit circle to an ellipse. A singular matrix $\bold A$ maps the unit circle to a degenerate (flat) ellipse.
-  <br><br>
+  Geometric interpretation: inflate a matrix from a degenerate plane towards being a sphere. This is a form of regularization. 
 
-  - (3.35) In the video $\sigma \bold A = \bold A \sigma$. Multiplying a matrix with a scalar $\sigma$ can be interpreted as multiplying with $\sigma \bold I$ where $\bold I$ is the identity matrix of the appropriate size. <br><br>
+<br>
 
-  - (3.37) **Calculating the Hermitian transpose in Python.** Let `A` be a numpy array. The following calculates the Hermitian transpose:
+  - (1.7) **Calculating the Hermitian transpose in Python.** Let `A` be a numpy array. The following calculates the Hermitian transpose:
     1. `np.conj(A).T`
     2. `np.conj(A.T)`
-    3. `np.matrix(A).H` (deprecated soon)<br><br>
 
-* (4.44) Cool way of writing the four ways of matrix multiplication: 
+<br>
+
+* (1.8) Four ways of matrix multiplication: 
 
   - **Outer product perspective** <br> 
     ```
@@ -75,18 +75,18 @@
 
 [Back to top](#notes)
 
-* (4.51) **Geometry of linear operators.** In the code challenge, we saw that a unit circle is mapped by a square matrix $\bold A$ into an ellipse. It turns out that the effect of a square matrix $\bold A \in \mathbb R^{2 \times 2}$ as an operator on $\mathbb R^2$ is to dilate the space outwards in two orthogonal directions (possibly some directions shrinking to zero, but never in a negative direction), then resulting space is rotated twice. To see this, let $\bold A = \bold U \bold \Sigma \bold V^\top$ be the SVD of $\bold A$, then $\bold A = (\bold U \bold V^\top) (\bold V \bold\Sigma \bold V^\top)$. The factor $\bold V \bold\Sigma \bold V^\top$ dilates the space two orthogonal directions defined by the columns of $\bold V$ while the strength of the dilation is determined by the singular values in the diagonal of $\bold \Sigma$. 
+* (2.1) **Geometry of linear operators.** In the code challenge, we saw that a unit circle is mapped by a square matrix $\bold A$ into an ellipse. It turns out that the effect of a square matrix $\bold A \in \mathbb R^{2 \times 2}$ as an operator on $\mathbb R^2$ is to dilate the space outwards in two orthogonal directions (possibly some directions shrinking to zero, but never in a negative direction), then resulting space is rotated twice. To see this, let $\bold A = \bold U \bold \Sigma \bold V^\top$ be the SVD of $\bold A$, then $\bold A = (\bold U \bold V^\top) (\bold V \bold\Sigma \bold V^\top)$. The factor $\bold V \bold\Sigma \bold V^\top$ dilates the space two orthogonal directions defined by the columns of $\bold V$ while the strength of the dilation is determined by the singular values in the diagonal of $\bold \Sigma$. 
 We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. in terms of a sum of projection operators $\sum_{i=1}^n \sigma_i \bold v_i \bold v_i^\top$. This is followed by a product $\bold U \bold V^\top$ of two isometries of $\mathbb R^2$. It can be [easily calculated](https://math.stackexchange.com/a/2924263) that orthogonal transformations of $\mathbb R^2$ are either rotations or reflections, so that we get a final ellipse. Since the rank of $\bold A$ is equal to the number of nonzero singular values, whenever $\bold A$ is singular, some of its singular values will be zero corresponding to an axis where the ellipse collapses (see figure below). 
 
 <br>
 
-* (4.51) **Polar decomposition.** The decomposition of an operator $\bold A \in \mathbb R^{n\times n}$ in (4.51) into $\bold A = \bold Q \bold P$ where $\bold Q$ is orthogonal and $\bold P$ is symmetric positive semidefinite is called the **polar decomposition**. Geometrically, we can see that $\bold P$ should be unique. Indeed, observe that $\bold P^2 = \bold A^\top \bold A$ and $\bold A^\top \bold A$ is evidently symmetric positive semidefinite, so it has a unique symmetric positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm. 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Thus, $\bold P = \bold V \bold \Sigma \bold V^\top = \sqrt{\bold A ^\top \bold A}$ by uniqueness. Note however that the eigenvectors the orthogonal eigendecomposition into need not be unique (e.g. when the kernel of $\bold A$ is nonzero). For real matrices, the isometries are precisely the orthogonal matrices. Thus, the polar decomposition can be written as $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ for some isometry $\bold Q$; cf. [[Lem. 9.6]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf) which states the polar decomposition in terms of the existence of such an isometry. The matrix $\bold Q$ is only unique if $\bold A$ is nonsingular. For instance, if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation. <br>
+* (2.2) **Polar decomposition.** The decomposition of an operator $\bold A \in \mathbb R^{n\times n}$ into $\bold A = \bold Q \bold P$ where $\bold Q$ is orthogonal and $\bold P$ is symmetric positive semidefinite is called the **polar decomposition**. Geometrically, we can see that $\bold P$ should be unique. Indeed, observe that $\bold P^2 = \bold A^\top \bold A$ and $\bold A^\top \bold A$ is evidently symmetric positive semidefinite, so it has a unique symmetric positive semidefinite square root $\sqrt{\bold A^\top \bold A}$ [[Thm. 3]](https://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect7.pdf). Thus, $\bold P = \bold V \bold \Sigma \bold V^\top = \sqrt{\bold A ^\top \bold A}$ by uniqueness. Note however that the eigenvectors the orthogonal eigendecomposition into need not be unique (e.g. when the kernel of $\bold A$ is nonzero). For real matrices, the isometries are precisely the orthogonal matrices. Thus, the polar decomposition can be written as $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ for some isometry $\bold Q$; cf. [[Lem. 9.6]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf) which states the polar decomposition in terms of the existence of such an isometry. The matrix $\bold Q$ is only unique if $\bold A$ is nonsingular. For instance, if $\bold A$ is singular, then we can reflect across the axis where the space is collapsed and still get the same transformation. <br>
    
     **Remark.** The name "polar decomposition" comes from the analogous decomposition of complex numbers as $z = re^{i\theta}$ in polar coordinates. Here $r = \sqrt{\bar z z }$ (analogous to $\sqrt{\bold A^* \bold A}$) and multiplication by $e^{i\theta}$ is an isometry of $\mathbb C$ (analogous to the isometric property of $\bold Q$). For complex matrices we consider $\bold A^*\bold A$ and unitary matrices in the SVD.
     
 <br>
 
-* (4.51) **Computing the polar decomposition.** In `src\4_polar_decomp.py`, we verify the theory by calculating the polar decomposition from `u, s, vT = np.linalg.svd(A)`. We set `Q = u @ vT` and `P = vT.T @ np.diag(s) @ vT`. Some singular values are zero for singular `A`  (left) while all are nonzero for nonsingular `A` (right). The eigenvectors of `P` are scaled by the corresponding eigenvalues, then rotated with `Q`. The rotated eigenvectors of `P` lie along the major and minor axis of the ellipse: the directions where the circle is stretched prior to rotation. The code checks out in that the eigenvectors (obtained from SVD) line up nicely along the axes where the circle is elongated in the scatter plot (obtained by plotting the output vectors `A @ [x, y]` where `[x, y]` is a point on the unit circle).
+* (2.3) **Computing the polar decomposition.** In `src\4_polar_decomp.py`, we verify the theory by calculating the polar decomposition from `u, s, vT = np.linalg.svd(A)`. We set `Q = u @ vT` and `P = vT.T @ np.diag(s) @ vT`. Some singular values are zero for singular `A`  (left) while all are nonzero for nonsingular `A` (right). The eigenvectors of `P` are scaled by the corresponding eigenvalues, then rotated with `Q`. The rotated eigenvectors of `P` lie along the major and minor axis of the ellipse: the directions where the circle is stretched prior to rotation. The code checks out in that the eigenvectors (obtained from SVD) line up nicely along the axes where the circle is elongated in the scatter plot (obtained by plotting the output vectors `A @ [x, y]` where `[x, y]` is a point on the unit circle).
 
     <br>
 
@@ -96,7 +96,7 @@ We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. 
     
 <br>
 
-* **SVD Proof.** The SVD states that any real matrix $\bold A \in \mathbb R^{m \times n}$ can be decomposed as $\bold A = \bold U \bold \Sigma \bold V^\top$ where $\bold U \in \mathbb R^{m \times m}$ and $\bold V \in \mathbb R^{n \times n}$ are orthonogonal matrices and $\bold\Sigma  \in \mathbb R^{m \times n}$ is a diagonal matrix with nonnegative real numbers on the diagonal. The diagonal entries $\sigma_i$ of $\bold \Sigma$ are called the **singular values** of $\bold A$. The number $r$ of nonzero singular values is equal to the rank of $\bold A$ as we will show shortly. 
+* (2.4) **SVD Proof.** The SVD states that any real matrix $\bold A \in \mathbb R^{m \times n}$ can be decomposed as $\bold A = \bold U \bold \Sigma \bold V^\top$ where $\bold U \in \mathbb R^{m \times m}$ and $\bold V \in \mathbb R^{n \times n}$ are orthonogonal matrices and $\bold\Sigma  \in \mathbb R^{m \times n}$ is a diagonal matrix with nonnegative real numbers on the diagonal. The diagonal entries $\sigma_i$ of $\bold \Sigma$ are called the **singular values** of $\bold A$. The number $r$ of nonzero singular values is equal to the rank of $\bold A$ as we will show shortly. 
 
     <br>
 
@@ -123,7 +123,7 @@ We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. 
 
 <br>
 
-* See `src/4_svd_from_scratch.py` for a construction of the (compact) SVD in code following the proof. The result looks great:
+* (2.5) See `src/4_svd_from_scratch.py` for a construction of the (compact) SVD in code following the proof. The result looks great:
     <br>
 
   ```python
@@ -149,7 +149,7 @@ We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. 
 
 <br>
 
-* **Singular vectors in the SVD.** Given the SVD we can write $\bold A = \sum_{i=1}^r \sigma_i \bold u_i \bold v_i^\top$ as a sum of rank one (!) terms. Recall that $\sigma_i \bold u_i = \bold A \bold v_i$. Writing $\bold A = \sum_{i=1}^r (\bold A \bold v_i) \bold v_i^\top$ is trivial given an ONB $\bold v_1, \ldots, \bold v_n$ of $\mathbb R^n.$ What is nontrivial in the SVD is that (1) an ONB always exists that is "natural" to $\bold A$, and (2) the corresponding image vectors $\bold A \bold v_i$ which span $\textsf{col }\bold A$ are also orthogonal in $\mathbb R^m.$
+* (2.6) **Singular vectors in the SVD.** Given the SVD we can write $\bold A = \sum_{i=1}^r \sigma_i \bold u_i \bold v_i^\top$ as a sum of rank one (!) terms. Recall that $\sigma_i \bold u_i = \bold A \bold v_i$. Writing $\bold A = \sum_{i=1}^r (\bold A \bold v_i) \bold v_i^\top$ is trivial given an ONB $\bold v_1, \ldots, \bold v_n$ of $\mathbb R^n.$ What is nontrivial in the SVD is that (1) an ONB always exists that is "natural" to $\bold A$, and (2) the corresponding image vectors $\bold A \bold v_i$ which span $\textsf{col }\bold A$ are also orthogonal in $\mathbb R^m.$
   <br>
   <p align="center">
   <img src="img/svd_ellipse.png" alt="Source: http://gregorygundersen.com/image/svd/ellipse.png" width="400"/>
@@ -172,13 +172,13 @@ We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. 
 
 <br>
 
-* **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ has a diagonal representation (see Figure above). Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. In action: $\bold A = \bold U \bold U^\top \bold A \bold V \bold V^\top = \bold U \bold \Sigma \bold V^\top.$ Here $\bold U \bold U^\top = \sum_{i = 1}^m \bold u_i \bold {u_i}^\top$ is the change of basis of output vectors of $\bold \Sigma$ defined by the columns of $\bold U$ and, similarly, $\bold V \bold V^\top = \sum_{j = 1}^m \bold v_j \bold {v_j}^\top$ is the change of basis of input vectors of $\bold \Sigma$ defined by ONB of $\mathbb R^n$ that form the columns of $\bold V.$ Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $m \times n$ diagonal matrix of singular values. From [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of [Moler, 2013]: 
+* (2.7) **SVD as diagonalization.** We can think of the SVD as a change of basis so that the $m \times n$ matrix $\bold A$ has a diagonal representation (see Figure above). Recall that we recover the components of a vector in an ONB by performing projection, so we can replace inverses with transpose. In action: $\bold A = \bold U \bold U^\top \bold A \bold V \bold V^\top = \bold U \bold \Sigma \bold V^\top.$ Here $\bold U \bold U^\top = \sum_{i = 1}^m \bold u_i \bold {u_i}^\top$ is the change of basis of output vectors of $\bold \Sigma$ defined by the columns of $\bold U$ and, similarly, $\bold V \bold V^\top = \sum_{j = 1}^m \bold v_j \bold {v_j}^\top$ is the change of basis of input vectors of $\bold \Sigma$ defined by ONB of $\mathbb R^n$ that form the columns of $\bold V.$ Thus, the SVD is analogous to diagonalization for square matrices, but instead of eigenvalues, we diagonalize into an $m \times n$ diagonal matrix of singular values. From [Chapter 10](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/eigs.pdf) of [Moler, 2013]: 
   
   > In abstract linear algebra terms, eigenvalues are relevant if a square, $n$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-dimensional space onto itself. We try to find a basis for the space so that the matrix becomes diagonal. This basis might be complex even if $\bold A$ is real. In fact, if the eigenvectors are not linearly independent, such a basis does not even exist. The SVD is relevant if a possibly rectangular, $m$-by-$n$ matrix $\bold A$ is thought of as mapping $n$-space onto $m$-space. We try to find one change of basis in the domain and a usually different change of basis in the range so that the matrix becomes diagonal. Such bases always exist and are always real if $\bold A$ is real. In fact, the transforming matrices are orthogonal or unitary, so they preserve lengths and angles and do not magnify errors.
 
 <br>
 
-* **Computing the SVD.** In `4_compute_svd.py`, we calculate 3 things for a random matrix $\bold A[i, j] \sim \mathcal{N}(0, 1)$: (1) equality between the eigenvalues of $\sqrt{\bold A^\top \bold A}$ and the singular values of $\bold A$; (2) difference bet. max. singular value $\sigma_1$ and $\max_{\lVert \bold x \rVert_2 = 1} \lVert \bold A \bold x \rVert_2$; and (3) whether $\bold A\bold v_i = \sigma_i \bold u_i$ for $i = 1, 2$.
+* (2.8) **Computing the SVD.** In `4_compute_svd.py`, we calculate 3 things for a random matrix $\bold A[i, j] \sim \mathcal{N}(0, 1)$: (1) equality between the eigenvalues of $\sqrt{\bold A^\top \bold A}$ and the singular values of $\bold A$; (2) difference bet. max. singular value $\sigma_1$ and $\max_{\lVert \bold x \rVert_2 = 1} \lVert \bold A \bold x \rVert_2$; and (3) whether $\bold A\bold v_i = \sigma_i \bold u_i$ for $i = 1, 2$.
   ```python
   λ(√AᵀA):  [2.75276951 1.29375301]
   σ(A):     [2.75276951 1.29375301]
@@ -188,7 +188,7 @@ We can interpret $\bold V$ and $\bold V^\top$ as change of basis matrices, i.e. 
   ```
   <br>
 
-* **Spectral theorem proof.** The spectral theorem is an extremely beautiful result which one can think of as the SVD for linear operators. In fact, the construction of the SVD relies on a spectral decomposition, i.e. of $\bold A^\top \bold A$ which is automatically symmetric. 
+* (2.9) **Spectral theorem proof.** The spectral theorem is an extremely beautiful result which one can think of as the SVD for linear operators. In fact, the construction of the SVD relies on a spectral decomposition, i.e. of $\bold A^\top \bold A$ which is automatically symmetric. 
 A key property of symmetric matrices used in the proof is that if $V$ is a subspace, then $V^\perp$ is invariant under $\bold A.$ This will allow us to recursively construct the eigenvector directions of $\bold A.$ The real spectral theorem generalizes to self-adjoint operators on real inner product spaces as in [[Theorem 8.3]](https://www.maa.org/sites/default/files/pdf/awards/Axler-Ford-1996.pdf). <br><br>
 
     > **Theorem.** (Real spectral theorem). Let $\bold A \in \mathbb R^{n \times n}$ be a symmetric matrix. Then
@@ -250,7 +250,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
   
 <br>
 
-* **Code demo: spectral theorem proof.** In `4_spectral_theorem.py` we implement the constuction above of an orthonormal eigenbasis for $\mathbb R^n$ for $n = 3$ with respect to a randomly generated symmetric matrix `A`. The first eigenvector $\bold v$ is obtained by cheating a bit, i.e. using `np.linalg.eig`. Then, two linearly independent vectors $\bold y_1$ and $\bold y_2$ were constructed by calculating the equation of the plane orthogonal to $\bold v$ and finding $x$'s such that $(x, 1, 1)$ and $(x, 1, 0)$ are points on the plane $\bold v^\perp.$ Finally, the vectors $\bold y_1$ and $\bold y_2$ are made to be orthonormal by Gram-Schmidt. By the inductive hypothesis, we are allowed to compute `omega, U = np.linalg.eig(B)` where `B = Y.T @ A @ Y`. Then, we set `W = Y @ U` to be the $n-1$ eigenvector directions in the orthogonal plane. This is concatenated with $\bold v$ to get the final matrix `V` of all $n$ eigenvectors. The eigenvalues are constructed likewise in decreasing order. 
+* (2.10) **Code demo: spectral theorem proof.** In `4_spectral_theorem.py` we implement the constuction above of an orthonormal eigenbasis for $\mathbb R^n$ for $n = 3$ with respect to a randomly generated symmetric matrix `A`. The first eigenvector $\bold v$ is obtained by cheating a bit, i.e. using `np.linalg.eig`. Then, two linearly independent vectors $\bold y_1$ and $\bold y_2$ were constructed by calculating the equation of the plane orthogonal to $\bold v$ and finding $x$'s such that $(x, 1, 1)$ and $(x, 1, 0)$ are points on the plane $\bold v^\perp.$ Finally, the vectors $\bold y_1$ and $\bold y_2$ are made to be orthonormal by Gram-Schmidt. By the inductive hypothesis, we are allowed to compute `omega, U = np.linalg.eig(B)` where `B = Y.T @ A @ Y`. Then, we set `W = Y @ U` to be the $n-1$ eigenvector directions in the orthogonal plane. This is concatenated with $\bold v$ to get the final matrix `V` of all $n$ eigenvectors. The eigenvalues are constructed likewise in decreasing order. 
 
   <br>
 
@@ -287,7 +287,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **Condition number as measure of stability.** The **condition number** of a matrix is the ratio of its largest to its smallest eigenvalue, i.e. $\kappa(\bold A) = \dfrac{\sigma_1}{\sigma_r}$ where $r = \text{rank }\bold A \geq 1.$ Recall that $\sigma_1$ is the maximum stretching while $\sigma_r$ gives the minimum for unit vector inputs. Consider $\bold A \bold x = \bold b$ and a perturbation $\delta\bold x$ on the input $\bold x.$ By linearity,
+* (2.11) **Condition number as measure of stability.** The **condition number** of a matrix is the ratio of its largest to its smallest eigenvalue, i.e. $\kappa(\bold A) = \dfrac{\sigma_1}{\sigma_r}$ where $r = \text{rank }\bold A \geq 1.$ Recall that $\sigma_1$ is the maximum stretching while $\sigma_r$ gives the minimum for unit vector inputs. Consider $\bold A \bold x = \bold b$ and a perturbation $\delta\bold x$ on the input $\bold x.$ By linearity,
   $$\bold A (\bold x + \delta\bold x) = \bold b + \delta \bold b$$
   
   where $\delta\bold b = \bold A (\delta \bold x).$ We know that $\lVert \bold b \rVert \leq \sigma_1 \lVert \bold x \rVert$ and $\lVert \delta\bold b \rVert \geq \sigma_r \lVert \delta \bold x \rVert.$ Dividing the right inequality by the left, we preserve the right inequality
@@ -304,11 +304,11 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **Scree plots.** Scree plots are plots of singular values of a matrix. These allow us to visualize the relative sizes of singular values. In particular, see which $k$ singular values are dominant. We will show an example in the next code challenge. 
+* (2.12) **Scree plots.** Scree plots are plots of singular values of a matrix. These allow us to visualize the relative sizes of singular values. In particular, see which $k$ singular values are dominant. We will show an example in the next code challenge. 
 
 <br>
 
-* **Layer perspective and layer weight.** We can write $\bold A = \sum_{k=1}^{\min{(m, n)}} \sigma_k \bold u_k \bold v_k^\top.$ Note that since the singular vectors have norm $1.$ Then, $\sigma_k$ can be interpreted as the importance of the $k$th layer. Most matrices with a definite structure have only a few relatively large singular values with significant values, while most are close to zero. On the other hand, random / noisy matrices have a large number of nonzero singular values. For example, for the image of a dog (`13_img_svd.py`):
+* (2.13) **Layer perspective and layer weight.** We can write $\bold A = \sum_{k=1}^{\min{(m, n)}} \sigma_k \bold u_k \bold v_k^\top.$ Note that since the singular vectors have norm $1.$ Then, $\sigma_k$ can be interpreted as the importance of the $k$th layer. Most matrices with a definite structure have only a few relatively large singular values with significant values, while most are close to zero. On the other hand, random / noisy matrices have a large number of nonzero singular values. For example, for the image of a dog (`13_img_svd.py`):
 
   <br>
 
@@ -339,7 +339,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **Code challenge: random matrix with a given condition number.** Construct a random matrix with condition number 42. To do this, construct a linear function $f(\sigma) = a\sigma + b$ such that $f(\sigma_1) = 42$ and $f(\sigma_r) = 1.$ Let $\bold A$ be a random matrix with SVD $\bold A = {\bold U \bold \Sigma \bold V}^\top.$ Then, the solution is given by
+* (2.14) **Code challenge: random matrix with a given condition number.** Construct a random matrix with condition number 42. To do this, construct a linear function $f(\sigma) = a\sigma + b$ such that $f(\sigma_1) = 42$ and $f(\sigma_r) = 1.$ Let $\bold A$ be a random matrix with SVD $\bold A = {\bold U \bold \Sigma \bold V}^\top.$ Then, the solution is given by
   $$\bold A_{42} = \bold U \cdot f(\bold \Sigma) \cdot \bold V^\top.$$
  
   Not sure about uniqueness, but let's try to plot. Looks okay!
@@ -352,7 +352,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **Smooth KDE.** Dog image too large, instead we make an artificial example of a sum of 2D Gaussians to demonstrate the idea of how the relatively low number of layers in the SVD decomposition provide the majority of information in a matrix. The nonzero singular values occupy a small bright streak on the upper left of the middle plot. Moreover, the first few singular vectors look meaningful whereas the rest look more and more like noise &mdash; these are the singular vectors that reconstruct most of the meaningful structure in the matrix. This is not the case for the random matrix where there is no low-dimensional or low-rank structure.
+* (2.15) **Smooth KDE.** Dog image too large, instead we make an artificial example of a sum of 2D Gaussians to demonstrate the idea of how the relatively low number of layers in the SVD decomposition provide the majority of information in a matrix. The nonzero singular values occupy a small bright streak on the upper left of the middle plot. Moreover, the first few singular vectors look meaningful whereas the rest look more and more like noise &mdash; these are the singular vectors that reconstruct most of the meaningful structure in the matrix. This is not the case for the random matrix where there is no low-dimensional or low-rank structure.
 
   <p align="center">
     <img src='img/13_kde.png'>
@@ -360,22 +360,24 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 <br>
 
-* **Low-dimensional structure.** One feature of the layer perspective is that it reveals the low rank structure of $\bold A$ in terms of $\bold A_k = \sum_{j=1}^k \sigma_j \bold u_j \bold v_j^\top$ as a $k$-rank approximation of $\bold A.$ Recall that it can happen that $k \ll \min(m, n)$ while $\sum_{j = 1}^k \sigma_j  \approx \sum_{j = 1}^{\min(m, n)}  \sigma_j.$ This was demonstrated above in the dog image example where the sum of the first few layers gives a good approximation to the image. In this case, we say that the image has a low-dimensional structure that we are able to approximate using the first $k$ layers with the strongest singular values. 
+* (2.16) **Low-dimensional structure.** One feature of the layer perspective is that it reveals the low rank structure of $\bold A$ in terms of $\bold A_k = \sum_{j=1}^k \sigma_j \bold u_j \bold v_j^\top$ as a $k$-rank approximation of $\bold A.$ Recall that it can happen that $k \ll \min(m, n)$ while $\sum_{j = 1}^k \sigma_j  \approx \sum_{j = 1}^{\min(m, n)}  \sigma_j.$ This was demonstrated above in the dog image example where the sum of the first few layers gives a good approximation to the image. In this case, we say that the image has a low-dimensional structure that we are able to approximate using the first $k$ layers with the strongest singular values. 
 
 <br>
 
-* **Eckart-Young Theorem.** In the above bullet, we discussed the concept of low-rank approximation.Knowing that $\bold A$ has a low-rank structure from the scree plot, is there a better approximation than the natural $\bold A_k$? It turns out that by the Eckart-Young theorem that there is none:
+* (2.17) **Eckart-Young Theorem.** In the above bullet, we discussed the concept of low-rank approximation. Knowing that $\bold A$ has a low-rank structure from the scree plot, is there a better approximation than the natural $\bold A_k$? It turns out that by the Eckart-Young theorem that there is none:
 
   > (Eckart-Young). If $\bold B$ is a rank $k$ matrix, then $\lVert \bold A - \bold B \rVert \geq \lVert \bold A - \bold A_k \rVert.$ 
 
+  Note that the norm $\lVert \cdot \rVert$ used here is the operator norm defined in the next section.
+
   <br>
 
-  **Proof.** Note that $\dim \mathsf{N}(\bold B) = n-k$ (rank-nullity) and $\dim \mathsf{C}(\bold v_1, \ldots, \bold v_{k+1}) = k+1.$ So the dimensions of the two subspaces sum to $n + 1.$ It follows that one of the basis vectors $\bold u$ of $\mathsf{N}(\bold B)$ is a linear combination of $\bold v_1, \ldots, \bold v_{k+1}$, otherwise we exceed the dimension of the space. WLOG let $\bold u = \sum_{j=1}^{k+1} c_i \bold v_i$ be a unit vector. Then
+  **Proof.** Let $\bold v_1, \ldots, \bold v_n$ be right singular vectors of $\bold A.$ Note that $\dim \mathsf{N}(\bold B) = n-k$ (rank-nullity theorem) and $\dim \mathsf{C}(\bold v_1, \ldots, \bold v_{k+1}) = k+1.$ Let $\bold u_1, \ldots, \bold u_{n-k}$ be a basis of $\mathsf{N}(\bold B).$ So the dimensions of the two subspaces sum to $n + 1.$ It follows that there exists $j$ such that $\bold u_j = a_1\bold u_1 + \ldots a_{j-1}\bold u_{j-1} + \sum_{i=1}^{k+1}c_i\bold v_i$ where $c_i$ are not all zero. Otherwise, $\bold u_j$ is a linear combination of the earlier vectors. Let $\bold u = \bold u_j - \sum_{l=1}^{j-1}c_l\bold u_l.$ Thus, $\bold u = \sum_{j=1}^{k+1} c_i \bold v_i$ and $\bold B \bold u = \bold 0.$ Rescale the coefficients so that $\bold u$ is a unit vector. Then,
     $$
-    \|\bold A-\bold B\|_ {2}^{2} \geq\|(\bold A-\bold B) \bold u\|_ {2}^{2}=\|\bold A \bold u \|_ {2}^{2}=\sum_{i=1}^{k+1} {c_i}^2 {\sigma_{i}}^{2} \geq \sigma_{k+1}^{2} \sum_{i=1}^{k+1}{c_i}^2 = \sigma_{k+1}^{2}.
+    \|\bold A-\bold B\|^{2} \geq\|(\bold A-\bold B) \bold u\|^{2}=\|\bold A \bold u \|^{2}=\sum_{i=1}^{k+1} {c_i}^2 {\sigma_{i}}^{2} \geq \sigma_{k+1}^{2} \sum_{i=1}^{k+1}{c_i}^2 = \sigma_{k+1}^{2}.
     $$
 
-    We know that $\|\bold A-\bold A_k\|_ {2} = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\bold A-\bold B\|_ {2} \geq \|\bold A-\bold A_k\|_ {2}.$ $\square$
+    We know that $\|\bold A-\bold A_k\| = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\bold A-\bold B\| \geq \|\bold A-\bold A_k\|.$ $\square$
 
 <br>
 
@@ -385,7 +387,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
 
 [Back to top](#notes)
 
-* (4.56) **Symmetric product of two symmetric matrices.** Suppose $\bold S$ and $\bold T$ are symmetric matrices. What is the condition so that their product $\bold S \bold T$ is symmetric, i.e. $(\bold S \bold T)^\top = \bold S \bold T$? Observe that $(\bold S \bold T)^\top = \bold T ^\top \bold S ^\top = \bold T \bold S.$ Thus, the product of two symmetric matrices is symmetric if and only if the matrices commute. This works for a very small class of matrices, e.g. zeros or constant diagonal matrices. 
+* (3.1) **Symmetric product of two symmetric matrices.** Suppose $\bold S$ and $\bold T$ are symmetric matrices. What is the condition so that their product $\bold S \bold T$ is symmetric, i.e. $(\bold S \bold T)^\top = \bold S \bold T$? Observe that $(\bold S \bold T)^\top = \bold T ^\top \bold S ^\top = \bold T \bold S.$ Thus, the product of two symmetric matrices is symmetric if and only if the matrices commute. This works for a very small class of matrices, e.g. zeros or constant diagonal matrices. 
 In the case of $2 \times 2$ matrices, this is satisfied most naturally by  matrices with constant diagonal entries &mdash; a quirk that does not generalize to higher dimensions.
 The lack of symmetry turns out to be extremely important in machine-learning, multivariate statistics, and signal processing, and is a core part of the reason why linear classifiers are so successful [[Lec 56, Q&A]](https://www.udemy.com/course/linear-algebra-theory-and-implementation/learn/lecture/10738628#questions/13889570/): 
     >  "The lack of symmetry means that $\bold C=\bold B^{-1} \bold A$ is not symmetric, which means that $\bold C$ has non-orthogonal eigenvectors. In stats/data science/ML, most linear classifiers work by using generalized eigendecomposition on two data covariance matrices $\bold B$ and $\bold A$, and the lack of symmetry in $\bold C$ turns a compression problem into a separation problem."
@@ -394,7 +396,7 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
     
 <br>
 
-* (4.57) **Hadamard and standard multiplications are equivalent for diagonal matrices.** This can have consequences in practice. The following code in IPython shows that Hadamard multiplication is 3 times faster than standard multiplication in NumPy.
+* (3.2) **Hadamard and standard multiplications are equivalent for diagonal matrices.** This can have consequences in practice. The following code in IPython shows that Hadamard multiplication is 3 times faster than standard multiplication in NumPy.
     ```python
     In [1]: import numpy as np
     In [2]: D = np.diag([1, 2, 3, 4, 5])
@@ -406,7 +408,7 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 <br>
 
 
-* (4.59) **Frobenius inner product and its induced norm.** The **Frobenius inner product** between two $m \times n$ matrices $\bold A$ and $\bold B$ is defined as 
+* (3.3) **Frobenius inner product and its induced norm.** The **Frobenius inner product** between two $m \times n$ matrices $\bold A$ and $\bold B$ is defined as 
   $
   \langle \bold A, \bold B\rangle_F 
   = \sum_{i=1}^m \sum_{j=1}^n a_{ij} b_{ij}. 
@@ -433,11 +435,11 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 <br>
 
 
-* (4.60) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_2 = \sup_{\bold x \neq \bold 0} {\lVert \bold A \bold x \rVert_2} / {\lVert \bold x \rVert_2} = \sup_{\lVert\bold x\rVert_2 = 1} {\lVert \bold A \bold x \rVert_2} = \sigma_1.$ Another matrix norm is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left[ \sum_{i=1}^r \sigma_i^p \right]^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
+* (3.4) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_2 = \sup_{\bold x \neq \bold 0} {\lVert \bold A \bold x \rVert_2} / {\lVert \bold x \rVert_2} = \sup_{\lVert\bold x\rVert_2 = 1} {\lVert \bold A \bold x \rVert_2} = \sigma_1.$ Another matrix norm is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left[ \sum_{i=1}^r \sigma_i^p \right]^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
   
 <br>
 
-* (4.60) **Operator norm and singular values.** Note that $\lVert \bold A \rVert_2 = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_2$ for the operator norm. Recall that the unit circle is transformed $\bold A$ to an ellipse whose axes have length corresponding to the singular values of $\bold A$. Geometrically, we can guess that $\lVert \bold A \rVert_2 = \sigma_1$ with $\sigma_1$ being the largest singular value of $\bold A$. Indeed, we verified this in `4_compute_svd.py` where it was shown that `σ₁ - max ‖Ax‖ / ‖x‖ = 1.67e-07`. 
+* (3.5) **Operator norm and singular values.** Note that $\lVert \bold A \rVert_2 = \sup_{\lVert \bold x \rVert = 1} \lVert \bold A \bold x \rVert_2$ for the operator norm. Recall that the unit circle is transformed $\bold A$ to an ellipse whose axes have length corresponding to the singular values of $\bold A$. Geometrically, we can guess that $\lVert \bold A \rVert_2 = \sigma_1$ with $\sigma_1$ being the largest singular value of $\bold A$. Indeed, we verified this in `4_compute_svd.py` where it was shown that `σ₁ - max ‖Ax‖ / ‖x‖ = 1.67e-07`. 
 
 
 <br>
@@ -446,24 +448,24 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 
 [Back to top](#notes)
 
-* (5.64) **Rank as dimensionality of information.** The rank of $\bold A \in \mathbb R^{m \times n}$ is the maximal number of linearly independent columns of $\bold A.$ It follows that $0 \leq r \leq \min(m, n).$ Matrix rank has several applications, e.g. $\bold A^{-1}$ exists for a square matrix whenever it has maximal rank. In applied settings, rank is used in PCA, Factor Analysis, etc. because rank is used to determine how much nonredundant information is contained in $\bold A.$ 
+* (4.1) **Rank as dimensionality of information.** The rank of $\bold A \in \mathbb R^{m \times n}$ is the maximal number of linearly independent columns of $\bold A.$ It follows that $0 \leq r \leq \min(m, n).$ Matrix rank has several applications, e.g. $\bold A^{-1}$ exists for a square matrix whenever it has maximal rank. In applied settings, rank is used in PCA, Factor Analysis, etc. because rank is used to determine how much nonredundant information is contained in $\bold A.$ 
 
 <br>
 
-* (5.65) **Computing the rank.** How to count the maximal number of linearly independent columns? (1) Row reduction (can be numerically unstable). (2) Best way is to use SVD. The rank of $\bold A$ is the number $r$ of nonzero singular values of $\bold A.$ This is how it's implemented in MATLAB and NumPy. The SVD is also used for rank estimation. Another way is to count the number of nonzero eigenvalues of $\bold A$ provided $\bold A$ has an eigendecomposition. Since this would imply that $\bold A$ is similar to its matrix of eigenvalues. This is in general not true. Instead, we can count the eigenvalues of $\bold A^\top \bold A$ or $\bold A\bold A^\top$ &mdash; whichever is smaller &mdash; since an eigendecomposition for both matrices always exist. In practice, counting the rank requires setting a threshold below which values which determine rank are treated as zero, e.g. singular values $\sigma_k$ in the SVD. 
+* (4.2) **Computing the rank.** How to count the maximal number of linearly independent columns? (1) Row reduction (can be numerically unstable). (2) Best way is to use SVD. The rank of $\bold A$ is the number $r$ of nonzero singular values of $\bold A.$ This is how it's implemented in MATLAB and NumPy. The SVD is also used for rank estimation. Another way is to count the number of nonzero eigenvalues of $\bold A$ provided $\bold A$ has an eigendecomposition. Since this would imply that $\bold A$ is similar to its matrix of eigenvalues. This is in general not true. Instead, we can count the eigenvalues of $\bold A^\top \bold A$ or $\bold A\bold A^\top$ &mdash; whichever is smaller &mdash; since an eigendecomposition for both matrices always exist. In practice, counting the rank requires setting a threshold below which values which determine rank are treated as zero, e.g. singular values $\sigma_k$ in the SVD. 
 
 <br>
 
-* (5.65) **Rank can be difficult to calculate numerically.** For instance if we obtain $\sigma_k = 10^{-13}$ numerically, is it a real nonzero singular value, or is it zero? In practice, we set thresholds. The choice of threshold can be arbitrary or domain specific, and in general, introduces its own difficulties. Another issue is noise, adding $\epsilon\bold I$ makes $\bold A = [[1, 1], [1, 1]]$ rank two.
+* (4.3) **Rank can be difficult to calculate numerically.** For instance if we obtain $\sigma_k = 10^{-13}$ numerically, is it a real nonzero singular value, or is it zero? In practice, we set thresholds. The choice of threshold can be arbitrary or domain specific, and in general, introduces its own difficulties. Another issue is noise, adding $\epsilon\bold I$ makes $\bold A = [[1, 1], [1, 1]]$ rank two.
 
 <br>
 
-* **Finding a basis for the column space.** We will be particularly interested in finding a subset of the columns of $\bold A$ that is a basis for $\mathsf{C}(\bold A).$ The problem in abstract terms is to find a linearly independent subset of a spanning set that spans the space. One can proceed iteratively. Let $\bold a_1, \ldots, \bold a_n$ be the columns of $\bold A$, take the largest $j$ such that $\sum_{j=1}^n c_j \bold a_j = \bold 0$ and $c_j \neq 0.$ We can remove this vector $\bold a_j$ such that the remaining columns still span $\mathsf{C}(\bold A).$ Repeat until we get $r$ columns that is linearly independent, i.e. $\sum_{j=1}^n c_j \bold a_j = \bold 0$ implies $c_j = 0$ for all $j.$ Further removing any vector fails to span the column space, or the column space is zero in the worst case, so we know this algorithm terminates. <br><br>
+* (4.4) **Finding a basis for the column space.** We will be particularly interested in finding a subset of the columns of $\bold A$ that is a basis for $\mathsf{C}(\bold A).$ The problem in abstract terms is to find a linearly independent subset of a spanning set that spans the space. One can proceed iteratively. Let $\bold a_1, \ldots, \bold a_n$ be the columns of $\bold A$, take the largest $j$ such that $\sum_{j=1}^n c_j \bold a_j = \bold 0$ and $c_j \neq 0.$ We can remove this vector $\bold a_j$ such that the remaining columns still span $\mathsf{C}(\bold A).$ Repeat until we get $r$ columns that is linearly independent, i.e. $\sum_{j=1}^n c_j \bold a_j = \bold 0$ implies $c_j = 0$ for all $j.$ Further removing any vector fails to span the column space, or the column space is zero in the worst case, so we know this algorithm terminates. <br><br>
 Another way to construct a basis for $\mathsf{C}(\bold A)$ is to perform Gaussian elimination along the columns of $\bold A$ as each step preserves the column space. The resulting pivot columns form a basis for $\mathsf{C}(\bold A)$ but is not a subset of the columns of $\bold A.$
 
 <br>
 
-* **Basis and dimension.** Basis vectors are linearly independent vectors that span the vector space. We will be interested in finite-dimensional vector spaces, i.e. spaces that are spanned by finitely many vectors. By the above algorithm, we can always reduce the spanning set to a basis, so that a finite-dimensional vector space always has a (finite) basis. We know that a basis is not unique &mdash; in the previous bullet we constructed two bases for $\mathsf{C}(\bold A).$ However, once a basis $\bold v_1, \ldots, \bold v_n$ is fixed, every vector $\bold x$ has a unique representation $(x_1, \ldots, x_n)$ such that $\bold x = \sum_{i=1}^n x_i \bold v_i.$ We can think of this as a **parametrization** of the space by $n$ numbers. It is natural to ask whether there exists a more compressed parametrization, i.e. a basis of shorter length. It turns out that the length of any basis of a finite-dimensional vector space have the same length. Thus, we can think of this number as a property of the space which we define to be its **dimension**. This can be proved with the help of the ff. lemma since a basis is simultaneously spanning and linearly independent:
+* (4.5) **Basis and dimension.** Basis vectors are linearly independent vectors that span the vector space. We will be interested in finite-dimensional vector spaces, i.e. spaces that are spanned by finitely many vectors. By the above algorithm, we can always reduce the spanning set to a basis, so that a finite-dimensional vector space always has a (finite) basis. We know that a basis is not unique &mdash; in the previous bullet we constructed two bases for $\mathsf{C}(\bold A).$ However, once a basis $\bold v_1, \ldots, \bold v_n$ is fixed, every vector $\bold x$ has a unique representation $(x_1, \ldots, x_n)$ such that $\bold x = \sum_{i=1}^n x_i \bold v_i.$ We can think of this as a **parametrization** of the space by $n$ numbers. It is natural to ask whether there exists a more compressed parametrization, i.e. a basis of shorter length. It turns out that the length of any basis of a finite-dimensional vector space have the same length. Thus, we can think of this number as a property of the space which we define to be its **dimension**. This can be proved with the help of the ff. lemma since a basis is simultaneously spanning and linearly independent:
 
   > (Finite-dim.) The cardinality of any linearly independent set of vectors is bounded by the cardinality of any spanning set of the vector space.
 
@@ -478,18 +480,18 @@ Another way to construct a basis for $\mathsf{C}(\bold A)$ is to perform Gaussia
 
 <br>
 
-* **Obtaining a basis by counting.** This example shows how we can use the bound to reason about linearly independent lists/sets. A linearly independent set of length $r$ where $r$ is the dimension of the space is necessarily a basis. Otherwise, we can append the vector that is not spanned to get a linearly independent list of size $r+1.$
+* (4.6) **Obtaining a basis by counting.** This example shows how we can use the bound to reason about linearly independent lists/sets. A linearly independent set of length $r$ where $r$ is the dimension of the space is necessarily a basis. Otherwise, we can append the vector that is not spanned to get a linearly independent list of size $r+1.$
 
 <br>
 
-* **Row rank = column rank.** 
+* (4.7) **Row rank = column rank.** 
   Consider a step in Gaussian elimination along the rows of $\bold A$ resulting in $\tilde \bold A.$ We know that $\mathsf{R}(\bold A) = \mathsf{R}(\tilde\bold A).$ So its clear that the row rank remains unchanged. 
   On the other hand, let's consider the independence of the columns after a step. We know there are $r$ basis vectors in the columns of $\bold A$ and the $n - r$ non-basis vectors are a linear combination of the $r$ basis vectors. 
   WLOG, suppose the first $r$ columns of $\bold A$ form the basis for $\mathsf{C}(\bold A).$ Then, for $j > r$, there exist a vector $\bold x$ such that $\bold A \bold x = \bold 0$ and $x_j = -1$ which encode the dependencies. Moreover, the only solution of the homogeneous system such that $x_j = 0$ for $j > r$ is $\bold x = \bold 0.$ Observe that $\bold A$ and $\tilde\bold A$ have the same null space as an inductive invariant, so that the index of the basis vectors in the columns of $\bold A$ are carried over to $\tilde \bold A.$ It follows that, the column rank of $\tilde \bold A$ is equal to the column rank of $\bold A.$ Thus, in every step of Gaussian elimination the column and row ranks are invariant. At the end of the algorithm, with $r$ pivots remaining, we can read off that $r$ maximally independent rows and $r$ maximally independent columns. It follows that the column and row ranks of $\bold A$ are equal.
 
 <br>
 
-* **Multiplication with an invertible matrix preserves rank.** Suppose $\bold U$ is invertible, then $\bold U \bold A \bold x = \bold 0$ if and only if $\bold A \bold x = \bold 0$ so that $\bold U \bold A$ and $\bold A$ have the same null space. Thus, they have the same rank by the rank-nullity theorem. On the other hand, 
+* (4.8) **Multiplication with an invertible matrix preserves rank.** Suppose $\bold U$ is invertible, then $\bold U \bold A \bold x = \bold 0$ if and only if $\bold A \bold x = \bold 0$ so that $\bold U \bold A$ and $\bold A$ have the same null space. Thus, they have the same rank by the rank-nullity theorem. On the other hand, 
   $$
   \text{rank }(\bold A \bold U) = \text{rank } (\bold U^\top \bold A^\top) = \text{rank }\bold (\bold A^\top) = \text{rank }\bold (\bold A)
   $$ 
@@ -507,18 +509,18 @@ Another way to construct a basis for $\mathsf{C}(\bold A)$ is to perform Gaussia
 
 <br>
 
-* (5.67) **Generate rank 4 matrix 10x10 matrix randomly by multiplying two randomly generated matrices.** Solution is to multiply 10x4 and 4x10 matrices. Here we assume, reasonably so, that the randomly generated matrices have maximal rank. 
+* (4.9) **Generate rank 4 matrix 10x10 matrix randomly by multiplying two randomly generated matrices.** Solution is to multiply 10x4 and 4x10 matrices. Here we assume, reasonably so, that the randomly generated matrices have maximal rank. 
 
 <br>
 
-* (5.69) **Rank of $\bold A^\top \bold A$ and $\bold A \bold A^\top$.** These are all equal to the rank of $\bold A.$ 
+* (4.10) **Rank of $\bold A^\top \bold A$ and $\bold A \bold A^\top$.** These are all equal to the rank of $\bold A.$ 
 The first equality can be proved using by showing the $\mathsf{N} (\bold A^\top \bold A) = \mathsf{N}( \bold A),$ and then invoke the rank-nullity theorem. We used this in the proof of SVD to show conclude that rank $\bold A$ is the number of nonzero singular values of $\bold A.$ The second equality follows by replacing $\bold A$ with $\bold A^\top$ and the fact that row rank equals column rank.  
 We can also see this from the SVD which gives us $\bold A \bold A^\top = \bold U \bold \Sigma \bold \Sigma^\top \bold U^\top$ i.e. similar to $\Sigma \bold \Sigma^\top$ which has $r = \text{rank }\bold A$ diagonal entries. 
 Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$ 
 
 <br>
 
-* (5.71) **Making a matrix full-rank by shifting:** $\tilde\bold A = \bold A + \lambda \bold I$ where we assume $\bold A$ is square. This is done for computational stability reasons. Typically the regularization constant $\lambda$ is less than the experimental noise. For instance, if $|\lambda| \gg \max |a_{ij}|,$ then $\tilde \bold A \approx \lambda \bold I$ and $\bold A$ becomes the noise. An exchange in the Q&A highlights another important issue. Hamzah asks:
+* (4.11) **Making a matrix full-rank by shifting:** $\tilde\bold A = \bold A + \lambda \bold I$ where we assume $\bold A$ is square. This is done for computational stability reasons. Typically the regularization constant $\lambda$ is less than the experimental noise. For instance, if $|\lambda| \gg \max |a_{ij}|,$ then $\tilde \bold A \approx \lambda \bold I$ and $\bold A$ becomes the noise. An exchange in the Q&A highlights another important issue. Hamzah asks:
   > So in a previous video in this section, you talked about how a 3 dimensional matrix spanning a 2 dimensional subspace [...] really is a rank 2 matrix, BUT if you introduce some noise, it can look like like a rank 3 matrix. [...] By adding the identity matrix, aren't you essentially deliberately adding noise to an existing dataset to artificially boost the rank? Am I correct in interpreting that you can possibly identify features in the boosted rank matrix that may not actually exist in the true dataset, and maybe come up with some weird conclusions? If that is the case wouldn't it be very dangerous to increase the rank by adding the identity matrix? Would appreciate some clarification. Thank you!
 
   To which Mike answers:
@@ -529,7 +531,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* (5.72) **Is this vector in the span of this set?** Let $\bold x \in \mathbb R^m$ be a test vector. Is $\bold x$ in the span of $\bold a_1, \ldots, \bold a_n \in \mathbb R^m.$ Let $\bold A = [\bold a_1, \ldots, \bold a_n]$ with rank $r.$ The solution is to check whether the rank of $[\bold A | \bold x]$ is equal to the $r$ (in span) or $r+1$ (not in span). 
+* (4.12) **Is this vector in the span of this set?** Let $\bold x \in \mathbb R^m$ be a test vector. Is $\bold x$ in the span of $\bold a_1, \ldots, \bold a_n \in \mathbb R^m.$ Let $\bold A = [\bold a_1, \ldots, \bold a_n]$ with rank $r.$ The solution is to check whether the rank of $[\bold A | \bold x]$ is equal to the $r$ (in span) or $r+1$ (not in span). 
 
 <br>
 
@@ -539,7 +541,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* (6.80) **Four Fundamental Subspaces.** The so-called four fundamental subspaces of matrix $\bold A \in \mathbb R^{m \times n}$ are subspaces form an orthogonal direct sum decomposition of its input space $\mathbb R^n$ and its output spaces $\mathbb R^m.$ Namely:
+* (5.1) **Four Fundamental Subspaces.** The so-called four fundamental subspaces of matrix $\bold A \in \mathbb R^{m \times n}$ are subspaces form an orthogonal direct sum decomposition of its input space $\mathbb R^n$ and its output spaces $\mathbb R^m.$ Namely:
 
   * $\mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A) =\, \mathbb R^n \;\; \text{s.t.} \;\; \mathsf{C}(\bold A^\top) \perp \mathsf{N}(\bold A)$
 
@@ -563,7 +565,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Basis for fundamental subspaces.** 
+* (5.2) **Basis for fundamental subspaces.** 
   Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ or for $i = 1, \ldots, r = \text{rank }\bold A.$ Thus, $\bold v_1, \ldots, \bold v_r$ forms a basis for $\mathsf{C}(\bold A).$ Moreover, $\bold v_{r+1}, \ldots, \bold v_{n}$ are $n - r$ vectors in $\mathsf{N}(\bold A),$ hence a basis by counting. Applying the same argument for the output space, we get the ff. table: 
 
   <center>
@@ -588,14 +590,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Solutions to linear equations.** Consider the linear system $\bold A \bold x = \bold y.$ Then, because $\mathbb R^n = \mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A)$, the solution set for this system is given by
+* (5.3) **Solutions to linear equations.** Consider the linear system $\bold A \bold x = \bold y.$ Then, because $\mathbb R^n = \mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A)$, the solution set for this system is given by
   $$\bold x = \bold h + \sum_{k=1}^r c_k\bold v_k$$
 
   where $\bold h \in \mathsf{N}(\bold A)$ and $c_1, \ldots, c_r \in \mathbb R.$ The parameters $c_k$ are sometimes called free variables and $\bold h$ a solution to the homogeneous system $\bold A \bold x = \bold 0.$ 
 
 <br>
 
-* **Understanding the direct sum decomposition.** 
+* (5.4) **Understanding the direct sum decomposition.** 
   Geometrically, the whole subspace $\mathsf{N}(\bold A)$ gets collapsed to the zero of the output space, while the orthogonal subspace, which turns out to be $\mathsf{C}(\bold A^\top)$, gets mapped to $\mathsf{C}(\bold A).$ Come to think of it, it's not surprising that the row space is spanned by the left singular vectors $\bold v_k$ for $k = 1, \ldots, r$ that is orthogonal to the null space. Consider the operation $\bold y^\top \bold A$ which is a linear combination of the row vectors. This turns out to be $\bold y^\top \bold U \bold \Sigma \bold V^\top$ which is a linear combination of the first $r$ row vectors of $\bold V.$
 
 <br>
@@ -604,7 +606,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* **Determinant not zero iff. full rank.** Consider the SVD of a square matrix $\bold A = \bold U \bold \Sigma \bold V^\top.$ Since the determinant of orthogonal matrices is equal to $\pm 1$, then 
+* (6.1) **Determinant not zero iff. full rank.** Consider the SVD of a square matrix $\bold A = \bold U \bold \Sigma \bold V^\top.$ Since the determinant of orthogonal matrices is equal to $\pm 1$, then 
   $$
   \left|\det (\bold A) \right| = \prod_{i=1}^n \sigma_i.
   $$ 
@@ -612,7 +614,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Determinant as scale factor for vol. transformation.** To prove the volume formula for the unit parallelepiped, we use the polar decomposition $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ where $\sqrt{\bold A^\top \bold A} = \bold V \sqrt{\bold \Sigma^\top \bold \Sigma} \bold V^\top$ is a spectral decomposition such that $\bold V$ is an ONB for $\mathbb R^n$ and $\bold Q$ is an isometry, i.e. has determinant $1$ by the product and transpose formula. The unit parallelepiped spanned by $(\bold v_1, \ldots, \bold v_n)$ is transformed to $(\sigma_1 \bold v_1, \ldots, \sigma_n \bold v_n)$ by $\bold A.$ This has (unsigned) volume 
+* (6.2) **Determinant as scale factor for vol. transformation.** To prove the volume formula for the unit parallelepiped, we use the polar decomposition $\bold A = \bold Q \sqrt{\bold A^\top \bold A}$ where $\sqrt{\bold A^\top \bold A} = \bold V \sqrt{\bold \Sigma^\top \bold \Sigma} \bold V^\top$ is a spectral decomposition such that $\bold V$ is an ONB for $\mathbb R^n$ and $\bold Q$ is an isometry, i.e. has determinant $1$ by the product and transpose formula. The unit parallelepiped spanned by $(\bold v_1, \ldots, \bold v_n)$ is transformed to $(\sigma_1 \bold v_1, \ldots, \sigma_n \bold v_n)$ by $\bold A.$ This has (unsigned) volume 
   $$
   \mathsf{vol}(\sigma_1 \bold v_1, \ldots, \sigma_n \bold v_n) = \sigma_1 \ldots, \sigma_n = |\det \bold A \;|.
   $$ 
@@ -621,7 +623,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* (8.98) **Growth of det of shifted random matrix.** In this experiment, we compute the average determinant of $10,000$ shifted $n\times n$ matrices (i.e. we add $\lambda \bold I_n$) with entries $a_{ij} \sim \mathcal{N}(0, 1).$ Moreover, we make two columns dependent so that its determinant is zero prior to shifting. We plot this value as $\lambda$ grows from $0$ to $1$ with $n = 20.$ Explosion: <br><br>
+* (6.3) **Growth of det of shifted random matrix.** In this experiment, we compute the average determinant of $10,000$ shifted $n\times n$ matrices (i.e. we add $\lambda \bold I_n$) with entries $a_{ij} \sim \mathcal{N}(0, 1).$ Moreover, we make two columns dependent so that its determinant is zero prior to shifting. We plot this value as $\lambda$ grows from $0$ to $1$ with $n = 20.$ Explosion: <br><br>
 
     <p align="center">
     <img src="img/8_detgrowth.png" alt="drawing" width="500"/>
@@ -631,11 +633,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-## Matrix inverse
+## Matrix inverse and pseudoinverse
 
 [Back to top](#notes)
 
-* (9.101) **Full rank iff. invertible.** Let $\bold A \in \mathbb R^{n \times n}.$ TFAE
+* (7.1) **Full rank iff. invertible.** Let $\bold A \in \mathbb R^{n \times n}.$ TFAE
   1. $\text{rank }\bold A = n.$
   2. $\bold A$ is one-to-one.
   3. $\bold A$ is onto.
@@ -646,7 +648,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* (9.101) **Sparse matrix has a dense inverse.** A sparse matrix can have a dense inverse. This can cause memory errors in practice. In `src/9_sparse_to_dense.py` we artificially construct a sparse matrix. This is typically singular, so we shift it to make it nonsingular.  The result is that the inverse is 50x more dense than the original matrix:
+* (7.2) **Sparse matrix has a dense inverse.** A sparse matrix can have a dense inverse. This can cause memory errors in practice. In `src/9_sparse_to_dense.py` we artificially construct a sparse matrix. This is typically singular, so we shift it to make it nonsingular.  The result is that the inverse is 50x more dense than the original matrix:
 
   ```
   A sparsity:      0.001999
@@ -655,7 +657,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* (9.108) **Existence of left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ TFAE 
+* (7.3) **Existence of left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ TFAE 
   1. $\text{rank }\bold A = n.$
   2. $\bold A$ is 1-1.
   3. $\bold A$ is left invertible.
@@ -678,7 +680,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* (9.111) **Moore-Penrose Pseudo-inverse.** Now that we know how to compute the one sided inverse from rectangular matrices, assuming they have full column rank or full row rank, the big missing piece is what to do with a reduced rank matrix. It turns out that it is possible to find another matrix that is not formally an inverse, but is some kind of a good approximation of what the inverse element should be in a least squares sense (later), i.e. what is called a pseudo-inverse. The **Moore-Penrose pseudo-inverse** for a matrix $\bold A \in \mathbb R^{m \times n}$ is defined as the unique matrix $\bold A^+ \in \mathbb R^{n \times m}$ that satisfies the four Penrose equations:
+* (7.4) **Moore-Penrose Pseudo-inverse.** Now that we know how to compute the one sided inverse from rectangular matrices, assuming they have full column rank or full row rank, the big missing piece is what to do with a reduced rank matrix. It turns out that it is possible to find another matrix that is not formally an inverse, but is some kind of a good approximation of what the inverse element should be in a least squares sense (later), i.e. what is called a pseudo-inverse. The **Moore-Penrose pseudo-inverse** for a matrix $\bold A \in \mathbb R^{m \times n}$ is defined as the unique matrix $\bold A^+ \in \mathbb R^{n \times m}$ that satisfies the four Penrose equations:
 
   1. $\bold A \bold A^+ \bold A = \bold A$
   2. $\bold A^+ \bold A \bold A^+ = \bold A^+$
@@ -722,7 +724,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Moore-Penrose pseudo-inverse as left and right inverse.** Let $\bold A \in \mathbb R^{m \times n}$ with maximal rank. It turns out the left and right inverses we constructed above is the Moore-Penrose pseudo-inverse of $\bold A$ in each case:
+* (7.5) **Moore-Penrose pseudo-inverse as left and right inverse.** Let $\bold A \in \mathbb R^{m \times n}$ with maximal rank. It turns out the left and right inverses we constructed above is the Moore-Penrose pseudo-inverse of $\bold A$ in each case:
 
   * $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ (tall)
   
@@ -748,7 +750,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
   
-* **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ which is true for matrices with linearly independent columns. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
+* (7.6) **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ which is true for matrices with linearly independent columns. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
     $$
     \bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top
     = \bold V (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top \bold U^\top.
@@ -763,7 +765,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* **Orthogonal projection: definition and uniqueness.** 
+* (8.1) **Orthogonal projection: definition and uniqueness.** 
   The projection of $\bold y$ onto $\mathsf{C}(\bold A)$ is the unique vector $\hat\bold y$ such that (1) $\hat\bold y \in \mathsf{C}(\bold A)$, and (2) $(\bold y - \hat\bold y) \perp \mathsf{C}(\bold A).$ To show uniqueness, suppose $\hat\bold y_1$ and $\hat\bold y_2$ are two orthogonal vectors to $\bold y.$ Then,
     $$\lVert\bold y - \hat\bold y_2 \rVert^2 = \lVert\bold y - \hat\bold y_1 \rVert^2 + \lVert\hat\bold y_1 - \hat\bold y_2 \rVert^2 \geq \lVert\bold y - \hat\bold y_1 \rVert^2.$$
   
@@ -771,7 +773,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>  
 
-* **Orthogonal projection: independent columns.** Suppose $\bold A \in \mathbb R^{m \times n}$ has linearly independent columns and $\bold y$ be any vector on the output space $\mathbb R^m.$ To find the projection of $\bold y$ in $\mathsf{C}(\bold A),$ we solve for weights $\bold x$ such that $\bold A^\top( \bold y - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \bold y = \bold A^+ \bold y.$ Thus, $\hat\bold y = \bold A \bold A^+ \bold y$ which allows us to define the projection operator onto $\mathsf{C}(\bold A)$ as
+* (8.2) **Orthogonal projection: independent columns.** Suppose $\bold A \in \mathbb R^{m \times n}$ has linearly independent columns and $\bold y$ be any vector on the output space $\mathbb R^m.$ To find the projection of $\bold y$ in $\mathsf{C}(\bold A),$ we solve for weights $\bold x$ such that $\bold A^\top( \bold y - \bold A \bold x ) = \bold 0$ getting $\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \bold y = \bold A^+ \bold y.$ Thus, $\hat\bold y = \bold A \bold A^+ \bold y$ which allows us to define the projection operator onto $\mathsf{C}(\bold A)$ as
   $$
   \begin{aligned}
   P_{\bold A} 
@@ -781,7 +783,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* **Orthogonal projection: general case.** Does $P_{\bold A} = \bold A \bold A^+$ hold in the general case? Recall that the right singular vectors $\boldsymbol u_1, \ldots, \boldsymbol u_r$ form a basis for $\mathsf{C}(\bold A).$ It follows that we can decompose $\bold y$ into two components, one orthogonal and one parallel to the subspace:
+* (8.3) **Orthogonal projection: general case.** Does $P_{\bold A} = \bold A \bold A^+$ hold in the general case? Recall that the right singular vectors $\boldsymbol u_1, \ldots, \boldsymbol u_r$ form a basis for $\mathsf{C}(\bold A).$ It follows that we can decompose $\bold y$ into two components, one orthogonal and one parallel to the subspace:
     $$
     \bold y = \left(\sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y\right) + 
     \left( \sum_{i=r+1}^{m} \boldsymbol u_i \boldsymbol u_i^\top \bold y \right).
@@ -815,18 +817,18 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Moore-Penrose pseudoinverse as left inverse: a wider perspective.** 
+* (8.4) **Moore-Penrose pseudoinverse as left inverse: a wider perspective.** 
   Interestingly, the  orthogonal projection involves the Moore-Penrose pseudoinverse $\bold A^+$ which is a left inverse for $\bold A$ when the columns of $\bold A$ are independent. 
   This can actually be read off from $\bold A^+ \bold y = \bold V_r \bold \Sigma^+_r \bold U_r^\top \bold y.$ Note that $\bold U \bold U^\top \bold y = \bold y$ and $\bold U_r^\top \bold y$ is the components of the projection of $\bold y$ onto $\mathsf{C}(\bold A)$ with respect to the right singular vectors. Since the pseudoinverse $\bold \Sigma^+$ pads latter columns and rows with zero, we only get to invert that part of the vector that is in the column space of $\bold A,$ meanwhile the part that is normal to $\mathsf{C}(\bold A)$ is zeroed out. This is essentially what $\bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top$ tells us. If $\bold y \in \mathsf{C}(\bold A)$, then $\bold A^+ \bold y$ gives a left inverse of $\bold y.$ The bigger picture is that the pseudoinverse gives the weights to reconstruct the projection of $\bold y$ which, in this case, is itself since it lies in $\mathsf{C}(\bold A).$ 
   
 <br>
 
-* **First Penrose equation.** 
+* (8.5) **First Penrose equation.** 
   If $\bold A$ does not have independent columns, then $\bold A^+ \bold A \neq \bold I.$ This is a consequence of the non-uniqueness of the weights that reconstructs the projection. Suppose $\bold y \in \mathsf{C}(\bold A),$ then $\bold A \bold A^+ \bold A = \bold A$ even if $\bold A^+ \bold A \neq \bold I$ (from the axioms). That is, we can get $\bold A^+ (\bold A \bold w_1) = \bold w_2$ where $\bold w_1 \neq \bold w_2$ and $\bold A \bold w_1 = \bold A \bold w_2.$ This is exactly what this equation means. The second equation is the same but for right invertibility.
 
 <br>
 
-* **Projection matrix properties.** (1) ${P_{\bold A}}^2 = P_{\bold A}$ so it reduces to the identity when restricted to $\mathsf{C}(\bold A)$ and (2) ${P_{\bold A}}^\top = P_{\bold A}$ the projection matrix is orthogonal. The eigenvalues of projection matrices are either zero or one as a consequence of (1).
+* (8.6) **Projection matrix properties.** (1) ${P_{\bold A}}^2 = P_{\bold A}$ so it reduces to the identity when restricted to $\mathsf{C}(\bold A)$ and (2) ${P_{\bold A}}^\top = P_{\bold A}$ the projection matrix is orthogonal. The eigenvalues of projection matrices are either zero or one as a consequence of (1).
   In the special case of projecting onto a 1-dimensional subspace of $\mathbb R^2$ spanned by the vector $\boldsymbol a,$ we get
     $$
     \begin{aligned}
@@ -840,7 +842,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Code demo:** `src/10_projection.py`. We confirm computationally that $P_{\bold A} \bold y \perp (\bold y - P_{\bold A} \bold y)$ and plot the resulting vectors. Algebraically, this is equivalent to ${P_{\bold A}}^\top (\bold I - P_{\bold A}).$ 
+* (8.7) **Code demo:** `src/10_projection.py`. We confirm computationally that $P_{\bold A} \bold y \perp (\bold y - P_{\bold A} \bold y)$ and plot the resulting vectors. Algebraically, this is equivalent to ${P_{\bold A}}^\top (\bold I - P_{\bold A}).$ 
   
   <br>
 
@@ -856,7 +858,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Projection matrix with orthonormal columns.** Suppose $\bold U$ be an $m \times n$ matrix with columns $\boldsymbol u_1, \ldots, \boldsymbol u_n$ in $\mathbb R^m$ that are orthonormal in $\mathbb R^m.$ Then, $\bold U^\top \bold U = \bold I_n$ so that $\bold U^+$ reduces to $\bold U^\top$. Thus
+* (8.8) **Projection matrix with orthonormal columns.** Suppose $\bold U$ be an $m \times n$ matrix with columns $\boldsymbol u_1, \ldots, \boldsymbol u_n$ in $\mathbb R^m$ that are orthonormal in $\mathbb R^m.$ Then, $\bold U^\top \bold U = \bold I_n$ so that $\bold U^+$ reduces to $\bold U^\top$. Thus
   $$
   \boxed{P_{\bold U} = \bold U \bold U^\top = \sum_{i=1}^n \boldsymbol u_j \boldsymbol u_j^\top.}
   $$
@@ -865,7 +867,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Gram-Schmidt process.** Given the columns of $\bold A,$ we want to construct an orthonormal basis for $\mathsf{C}(\bold A).$ To do this, we can perform what is called the Gram-Schmidt process. Let $\boldsymbol a_1, \ldots, \boldsymbol a_n$ be the columns of $\bold A.$ Then an ONB $\boldsymbol u_1, \ldots, \boldsymbol u_r$ for $\mathsf{C}(\bold A)$ can be constructed as follows:
+* (8.9) **Gram-Schmidt process.** Given the columns of $\bold A,$ we want to construct an orthonormal basis for $\mathsf{C}(\bold A).$ To do this, we can perform what is called the Gram-Schmidt process. Let $\boldsymbol a_1, \ldots, \boldsymbol a_n$ be the columns of $\bold A.$ Then an ONB $\boldsymbol u_1, \ldots, \boldsymbol u_r$ for $\mathsf{C}(\bold A)$ can be constructed as follows:
   1. $\boldsymbol u_1 = \dfrac{\boldsymbol a_1}{\lVert \boldsymbol a_1 \rVert}.$
   2. $\boldsymbol u_k =  \dfrac{{\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k}}{\lVert {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} \rVert} = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert {\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}\rVert}.$ 
   
@@ -873,7 +875,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Modified Gram-Schmidt.** We introduce a more numerically stable version of Gram-Schmidt which corrects intermediate errors when projecting. Observe that in the Gram-Schmidt process described above, the vector is projected in the whole space $\mathsf{C}(\bold U_{k-1}).$ In the modified version, at step $k$, we remove all components of later vectors that is in the span of $\boldsymbol a_k.$ 
+* (8.10) **Modified Gram-Schmidt.** We introduce a more numerically stable version of Gram-Schmidt which corrects intermediate errors when projecting. Observe that in the Gram-Schmidt process described above, the vector is projected in the whole space $\mathsf{C}(\bold U_{k-1}).$ In the modified version, at step $k$, we remove all components of later vectors that is in the span of $\boldsymbol a_k.$ 
   1. Copy $\boldsymbol v_k = \boldsymbol a_k$ for $k = 1, \ldots, n.$
   2. Normalize $\boldsymbol u_k = \boldsymbol v_k / \lVert \boldsymbol v_k \rVert,$ then update $\boldsymbol v_j = \boldsymbol v_j -  \boldsymbol u_k \boldsymbol u_k^\top \boldsymbol v_j$ for $j > k.$ 
   
@@ -881,7 +883,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Code demo: stability of GS algorithms**. In `src/10_stability_gram-schmidt.py`, we implement the two algorithms and apply it a matrix that almost has identical columns, i.e. the matrix 
+* (8.11) **Code demo: stability of GS algorithms**. In `src/10_stability_gram-schmidt.py`, we implement the two algorithms and apply it a matrix that almost has identical columns, i.e. the matrix 
   $$ \bold A = 
   \begin{bmatrix}
     1 & 1 & 1 \\
@@ -900,7 +902,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **QR decomposition.** 
+* (8.12) **QR decomposition.** 
     We can write $\bold A = \bold Q \bold R$ where $\bold Q$ is an $m \times m$
     orthogonal matrix obtained by extending the Gram-Schmidt basis to an ONB of $\mathbb R^m,$ and 
     $\bold R = \bold Q^\top \bold A.$ 
@@ -912,7 +914,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Computing the Gram-Schmidt in Numpy.** To perfom the Gram-Schmidt algorithm on the columns of a matrix `A` in numpy, simply call `Q, R = np.linalg.qr(A)` to get the orthogonal matrix `Q` having the same colum span as `A`. 
+* (8.13) **Computing the Gram-Schmidt in Numpy.** To perfom the Gram-Schmidt algorithm on the columns of a matrix `A` in numpy, simply call `Q, R = np.linalg.qr(A)` to get the orthogonal matrix `Q` having the same colum span as `A`. 
   
   ```python
   >>> A = np.random.randn(20, 20)
@@ -925,7 +927,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Inverse from QR.** The QR decomposition allows for easy computation of the inverse: 
+* (8.14) **Inverse from QR.** The QR decomposition allows for easy computation of the inverse: 
   $$
   \boxed{\phantom{\Big]}\bold A^{-1} = \bold R^{-1} \bold Q^\top.\phantom{\Big]}}
   $$ 
@@ -942,7 +944,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Sherman-Morrison inverse.** From [(24)](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf), $\det( \bold I + \boldsymbol u \boldsymbol v^\top) = 1 + \boldsymbol v^\top \boldsymbol u.$ Thus, the identity perturbed by a rank $1$ matrix is invertible if and only if $1 + \boldsymbol v^\top \boldsymbol u \neq 0.$ In this case the we have a formula for the inverse:
+* (8.15) **Sherman-Morrison inverse.** From [(24)](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf), $\det( \bold I + \boldsymbol u \boldsymbol v^\top) = 1 + \boldsymbol v^\top \boldsymbol u.$ Thus, the identity perturbed by a rank $1$ matrix is invertible if and only if $1 + \boldsymbol v^\top \boldsymbol u \neq 0.$ In this case the we have a formula for the inverse:
   $$
   \boxed{\left(\bold I + \boldsymbol u \boldsymbol v^\top\right)^{-1} = \bold I - \dfrac{\boldsymbol u \boldsymbol v^\top}{1 + \boldsymbol v^\top \boldsymbol u}.}
   $$
@@ -956,7 +958,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* (11.128) **Linear least squares.** The linear least squares problem is
+* (9.1) **Linear least squares.** The linear least squares problem is
   $$
   \hat \bold w = \argmin_{\bold w} \lVert \bold X \bold w - \bold y \rVert^2. 
   $$ 
@@ -969,7 +971,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* (11.129) **Solution to the LLS objective.** 
+* (9.2) **Solution to the LLS objective.** 
   Geometrically, it is intuitive that the unique vector in $\mathsf{C}(\bold X)$ that minimizes the distance from $\bold y$ is the orthogonal projection. Observe that for any $\bold z \in \mathsf{C}(\bold X)$,
     $$
     \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
@@ -998,7 +1000,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* **Linear least squares via gradient descent.** Note that the least squares objective can be written as 
+* (9.3) **Linear least squares via gradient descent.** Note that the least squares objective can be written as 
   $$
   J(\bold w) = \frac{1}{n}\sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right)^2.
   $$
@@ -1012,7 +1014,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
   
-* **Code demo: gradient descent with LLS loss.** In `src/11_leastsquares_descent.py`, we perform gradient descent on a synthetic dataset. For simplicity, i.e. so we can plot, we model the signal $y = -1 + 3 x$ where $x \in [-1, 1]$ and with some Gaussian measurement noise:
+* (9.4) **Code demo: gradient descent with LLS loss.** In `src/11_leastsquares_descent.py`, we perform gradient descent on a synthetic dataset. For simplicity, i.e. so we can plot, we model the signal $y = -1 + 3 x$ where $x \in [-1, 1]$ and with some Gaussian measurement noise:
   * `X[:, 0] = 1`
   * `X[:, 1] = np.random.uniform(low=-1, high=1, size=n)`
   * `y = X @ w_true + 0.01*np.random.randn(n)` 
@@ -1054,7 +1056,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Loss surfaces.** If $\bold X$ has linearly dependent columns, we expect that the optimal weight vector $\bold w$ is not unique. The loss surfaces are plotted below, see `11/loss_surface.py`, where we plot the loss surface with $\bold X$ having dependent columns (top) with `X[:, 0] = 2 * X[:, 1]` &mdash; observe the whole strip of optimal weights; and the loss surface where $\bold X$ has independent columns with a unique optimal point (bottom). Recall that the equation for optimal weights is given by 
+* (9.5) **Loss surfaces.** If $\bold X$ has linearly dependent columns, we expect that the optimal weight vector $\bold w$ is not unique. The loss surfaces are plotted below, see `11/loss_surface.py`, where we plot the loss surface with $\bold X$ having dependent columns (top) with `X[:, 0] = 2 * X[:, 1]` &mdash; observe the whole strip of optimal weights; and the loss surface where $\bold X$ has independent columns with a unique optimal point (bottom). Recall that the equation for optimal weights is given by 
   $$
   \hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j
   $$ 
@@ -1079,11 +1081,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* **Eigenvalues and eigenvectors.** Let $\bold A$ be a real square matrix which we interpret as an automorphism of the space $\mathbb R^n.$ Eigenvector directions $\bold v \neq \bold 0$ are directions where the action of $\bold A$ is simple: $\bold A \bold v = \lambda \bold v.$ The scalar $\lambda$ is called the eigenvalue. Note that if $\bold A$ has a zero eigenvalue, then $\bold A$ has a nontrivial null space, i.e. dimension at least one. 
+* (10.1) **Eigenvalues and eigenvectors.** Let $\bold A$ be a real square matrix which we interpret as an automorphism of the space $\mathbb R^n.$ Eigenvector directions $\bold v \neq \bold 0$ are directions where the action of $\bold A$ is simple: $\bold A \bold v = \lambda \bold v.$ The scalar $\lambda$ is called the eigenvalue. Note that if $\bold A$ has a zero eigenvalue, then $\bold A$ has a nontrivial null space, i.e. dimension at least one. 
 
 <br>
 
-- **Gershgorin circle theorem.** Let $\bold A$ be an $n \times n$ real or complex matrix. For each $1 \leq i \leq n,$ define the $i$th **Gershgorin disk** $D_i = \{ z \in \mathbb C \mid | z - a_{ii} | \leq r_i \}$ where $r_i = \sum_{j \neq i} | a_{ij}|.$ Thus, the $i$th Gershgorin disk is the subset of $\mathbb C$ that is centered on the $i$th diagonal entry of $\bold A$ with radius equal to the modulus of the off-diagonal entries of $\bold A$ on the $i$th row. The **Gershgorin domain** $D_{\bold A} = \bigcup_{i=1}^n D_i \subset \mathbb C$ is simply the union of the Gershgorin disks. The theorem states that all real and complex eigenvalues of $\bold A$ lie in its Gershgorin domain $D_{\bold A}.$ See [p. 421 of Olver, 2018] for the proof of this theorem. For instance, consider 
+- (10.2) **Gershgorin circle theorem.** Let $\bold A$ be an $n \times n$ real or complex matrix. For each $1 \leq i \leq n,$ define the $i$th **Gershgorin disk** $D_i = \{ z \in \mathbb C \mid | z - a_{ii} | \leq r_i \}$ where $r_i = \sum_{j \neq i} | a_{ij}|.$ Thus, the $i$th Gershgorin disk is the subset of $\mathbb C$ that is centered on the $i$th diagonal entry of $\bold A$ with radius equal to the modulus of the off-diagonal entries of $\bold A$ on the $i$th row. The **Gershgorin domain** $D_{\bold A} = \bigcup_{i=1}^n D_i \subset \mathbb C$ is simply the union of the Gershgorin disks. The theorem states that all real and complex eigenvalues of $\bold A$ lie in its Gershgorin domain $D_{\bold A}.$ See [p. 421 of Olver, 2018] for the proof of this theorem. For instance, consider 
   $$
   \bold A = 
   \begin{bmatrix}
@@ -1105,14 +1107,14 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Diagonalization.** A matrix $\bold A \in \mathbb R^n$ is diagonalizable if it has $n$ independent eigenvectors. This means that we can write $\bold A\bold U = \bold U \bold \Lambda$ where $\bold U = [\bold v_1, \ldots, \bold v_n]$ and $\bold \Lambda = \text{diag}(\lambda_1, \ldots, \lambda_n)$ not necessarily distinct. Since the eigenvectors are linearly independent, they span the whole space so they form a basis for $\mathbb R^n.$ Moreover $\bold U$ is invertible so that 
+* (10.3) **Diagonalization.** A matrix $\bold A \in \mathbb R^n$ is diagonalizable if it has $n$ independent eigenvectors. This means that we can write $\bold A\bold U = \bold U \bold \Lambda$ where $\bold U = [\bold v_1, \ldots, \bold v_n]$ and $\bold \Lambda = \text{diag}(\lambda_1, \ldots, \lambda_n)$ not necessarily distinct. Since the eigenvectors are linearly independent, they span the whole space so they form a basis for $\mathbb R^n.$ Moreover $\bold U$ is invertible so that 
   $$\bold A = \bold U \bold \Lambda \bold U^{-1}.$$
 
   That is, under the basis $\bold U$ the matrix $\bold A$ acts like a diagonal matrix. Very cool. This is very convenient, e.g. $\bold A^k = \bold U \bold \Lambda^k \bold U^{-1}.$ Moreover, this allows the layer perspective $\bold A = \sum_{i=1}^n \lambda_i \bold u_i\bold u_i^\top$ as a sum of rank 1 matrices.
 
 <br>
 
-* **Counterexample: a nondiagonalizable matrix.** The matrix 
+* (10.4) **Counterexample: a nondiagonalizable matrix.** The matrix 
     $$\bold A = 
     \begin{bmatrix}
         1 & 0 \\ 
@@ -1122,7 +1124,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
     
 <br>
 
-* **Existence of eigenvalues.** Let $\bold A \in \mathbb R^{n \times n}.$ Observe that $\lambda$ is an eigenvalue of $\bold A$ iff. it is a zero of the polynomial $p_\bold A(\lambda) = \det (\lambda \bold I_n - \bold A).$ This $n$-degree is called the **characteristic polynomial** of $\bold A.$ From the Fundamental Theorem of Algebra, we can write
+* (10.5) **Existence of eigenvalues.** Let $\bold A \in \mathbb R^{n \times n}.$ Observe that $\lambda$ is an eigenvalue of $\bold A$ iff. it is a zero of the polynomial $p_\bold A(\lambda) = \det (\lambda \bold I_n - \bold A).$ This $n$-degree is called the **characteristic polynomial** of $\bold A.$ From the Fundamental Theorem of Algebra, we can write
     $$p_\bold A(\lambda) = \prod_{i=1}^s (\lambda - \lambda_i)^{r_i}$$
     
     such that $r_1 + \ldots + r_s = n$ and $\lambda_1, \ldots, \lambda_s \in \mathbb C.$ It follows that $\bold A$ has at most $n$ distinct eigenvalues. The number $r_i \in \mathbb N$ is called the **algebraic multiplicity** of $\lambda_i.$ 
@@ -1133,7 +1135,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Eigenspaces.** Given any eigenvalue $\lambda,$ we can solve for all corresponding eigenvectors by finding $\bold v$ such that $(\lambda \bold I_n - \bold A)\bold v = \bold 0,$ e.g. by Gaussian elimination. The eigenvectors of $\lambda$ form a subspace 
+* (10.6) **Eigenspaces.** Given any eigenvalue $\lambda,$ we can solve for all corresponding eigenvectors by finding $\bold v$ such that $(\lambda \bold I_n - \bold A)\bold v = \bold 0,$ e.g. by Gaussian elimination. The eigenvectors of $\lambda$ form a subspace 
   $$E_\lambda = \mathsf{N}(\lambda \bold I_n - \bold A)$$ 
   
   called the **eigenspace** of $\lambda.$ In a diagonalization of $\bold A$ with respect to an eigenbasis, the eigenspace $E_\lambda$ corresponds to a block $\lambda \bold I_{k}$ where $k= \dim E_\lambda$ is called the **geometric multiplicity** of $\lambda.$ It turns out that the geometric multiplicity of $\lambda$ is bounded above by its algebraic multiplicity. This applies to all matrices $\bold A,$ i.e. not just for diagonalizable ones.
@@ -1163,7 +1165,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Eigenspace as invariant subspace.** Note that eigenspaces are necessarily invariant subspaces of $\bold A.$ This automatically sets restrictions on the geometry. Consider
+* (10.7) **Eigenspace as invariant subspace.** Note that eigenspaces are necessarily invariant subspaces of $\bold A.$ This automatically sets restrictions on the geometry. Consider
   $$\bold B = 
   \begin{bmatrix}
      0 & 1 &  0 \\ 
@@ -1174,11 +1176,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br> 
 
-* **Eigenvalues of triangular matrices.** The eigenvalues of triangular matrices can be read off from its diagonal. This follows from the fact that the only nonzero term in the determinant expansion of the characteristic polynomial is that which follows the path along the diagonal. For an upper triangular matrix, you have to start with $a_{11}-\lambda.$ Thus, the next factor can only be chosen from $a_{22} -\lambda$ and $a_{j2} = 0$ for $j > 2.$ This forces $j = 2,$ and we have $(a_{11} -\lambda)(a_{22}-\lambda)$ so far. And so on, getting all diagonal entries.
+* (10.8) **Eigenvalues of triangular matrices.** The eigenvalues of triangular matrices can be read off from its diagonal. This follows from the fact that the only nonzero term in the determinant expansion of the characteristic polynomial is that which follows the path along the diagonal. For an upper triangular matrix, you have to start with $a_{11}-\lambda.$ Thus, the next factor can only be chosen from $a_{22} -\lambda$ and $a_{j2} = 0$ for $j > 2.$ This forces $j = 2,$ and we have $(a_{11} -\lambda)(a_{22}-\lambda)$ so far. And so on, getting all diagonal entries.
 
 <br>
 
-* **Trace and determinant formula.** We prove two formulas: 
+* (10.9) **Trace and determinant formula.** We prove two formulas: 
   * $\det \bold A=\prod_{i=1}^n \lambda_i$
 
   * $\text{tr} \bold A = \sum_{i=1}^n \lambda_i$
@@ -1197,11 +1199,11 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Eigenvalues occur in conjugate pairs.** Complex eigenvalues of a real (!) matrix come in conjugate pairs. This is obtained by taking the conjugate of both sides of the eigenvalue equation. This explains why $\det \bold A = \prod_{i=1}^n \lambda_i$ is real even if the eigenvalues can be complex.
+* (10.10) **Eigenvalues occur in conjugate pairs.** Complex eigenvalues of a real (!) matrix come in conjugate pairs. This is obtained by taking the conjugate of both sides of the eigenvalue equation. This explains why $\det \bold A = \prod_{i=1}^n \lambda_i$ is real even if the eigenvalues can be complex.
 
 <br>
 
-- **Growth of iterated maps**. Let $\lambda$  be the principal eigenvalue of $\bold A$, then
+- (10.11) **Growth of iterated maps**. Let $\lambda$  be the principal eigenvalue of $\bold A$, then
 
     $$\dfrac{\lVert \bold A^k \bold v\rVert}{\lVert \bold A^{k-1} \bold v\rVert} \approx |\lambda| .$$
 
@@ -1226,7 +1228,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 [Back to top](#notes)
 
-* **Quadratic forms.** 
+* (11.1) **Quadratic forms.** 
   Let $\bold Q \in \mathbb R^{n\times n}$ be a symmetric matrix. The associated **quadratic form** is defined as $f_\bold Q(\bold x) = \bold x^\top\bold Q \bold x$ for $\bold x \in \mathbb R^n$ to real numbers $\bold x^\top \bold Q \bold x.$ The quadratic form can be interpreted as the corresponding energy function of the matrix. Below we will classify quadratic forms based on its energy profile. And we will see that this profile is intimately connected with the spectrum of the matrix. 
   
   <br>
@@ -1235,7 +1237,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br> 
 
-* **Classifying quadratic forms.** A matrix $\bold Q$ is classified according to the possible signs that its quadratic form can take:
+* (11.2) **Classifying quadratic forms.** A matrix $\bold Q$ is classified according to the possible signs that its quadratic form can take:
 
   * **Positive definite** if $f_\bold Q(\bold x) > 0$ for nonzero $\bold x.$
 
@@ -1254,7 +1256,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Principal axes theorem and maximal directions.** 
+* (11.3) **Principal axes theorem and maximal directions.** 
   This is simply an extension of the real spectral theorem. Recall that any real symmetric matrix $\bold Q$ has a spectral decomposition $\bold Q = \bold U \bold \Lambda \bold U^\top$ such that $\bold \Lambda$ is a real matrix of eigenvalues and $\bold U = [\bold u_1, \ldots, \bold u_n]$ is an orthogonal matrix composed of the corresponding orthogonal eigenvectors. This allows us to 'diagonalize' the quadratic form:
   
   $$f_\bold Q (\bold x) = (\bold U^\top \bold x)^\top \bold \Lambda\; (\bold U^\top \bold x).$$
@@ -1263,7 +1265,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
   
 <br>
 
-* **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we verify the theory by plotting the principal axes of each symmetrized matrix in the above figure (except the upper right). The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative).
+* (11.4) **Code demo: principal axes of quadratic forms.** In `18_quadratic_form.py`, we verify the theory by plotting the principal axes of each symmetrized matrix in the above figure (except the upper right). The results are shown below. We weigh the eigenvectors with the corresponding eigenvalues which indicates the rate of energy increase along that direction (or decrease if the eigenvalue is negative).
 
     <br>
 
@@ -1280,7 +1282,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Definiteness and eigenvalues.** 
+* (11.5) **Definiteness and eigenvalues.** 
   Suppose $\bold Q$ has positive eigenvalues, then $f_\bold Q(\bold x) = \sum_{i=1}^n \lambda_i y_i^2 > 0.$ Similarly, $f_\bold Q(\bold x) = \sum_{i=1}^n \lambda_i y_i^2 \geq 0$ whenever $\bold Q$ has nonnegative eigenvalues. Conversely, we can use eigenvector inputs to pick out individual eigenvalues so that positive definiteness implies positive eigenvalues. Similarly, positive semidefiniteness implies having nonnegative eigenvalues. 
 
   Now suppose $\bold Q$ has eigenvalues of mixed signs. Then, we can pick out these directions to show that $\bold Q$ is indefinite. To prove the converse, suppose $\bold Q$ is indefinite. Let $f_{\bold Q}(\boldsymbol p) > 0$ and let $p_i = \bold u_i^\top \boldsymbol p.$ Then, $\sum_{i=1}^n \lambda_i {p_i}^2 > 0.$ It follows that some $\lambda_i > 0.$ Similarly, assuming $f_{\bold Q}(\boldsymbol q) < 0$ for some $\boldsymbol q$ implies a negative eigenvalue exists. Thus, $\bold Q$ has eigenvalues of mixed signs. 
@@ -1293,7 +1295,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Invertibility.** As a consequence of the characterization of the eigenvalues of $\bold Q,$ a positive definite matrix is invertible since it has a trivial null space, whereas a positive semidefinite is noninvertible since it has a nontrivial nullspace which is the eigenspace of zero. 
+* (11.6) **Invertibility.** As a consequence of the characterization of the eigenvalues of $\bold Q,$ a positive definite matrix is invertible since it has a trivial null space, whereas a positive semidefinite is noninvertible since it has a nontrivial nullspace which is the eigenspace of zero. 
 
     <br>
 
@@ -1305,7 +1307,7 @@ Thus, $\text{rank } \bold A \bold A^\top = \text{rank }\bold A = r.$
 
 <br>
 
-* **Normalized QF.** One other way of analyzing the energy function is by 'normalizing' it, i.e. computing 
+* (11.7) **Normalized QF.** One other way of analyzing the energy function is by 'normalizing' it, i.e. computing 
   $$\tilde f_\bold Q(\bold x) = \frac{\bold x^\top \bold Q \bold x}{\bold x^\top\bold x} = \sum_{i,j=1}^n q_{ij} \frac{x_i x_j}{\sum_{i=1}^n {x_i}^2}.$$
 
   Since we are only dividing the the norm squared of $\bold x,$ the two principal axes $\pm\bold u_1$ and $\pm\bold u_n$ should still be the same directions of greatest increase and decrease. Indeed, this is verified by the ff. plots generated in `18_normalized_QF.py`. Observe that, unlike before, the plots are now bounded, i.e. by $\lambda_1 = \sup \tilde f_\bold Q$ and $\lambda_n = \inf \tilde f_\bold Q.$ It has, however, a singularity at the origin. Having 'fixed rate' of energy increase now along the principal axes is more straightforward to see now that the energy function actually fixed along these directions: $\tilde f_\bold Q(a\bold u_i) = \lambda_i$ for any scalar $a.$ 
