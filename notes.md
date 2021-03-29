@@ -435,7 +435,13 @@ The lack of symmetry turns out to be extremely important in machine-learning, mu
 <br>
 
 
-* (3.4) **Other norms.** The **operator norm** is defined as $\lVert \bold A \rVert_2 = \sup_{\bold x \neq \bold 0} {\lVert \bold A \bold x \rVert_2} / {\lVert \bold x \rVert_2} = \sup_{\lVert\bold x\rVert_2 = 1} {\lVert \bold A \bold x \rVert_2} = \sigma_1.$ Another matrix norm is the **Schatten $p$-norm** defined as $\lVert \bold A  \rVert_p = \left[ \sum_{i=1}^r \sigma_i^p \right]^{1/p}$ where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so that Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space around it in each dimension.
+* (3.4) **Other norms.** The **operator norm** is defined as 
+  $$\lVert \bold A \rVert = \sup_{\bold x \neq \bold 0} \frac{\lVert \bold A \bold x \rVert_2}{\lVert \bold x \rVert_2} = \sup_{\lVert\bold x\rVert_2 = 1} {\lVert \bold A \bold x \rVert_2} = \sigma_1.$$ 
+  
+  It follows that $\lVert \bold A \bold x\rVert_2 \leq \lVert \bold A \rVert \lVert \bold x\rVert_2$. Another matrix norm is the **Schatten $p$-norm** defined as 
+    $$\lVert \bold A  \rVert_p = \left( \sum_{i=1}^r \sigma_i^p \right)^{\frac{1}{p}}$$
+    
+    where $\sigma_1, \ldots, \sigma_r$ are the singular values of $\bold A$. That is, the Schatten $p$-norm is the $p$-norm of the vector of singular values of $\bold A$. Recall that the singular values are the length of the axes of the ellipse, so the Schatten $p$-norm is a cumulative measure of how much $\bold A$ expands the space in each dimension.
   
 <br>
 
