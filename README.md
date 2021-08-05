@@ -36,7 +36,7 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 - [Determinant](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/det.md)
 - [Matrix inverse and pseudoinverse](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/inverse.md)
 - [Projection and orthogonalization](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/projection.md)
-- [Least squares for model fitting]([#least-squares-for-model-fitting](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/least-squares.md))
+- [Least squares for model fitting]((https://github.com/particle1331/computational-linear-algebra/blob/master/notes/least-squares.md))
 - [Eigendecomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/eigendecomp.md)
 - [Quadratic form and definiteness](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/quadratic.md)
 
