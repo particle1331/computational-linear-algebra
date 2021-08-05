@@ -26,6 +26,22 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 
 <br>
 
+## Contents
+
+- [Vectors and matrices](#vectors-and-matrices)
+- [Singular value decomposition](#singular-value-decomposition)
+- [Matrix multiplication and norms](#matrix-multiplication-and-norms)
+- [Rank and dimension](#rank-and-dimension)
+- [Four fundamental subspaces](#four-fundamental-subspaces)
+- [Determinant](#determinant)
+- [Matrix inverse and pseudoinverse](#matrix-inverse-and-pseudoinverse)
+- [Projection and orthogonalization](#projection-and-orthogonalization)
+- [Least squares for model fitting](#least-squares-for-model-fitting)
+- [Eigendecomposition](#eigendecomposition)
+- [Quadratic form and definiteness](#quadratic-form-and-definiteness)
+
+<br>
+
 ## Quick links
 
 * [Proofs involving the Moore-Penrose pseudoinverse](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse)
