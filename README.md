@@ -28,17 +28,17 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 
 ## Contents
 
-- [Vectors and matrices](https://github.com/particle1331/computational-linear-algebra/blob/master/vectors-and-matrices.md)
-- [Singular value decomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/svd.md)
-- [Matrix multiplication and norms](https://github.com/particle1331/computational-linear-algebra/blob/master/mm-norms.md)
-- [Rank and dimension](https://github.com/particle1331/computational-linear-algebra/blob/master/rank.md)
-- [Four fundamental subspaces](https://github.com/particle1331/computational-linear-algebra/blob/master/four-subspaces.md)
-- [Determinant](https://github.com/particle1331/computational-linear-algebra/blob/master/det.md)
-- [Matrix inverse and pseudoinverse](https://github.com/particle1331/computational-linear-algebra/blob/master/inverse.md)
-- [Projection and orthogonalization](https://github.com/particle1331/computational-linear-algebra/blob/master/projection.md)
-- [Least squares for model fitting](https://github.com/particle1331/computational-linear-algebra/blob/master/least-squares.md)
-- [Eigendecomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/eigendecomp.md)
-- [Quadratic form and definiteness](https://github.com/particle1331/computational-linear-algebra/blob/master/quadratic.md)
+- [Vectors and matrices](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/vectors-and-matrices.md)
+- [Singular value decomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/svd.md)
+- [Matrix multiplication and norms](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/mm-norms.md)
+- [Rank and dimension](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/rank.md)
+- [Four fundamental subspaces](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/four-subspaces.md)
+- [Determinant](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/det.md)
+- [Matrix inverse and pseudoinverse](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/inverse.md)
+- [Projection and orthogonalization](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/projection.md)
+- [Least squares for model fitting](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/least-squares.md)
+- [Eigendecomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/eigendecomp.md)
+- [Quadratic form and definiteness](https://github.com/particle1331/computational-linear-algebra/blob/master/notes/quadratic.md)
 
 <br>
 
