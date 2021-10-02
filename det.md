@@ -2,7 +2,7 @@
 
 <br>
 
-* (6.1) **Determinant not zero iff. full rank.** Consider the SVD of a square matrix $\bold A = \bold U \bold \Sigma \bold V^\top.$ Since the determinant of orthogonal matrices is equal to $\pm 1$, then 
+* (6.1) **Determinant not zero iff full rank.** Consider the SVD of a square matrix $\bold A = \bold U \bold \Sigma \bold V^\top.$ Since the determinant of orthogonal matrices is equal to $\pm 1$, then 
   $$
   \left|\det (\bold A) \right| = \prod_{i=1}^n \sigma_i.
   $$ 
