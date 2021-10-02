@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Least squares for model fitting &#8212; computational-linear-algebra</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/loss_surface.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/loss_surface.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">computational-linear-algebra</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  FUNDAMENTALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="vectors-and-matrices.html">
+   Vectors and matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="svd.html">
+   Singular value decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mm-norms.html">
+   Matrix multiplication and norms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rank.html">
+   Rank and dimension
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="four-subspaces.html">
+   Four fundamental subspaces
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notes/least-squares.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/particle1331/machine-learning-collection"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/particle1331/machine-learning-collection/issues/new?title=Issue%20on%20page%20%2Fnotes/least-squares.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="least-squares-for-model-fitting">
+<h1>Least squares for model fitting<a class="headerlink" href="#least-squares-for-model-fitting" title="Permalink to this headline">¶</a></h1>
+<br>
+<ul>
+<li><p>(9.1) <strong>Linear least squares.</strong> The linear least squares problem is
+$<span class="math notranslate nohighlight">\(
+\hat \bold w = \argmin_{\bold w} \lVert \bold X \bold w - \bold y \rVert^2. 
+\)</span>$</p>
+<p>Here we use the Euclidean norm. In other words, we want to find the optimal choice of parameters <span class="math notranslate nohighlight">\(\bold w\)</span> such that gives the best least squares approximation of <span class="math notranslate nohighlight">\(\bold y\)</span> as a linear combination of columns of <span class="math notranslate nohighlight">\(\bold X\)</span>, i.e. the closest point in <span class="math notranslate nohighlight">\(\mathsf{C}(\bold X)\)</span> to <span class="math notranslate nohighlight">\(\bold y.\)</span></p>
+<br>
+<p>In applications, we use objective is used to model the data as a linear system perhaps under some measurement noise. Here <span class="math notranslate nohighlight">\(\bold y \in \mathbb R^n\)</span> is a sample of output values, while <span class="math notranslate nohighlight">\(\bold X \in \mathbb R^{n \times d}\)</span> is a sample of <span class="math notranslate nohighlight">\(n\)</span> input values, then <span class="math notranslate nohighlight">\(\bold w \in \mathbb R^d\)</span> is the weights vector which act as parameters of the model.</p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(9.2) <strong>Solution to the LLS objective.</strong>
+Geometrically, it is intuitive that the unique vector in <span class="math notranslate nohighlight">\(\mathsf{C}(\bold X)\)</span> that minimizes the distance from <span class="math notranslate nohighlight">\(\bold y\)</span> is the orthogonal projection. Observe that for any <span class="math notranslate nohighlight">\(\bold z \in \mathsf{C}(\bold X)\)</span>,
+$<span class="math notranslate nohighlight">\(
+  \lVert \bold z - \bold y \rVert^2 = \lVert \bold z - \hat\bold y \rVert^2 + \lVert \hat\bold y - \bold y \rVert^2 \geq  \lVert \hat\bold y -\bold y  \rVert^2.
+  \)</span>$</p>
+<p>Thus, projections are solutions to the LLS and we can take <span class="math notranslate nohighlight">\(\hat \bold w = \bold X^+ \bold y.\)</span> In fact, projections are the only solutions. We prove this using the singular vectors of <span class="math notranslate nohighlight">\(\bold X.\)</span> The objective function in terms of the SVD can be written as
+$<span class="math notranslate nohighlight">\(
+  \begin{aligned}
+  \lVert \bold y - {\bold U \bold \Sigma} {\bold V}^\top \bold w \rVert^2
+  &amp;= \lVert {\bold U}^\top \bold y - {\bold \Sigma} {\bold V}^\top \bold w \rVert^2 \\ 
+  &amp;= \lVert {\bold U_d}^\top\bold y - \bold \Sigma_d {\bold V_d}^\top \bold w \rVert^2 + \lVert {\bold U_{d+1:}}^\top\bold y \rVert^2. 
+  \end{aligned}
+  \)</span>$</p>
+<p>We ignore the second term since it does not depend on <span class="math notranslate nohighlight">\(\bold w\)</span> — this is precisely the normal distance of <span class="math notranslate nohighlight">\(\bold y\)</span> from <span class="math notranslate nohighlight">\(\mathsf{C}(\bold X).\)</span> The unique minimal solution is obtained by setting all components of the first term zero, i.e. finding <span class="math notranslate nohighlight">\(\bold w\)</span> such that <span class="math notranslate nohighlight">\({\bold U_d}^\top\bold y = \bold \Sigma_d {\bold V_d}^\top \bold w.\)</span> One such solution is
+$<span class="math notranslate nohighlight">\(
+\begin{aligned}
+\hat \bold w 
+  = \sum_{k=1}^r \frac{1}{\sigma_k} \boldsymbol v_k \boldsymbol u_k^\top \bold y 
+  = \bold V \bold \Sigma^+ \bold U^\top \bold y = \bold X^+ \bold y.
+\end{aligned}
+\)</span>$</p>
+<p>Note that there is gap of <span class="math notranslate nohighlight">\(d - r\)</span> right singular vectors that get zeroed out by <span class="math notranslate nohighlight">\(\bold \Sigma^+.\)</span> So the most general solution is <span class="math notranslate nohighlight">\(\hat \bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j\)</span>
+for parameters <span class="math notranslate nohighlight">\(\alpha_j \in \mathbb R.\)</span> If the columns are independent, then there is a unique optimal weight. Otherwise, the optimal weights occupy an affine space of <span class="math notranslate nohighlight">\(d - r\)</span> dimensions!</p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(9.3) <strong>Linear least squares via gradient descent.</strong> Note that the least squares objective can be written as
+$<span class="math notranslate nohighlight">\(
+J(\bold w) = \frac{1}{n}\sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right)^2.
+\)</span>$</p>
+<p>This is essentially a shallow neural network with identity activation with MSE loss! Then, we can solve this using SGD or batch GD with the gradient step
+$<span class="math notranslate nohighlight">\(
+\nabla_k J (\bold w) = \frac{2}{n} \sum_{i=1}^n \left( \sum_{j=1}^d x_{ij} w_j - y_i \right) x_{ik}.
+\)</span>$</p>
+<p>We will use this to update <span class="math notranslate nohighlight">\(\bold w = \bold{w} - \eta\;\nabla J\)</span> for some fixed learning rate <span class="math notranslate nohighlight">\(\eta &gt; 0.\)</span> For each iteration, the weights <span class="math notranslate nohighlight">\(\bold w\)</span> move to some (locally) optimal weight that minimizes the objective <span class="math notranslate nohighlight">\(J.\)</span> For a linear model with nonzero bias term <span class="math notranslate nohighlight">\(w_0\)</span>, we can set <span class="math notranslate nohighlight">\(x_{i0} = 1.\)</span></p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(9.4) <strong>Code demo: gradient descent with LLS loss.</strong> In <code class="docutils literal notranslate"><span class="pre">src/11_leastsquares_descent.py</span></code>, we perform gradient descent on a synthetic dataset. For simplicity, i.e. so we can plot, we model the signal <span class="math notranslate nohighlight">\(y = -1 + 3 x\)</span> where <span class="math notranslate nohighlight">\(x \in [-1, 1]\)</span> and with some Gaussian measurement noise:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">0]</span> <span class="pre">=</span> <span class="pre">1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">1]</span> <span class="pre">=</span> <span class="pre">np.random.uniform(low=-1,</span> <span class="pre">high=1,</span> <span class="pre">size=n)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">X</span> <span class="pre">&#64;</span> <span class="pre">w_true</span> <span class="pre">+</span> <span class="pre">0.01*np.random.randn(n)</span></code></p></li>
+</ul>
+<p>where <code class="docutils literal notranslate"><span class="pre">w_true</span> <span class="pre">=</span> <span class="pre">np.array([-1,</span> <span class="pre">3])</span></code>. The gradient step can be vectorized as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">*</span><span class="p">((</span><span class="n">X</span> <span class="o">@</span> <span class="n">w</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>for each <code class="docutils literal notranslate"><span class="pre">k</span></code>. Further vectorization requires broadcasting:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">*</span><span class="p">((</span><span class="n">X</span> <span class="o">@</span> <span class="n">w</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>i.e. multiplies <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">&#64;</span> <span class="pre">w</span> <span class="pre">-</span> <span class="pre">y</span></code> to each column of <code class="docutils literal notranslate"><span class="pre">X</span></code> followed by taking the mean of each column. This gives us the gradient vector of length 2. Let us see whether gradient descent can find <code class="docutils literal notranslate"><span class="pre">w_true</span></code>.</p>
+<br>
+<p align="center">
+<img src="img/11_leastsquares_descent.png" title="drawing" />
+</p> 
+<br>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MSE</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">@</span> <span class="n">w_true</span><span class="p">)</span> <span class="o">=</span> <span class="mf">9.343257744523987e-05</span>
+<span class="n">MSE</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">@</span> <span class="n">w_best</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.01446739159531978</span>
+<span class="n">MSE</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">@</span> <span class="n">X_pinv</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="mf">9.32687024471718e-05</span>
+<span class="n">w_true</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span>  <span class="mi">3</span><span class="p">]</span>
+<span class="n">w_best</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.00332668</span>  <span class="mf">2.79325696</span><span class="p">]</span>
+<span class="n">X_pinv</span> <span class="o">@</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.99971352</span>  <span class="mf">2.99951481</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">w_best</span></code> is the best weight found using GD. The analytic solution obtained using the pseudoinverse performs better. Try to experiment with the code, e.g. changing the signal to be quadratic (nonlinear) to see how the loss surface will change. It will still be convex, since only the data changes. However, it does not anymore minimize to an MSE proportional equal to the square of the amplitude <span class="math notranslate nohighlight">\(a\)</span> of the noise. To derive this, observe that since <span class="math notranslate nohighlight">\(\mu = 0\)</span>, the variance is <span class="math notranslate nohighlight">\(\mathbb E[a^2 X^2] = a^2 \mathbb E[X^2] = a^2\sigma^2 = a^2.\)</span> This agrees with the best MSE of <code class="docutils literal notranslate"><span class="pre">9.34e-05</span></code> ~ <code class="docutils literal notranslate"><span class="pre">1e-4</span></code>. This can be derived analytically by writing the loss function as
+<span class="math notranslate nohighlight">\((\bold y - \bold X \bold w)^\top (\bold y - \bold X \bold w).\)</span> If we substitute <span class="math notranslate nohighlight">\(\bold y = \bold X \bold w_{\text{true}} + \boldsymbol{\epsilon},\)</span> then
+$<span class="math notranslate nohighlight">\(J(\bold w) = (\bold w - \bold w_{\text{true}})^\top \bold X^\top \bold X (\bold w - \bold w_{\text{true}}) - 2 \boldsymbol{\epsilon}^\top \bold X (\bold w - \bold w_{\text{true}}) + \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon}. 
+\)</span>$</p>
+<p>This is a quadratic surface centered at <span class="math notranslate nohighlight">\(\bold w_{\text{true}}\)</span> with value <span class="math notranslate nohighlight">\(J = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon}\)</span> at the minimum <span class="math notranslate nohighlight">\(\bold w = \bold w_{\text{true}}.\)</span></p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(9.5) <strong>Loss surfaces.</strong> If <span class="math notranslate nohighlight">\(\bold X\)</span> has linearly dependent columns, we expect that the optimal weight vector <span class="math notranslate nohighlight">\(\bold w\)</span> is not unique. The loss surfaces are plotted below, see <code class="docutils literal notranslate"><span class="pre">11/loss_surface.py</span></code>, where we plot the loss surface with <span class="math notranslate nohighlight">\(\bold X\)</span> having dependent columns (top) with <code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">0]</span> <span class="pre">=</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">X[:,</span> <span class="pre">1]</span></code> — observe the whole strip of optimal weights; and the loss surface where <span class="math notranslate nohighlight">\(\bold X\)</span> has independent columns with a unique optimal point (bottom). Recall that the equation for optimal weights is given by</p>
+<div class="math notranslate nohighlight">
+\[\hat\bold w = \bold X^+ \bold y + \sum_{j = r+1}^d \alpha_j \bold v_j\]</div>
+<p>for coefficients <span class="math notranslate nohighlight">\(\alpha_j \in \mathbb R.\)</span> In this example, <span class="math notranslate nohighlight">\(d = 2\)</span> and <span class="math notranslate nohighlight">\(r = 1\)</span> so the optimal weights occupy 1-dimension in the parameter space spanned by the second left singular vector <span class="math notranslate nohighlight">\(\bold v_2\)</span> offset by <span class="math notranslate nohighlight">\(\bold w^+.\)</span> This is implemented in the code and the optimal weights plotted as a scatterplot. (The 3D plots on the left can be moved around and inspected using <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> in the script, if you actually run the code!) Note that the optimal points are generated using the equation for the optimal weight (see code), i.e. not manually plotted. Thus, the code demonstrates uniqueness and nonuniqueness of optimal weights depending on the rank of <span class="math notranslate nohighlight">\(\bold X\)</span> as well as the correctness of the equation. Interesting that the geometry of the loss surface is affected by the rank of <span class="math notranslate nohighlight">\(\bold X\)</span> and affected in a tractable manner — i.e. by counting dimensions!</p>
+  <br>
+  <p align="center">
+    <img src="img/11_loss_independent.png"> <br>
+    <b>Figure.</b> Loss surface for X with independent columns; unique minimum.
+    <br><br>
+    <img src="img/11_loss_dependent.png"><br>
+    <b>Figure.</b> Loss surface for X with dedependent columns; nonunique (1-dim) minima.
+  </p>
+</li>
+</ul>
+<br></div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Ron Medina. Powered by <a href="https://jupyterbook.org">Jupyter Book</a>.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

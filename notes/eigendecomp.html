@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eigendecomposition &#8212; computational-linear-algebra</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/loss_surface.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/loss_surface.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">computational-linear-algebra</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  FUNDAMENTALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="vectors-and-matrices.html">
+   Vectors and matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="svd.html">
+   Singular value decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mm-norms.html">
+   Matrix multiplication and norms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rank.html">
+   Rank and dimension
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="four-subspaces.html">
+   Four fundamental subspaces
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notes/eigendecomp.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/particle1331/machine-learning-collection"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/particle1331/machine-learning-collection/issues/new?title=Issue%20on%20page%20%2Fnotes/eigendecomp.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="eigendecomposition">
+<h1>Eigendecomposition<a class="headerlink" href="#eigendecomposition" title="Permalink to this headline">¶</a></h1>
+<br>
+<ul class="simple">
+<li><p>(10.1) <strong>Eigenvalues and eigenvectors.</strong> Let <span class="math notranslate nohighlight">\(\bold A\)</span> be a real square matrix which we interpret as an automorphism of the space <span class="math notranslate nohighlight">\(\mathbb R^n.\)</span> Eigenvector directions <span class="math notranslate nohighlight">\(\bold v \neq \bold 0\)</span> are directions where the action of <span class="math notranslate nohighlight">\(\bold A\)</span> is simple: <span class="math notranslate nohighlight">\(\bold A \bold v = \lambda \bold v.\)</span> The scalar <span class="math notranslate nohighlight">\(\lambda\)</span> is called the eigenvalue. Note that if <span class="math notranslate nohighlight">\(\bold A\)</span> has a zero eigenvalue, then <span class="math notranslate nohighlight">\(\bold A\)</span> has a nontrivial null space, i.e. dimension at least one.</p></li>
+</ul>
+<br>
+<ul>
+<li><p>(10.2) <strong>Gershgorin circle theorem.</strong> Let <span class="math notranslate nohighlight">\(\bold A\)</span> be an <span class="math notranslate nohighlight">\(n \times n\)</span> real or complex matrix. For each <span class="math notranslate nohighlight">\(1 \leq i \leq n,\)</span> define the <span class="math notranslate nohighlight">\(i\)</span>th <strong>Gershgorin disk</strong> <span class="math notranslate nohighlight">\(D_i = \{ z \in \mathbb C \mid | z - a_{ii} | \leq r_i \}\)</span> where <span class="math notranslate nohighlight">\(r_i = \sum_{j \neq i} | a_{ij}|.\)</span> Thus, the <span class="math notranslate nohighlight">\(i\)</span>th Gershgorin disk is the subset of <span class="math notranslate nohighlight">\(\mathbb C\)</span> that is centered on the <span class="math notranslate nohighlight">\(i\)</span>th diagonal entry of <span class="math notranslate nohighlight">\(\bold A\)</span> with radius equal to the modulus of the off-diagonal entries of <span class="math notranslate nohighlight">\(\bold A\)</span> on the <span class="math notranslate nohighlight">\(i\)</span>th row. The <strong>Gershgorin domain</strong> <span class="math notranslate nohighlight">\(D_{\bold A} = \bigcup_{i=1}^n D_i \subset \mathbb C\)</span> is simply the union of the Gershgorin disks. The theorem states that all real and complex eigenvalues of <span class="math notranslate nohighlight">\(\bold A\)</span> lie in its Gershgorin domain <span class="math notranslate nohighlight">\(D_{\bold A}.\)</span> See [p. 421 of Olver, 2018] for the proof of this theorem. For instance, consider
+$<span class="math notranslate nohighlight">\(
+\bold A = 
+\begin{bmatrix}
+2 &amp; -1 &amp; 0 \\
+1 &amp; 4 &amp; -1 \\
+-1 &amp; -1 &amp; -3 \\
+\end{bmatrix}
+\)</span>$</p>
+<p>The Gershgorin domain of <span class="math notranslate nohighlight">\(\bold A\)</span> is the plotted below. The eigenvalues of <span class="math notranslate nohighlight">\(\bold A\)</span> are <span class="math notranslate nohighlight">\(3.162, 3.,\)</span> and <span class="math notranslate nohighlight">\(-3.162\)</span> all of which lie in <span class="math notranslate nohighlight">\(D_{\bold A}.\)</span></p>
+</li>
+</ul>
+<br>
+<p align='center'>
+<img src="img/18_gershgorin_disks.png"
+     width=45% />
+<br>
+[Olver, 2018] p. 421
+</p>
+<br>
+<ul>
+<li><p>(10.3) <strong>Diagonalization.</strong> A matrix <span class="math notranslate nohighlight">\(\bold A \in \mathbb R^n\)</span> is diagonalizable if it has <span class="math notranslate nohighlight">\(n\)</span> independent eigenvectors. This means that we can write <span class="math notranslate nohighlight">\(\bold A\bold U = \bold U \bold \Lambda\)</span> where <span class="math notranslate nohighlight">\(\bold U = [\bold v_1, \ldots, \bold v_n]\)</span> and <span class="math notranslate nohighlight">\(\bold \Lambda = \text{diag}(\lambda_1, \ldots, \lambda_n)\)</span> not necessarily distinct. Since the eigenvectors are linearly independent, they span the whole space so they form a basis for <span class="math notranslate nohighlight">\(\mathbb R^n.\)</span> Moreover <span class="math notranslate nohighlight">\(\bold U\)</span> is invertible so that
+$<span class="math notranslate nohighlight">\(\bold A = \bold U \bold \Lambda \bold U^{-1}.\)</span>$</p>
+<p>That is, under the basis <span class="math notranslate nohighlight">\(\bold U\)</span> the matrix <span class="math notranslate nohighlight">\(\bold A\)</span> acts like a diagonal matrix. Very cool. This is very convenient, e.g. <span class="math notranslate nohighlight">\(\bold A^k = \bold U \bold \Lambda^k \bold U^{-1}.\)</span> Moreover, this allows the layer perspective <span class="math notranslate nohighlight">\(\bold A = \sum_{i=1}^n \lambda_i \bold u_i\bold u_i^\top\)</span> as a sum of rank 1 matrices.</p>
+</li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(10.4) <strong>Counterexample: a nondiagonalizable matrix.</strong> The matrix
+$<span class="math notranslate nohighlight">\(\bold A = 
+  \begin{bmatrix}
+      1 &amp; 0 \\ 
+      1 &amp; 1 \\
+  \end{bmatrix}\)</span><span class="math notranslate nohighlight">\(
+  has eigenvalues \)</span>\lambda_1 = \lambda_2 = 1<span class="math notranslate nohighlight">\( with eigenvectors of the form \)</span>\bold v = [0, z]^\top<span class="math notranslate nohighlight">\( for nonzero \)</span>z \in \mathbb C.<span class="math notranslate nohighlight">\( It follows that \)</span>\bold A<span class="math notranslate nohighlight">\( is not diagonalizable since it has at most one linearly independent eigenvectors &amp;mdash; not enough to span \)</span>\mathbb C^2.$</p></li>
+</ul>
+<br>
+<ul>
+<li><p>(10.5) <strong>Existence of eigenvalues.</strong> Let <span class="math notranslate nohighlight">\(\bold A \in \mathbb R^{n \times n}.\)</span> Observe that <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue of <span class="math notranslate nohighlight">\(\bold A\)</span> iff. it is a zero of the polynomial <span class="math notranslate nohighlight">\(p_\bold A(\lambda) = \det (\lambda \bold I_n - \bold A).\)</span> This <span class="math notranslate nohighlight">\(n\)</span>-degree is called the <strong>characteristic polynomial</strong> of <span class="math notranslate nohighlight">\(\bold A.\)</span> From the Fundamental Theorem of Algebra, we can write
+$<span class="math notranslate nohighlight">\(p_\bold A(\lambda) = \prod_{i=1}^s (\lambda - \lambda_i)^{r_i}\)</span>$</p>
+<p>such that <span class="math notranslate nohighlight">\(r_1 + \ldots + r_s = n\)</span> and <span class="math notranslate nohighlight">\(\lambda_1, \ldots, \lambda_s \in \mathbb C.\)</span> It follows that <span class="math notranslate nohighlight">\(\bold A\)</span> has at most <span class="math notranslate nohighlight">\(n\)</span> distinct eigenvalues. The number <span class="math notranslate nohighlight">\(r_i \in \mathbb N\)</span> is called the <strong>algebraic multiplicity</strong> of <span class="math notranslate nohighlight">\(\lambda_i.\)</span></p>
+  <br>
+<p><strong>Remark.</strong> The eigenvalues and the corresponding eigenvectors of a real matrix can be complex valued. In the example below, the matrix <span class="math notranslate nohighlight">\(\bold B\)</span> is diagonalizable in <span class="math notranslate nohighlight">\(\mathbb C\)</span> but not in <span class="math notranslate nohighlight">\(\mathbb R.\)</span> This can be tested in numpy.</p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(10.6) <strong>Eigenspaces.</strong> Given any eigenvalue <span class="math notranslate nohighlight">\(\lambda,\)</span> we can solve for all corresponding eigenvectors by finding <span class="math notranslate nohighlight">\(\bold v\)</span> such that <span class="math notranslate nohighlight">\((\lambda \bold I_n - \bold A)\bold v = \bold 0,\)</span> e.g. by Gaussian elimination. The eigenvectors of <span class="math notranslate nohighlight">\(\lambda\)</span> form a subspace
+$<span class="math notranslate nohighlight">\(E_\lambda = \mathsf{N}(\lambda \bold I_n - \bold A)\)</span>$</p>
+<p>called the <strong>eigenspace</strong> of <span class="math notranslate nohighlight">\(\lambda.\)</span> In a diagonalization of <span class="math notranslate nohighlight">\(\bold A\)</span> with respect to an eigenbasis, the eigenspace <span class="math notranslate nohighlight">\(E_\lambda\)</span> corresponds to a block <span class="math notranslate nohighlight">\(\lambda \bold I_{k}\)</span> where <span class="math notranslate nohighlight">\(k= \dim E_\lambda\)</span> is called the <strong>geometric multiplicity</strong> of <span class="math notranslate nohighlight">\(\lambda.\)</span> It turns out that the geometric multiplicity of <span class="math notranslate nohighlight">\(\lambda\)</span> is bounded above by its algebraic multiplicity. This applies to all matrices <span class="math notranslate nohighlight">\(\bold A,\)</span> i.e. not just for diagonalizable ones.</p>
+<br>
+<p><strong>Proof.</strong> (Geometric mult. <span class="math notranslate nohighlight">\(\leq\)</span> algebraic mult.) Let <span class="math notranslate nohighlight">\(\lambda_1\)</span> be an eigenvalue of <span class="math notranslate nohighlight">\(\bold A.\)</span> To see why the inequality should be true, consider a basis for <span class="math notranslate nohighlight">\(E_{\lambda_1}\)</span> consisting of <span class="math notranslate nohighlight">\(k\)</span> vectors, we can extend this to a basis for <span class="math notranslate nohighlight">\(\mathbb R^n\)</span> which we collect in the columns of a matrix <span class="math notranslate nohighlight">\(\bold V.\)</span> Then
+$<span class="math notranslate nohighlight">\(\bold A = \bold V \begin{bmatrix}
+      {\lambda_1} \bold I_k &amp; \bold C \\ 
+      \bold 0 &amp; \bold D \\
+  \end{bmatrix} \bold V^{-1}\)</span>$</p>
+<p>for some matrices <span class="math notranslate nohighlight">\(\bold C\)</span> and <span class="math notranslate nohighlight">\(\bold D\)</span> which can have arbitrary structure. Thus, with the determinants of <span class="math notranslate nohighlight">\(\bold V\)</span> and its inverse <span class="math notranslate nohighlight">\(\bold V^{-1}\)</span> cancelling out, we get
+$<span class="math notranslate nohighlight">\(
+  \begin{aligned}
+  p_\bold A(\lambda) 
+  = \det (\lambda \bold I - \bold A)
+  = (\lambda - {\lambda_1})^k\det(\lambda \bold I_{n-k} - \bold D).
+  \end{aligned}
+  \)</span>$</p>
+<p>Since the latter determinant can have a factor of <span class="math notranslate nohighlight">\((\lambda - {\lambda_1}),\)</span> this implies that the algebraic multiplicity of <span class="math notranslate nohighlight">\({\lambda_1}\)</span> is at least <span class="math notranslate nohighlight">\(k\)</span> proving the result. <span class="math notranslate nohighlight">\(\square\)</span></p>
+  <br>
+<p><strong>Remark.</strong> In a diagonalizable matrix, we get equality between algebraic and geometric multiplicities obtaining an eigenbasis for <span class="math notranslate nohighlight">\(\mathbb R^n\)</span> since eigenvectors belonging to different eigenspaces are linearly independent.</p>
+</li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(10.7) <strong>Eigenspace as invariant subspace.</strong> Note that eigenspaces are necessarily invariant subspaces of <span class="math notranslate nohighlight">\(\bold A.\)</span> This automatically sets restrictions on the geometry. Consider
+$<span class="math notranslate nohighlight">\(\bold B = 
+\begin{bmatrix}
+   0 &amp; 1 &amp;  0 \\ 
+  -1 &amp; 0 &amp;  0 \\
+   0 &amp; 0 &amp; -5
+\end{bmatrix}\)</span><span class="math notranslate nohighlight">\(
+  which is a rotation matrix with \)</span>\theta = \frac{\pi}{2}<span class="math notranslate nohighlight">\( on the \)</span>xy<span class="math notranslate nohighlight">\(-plane and a stretching on the \)</span>z<span class="math notranslate nohighlight">\( plane. From the geometry, we can already see that there cannot exist a real eigendecomposition of \)</span>\bold B<span class="math notranslate nohighlight">\( since the \)</span>xy$-plane which is a 2-dimensional invariant subspace undergoes a rotation.</p></li>
+</ul>
+<br> 
+<ul class="simple">
+<li><p>(10.8) <strong>Eigenvalues of triangular matrices.</strong> The eigenvalues of triangular matrices can be read off from its diagonal. This follows from the fact that the only nonzero term in the determinant expansion of the characteristic polynomial is that which follows the path along the diagonal. For an upper triangular matrix, you have to start with <span class="math notranslate nohighlight">\(a_{11}-\lambda.\)</span> Thus, the next factor can only be chosen from <span class="math notranslate nohighlight">\(a_{22} -\lambda\)</span> and <span class="math notranslate nohighlight">\(a_{j2} = 0\)</span> for <span class="math notranslate nohighlight">\(j &gt; 2.\)</span> This forces <span class="math notranslate nohighlight">\(j = 2,\)</span> and we have <span class="math notranslate nohighlight">\((a_{11} -\lambda)(a_{22}-\lambda)\)</span> so far. And so on, getting all diagonal entries.</p></li>
+</ul>
+<br>
+<ul>
+<li><p>(10.9) <strong>Trace and determinant formula.</strong> We prove two formulas:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\det \bold A=\prod_{i=1}^n \lambda_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{tr} \bold A = \sum_{i=1}^n \lambda_i\)</span></p></li>
+</ul>
+<br>
+<p><strong>Proof.</strong> (1) To prove the first, set <span class="math notranslate nohighlight">\(\lambda = 0\)</span> in the characteristic polynomial, we get
+$<span class="math notranslate nohighlight">\(p_\bold A(0) = \det (0\bold I - \bold A) = \det(-\bold A) = \prod_{i=1}^n (-\lambda_i) = (-1)^n\prod_{i=1}^n \lambda_i.
+  \)</span>$</p>
+<p>Incidentally, this is <span class="math notranslate nohighlight">\(c_0\)</span> coefficient of the characteristic polynomial. Note that <span class="math notranslate nohighlight">\(\det(-\bold A) = (-1)^n\det(\bold A).\)</span> Thus, <span class="math notranslate nohighlight">\(\det \bold A=\prod_{i=1}^n \lambda_i.\)</span></p>
+  <br>
+<p>(2) Consider the coefficient <span class="math notranslate nohighlight">\(c_{n-1}\)</span> of the characteristic polynomial. These are the terms in the determinant function that takes <span class="math notranslate nohighlight">\(n-1\)</span> of the diagonal entries, and one that is off diagonal. However, this forces us to multiply <em>all</em> diagonal entries. Thus, <span class="math notranslate nohighlight">\(c_{n-1}\)</span> is the coefficient of <span class="math notranslate nohighlight">\(\lambda^{n-1}\)</span> in <span class="math notranslate nohighlight">\(\det(\lambda \bold I_n - \bold A).\)</span> Note that expansion when multiplying out binary terms is akin to a binary tree expansion. The terms we’re iterested in chooses <span class="math notranslate nohighlight">\(n-1\)</span> of <span class="math notranslate nohighlight">\(\lambda\)</span> and one of the other factor. These occur in <span class="math notranslate nohighlight">\(n\)</span> leaves, i.e. <span class="math notranslate nohighlight">\(-a_{11} \lambda^{n-1}, \ldots, -a_{nn} \lambda^{n-1}.\)</span> Thus, <span class="math notranslate nohighlight">\(c_{n-1} = -\lambda^{n-1}\text{tr} \bold A.\)</span> On the other hand, solving for <span class="math notranslate nohighlight">\(c_{n-1}\)</span> in the expansion of <span class="math notranslate nohighlight">\(p_\bold A(\lambda) = \prod_{i=1}^n(\lambda - \lambda_i)\)</span> we get <span class="math notranslate nohighlight">\(c_{n-1} = -\lambda^{n-1}\sum_{i=1}^{n} \lambda_i.\)</span> Thus, <span class="math notranslate nohighlight">\(\text{tr}\bold A = \sum_{i=1}^n \lambda_i.\)</span> <span class="math notranslate nohighlight">\(\square\)</span></p>
+</li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(10.10) <strong>Eigenvalues occur in conjugate pairs.</strong> Complex eigenvalues of a real (!) matrix come in conjugate pairs. This is obtained by taking the conjugate of both sides of the eigenvalue equation. This explains why <span class="math notranslate nohighlight">\(\det \bold A = \prod_{i=1}^n \lambda_i\)</span> is real even if the eigenvalues can be complex.</p></li>
+</ul>
+<br>
+<ul>
+<li><p>(10.11) <strong>Growth of iterated maps</strong>. Let <span class="math notranslate nohighlight">\(\lambda\)</span>  be the principal eigenvalue of <span class="math notranslate nohighlight">\(\bold A\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[\dfrac{\lVert \bold A^k \bold v\rVert}{\lVert \bold A^{k-1} \bold v\rVert} \approx |\lambda| .\]</div>
+<p>That is the vector <span class="math notranslate nohighlight">\(\bold A^k\bold v\)</span> gets squashed into a principal eigenvector direction. If there are more than one, then it’s like being stuck at a local minima, e.g. oscillation. If <span class="math notranslate nohighlight">\(|\lambda| &gt; 1\)</span>, then <span class="math notranslate nohighlight">\(\lVert \bold A^k \bold v \rVert\)</span> explodes. To  prevent this, we can scale <span class="math notranslate nohighlight">\(\bold A \leftarrow |\lambda|^{-1}\bold A\)</span>. So that</p>
+<div class="math notranslate nohighlight">
+\[\dfrac{|{\lambda}|^{k-1}}{|\lambda|^{k}}\dfrac{\lVert \bold A^k \bold v\rVert}{\lVert \bold A^{k-1} \bold v\rVert} =  \dfrac{1}{|\lambda|}\dfrac{\lVert \bold A^k \bold v\rVert}{\lVert \bold A^{k-1} \bold v\rVert} \approx 1.\]</div>
+<p>as <span class="math notranslate nohighlight">\(k \to \infty\)</span> (right) so the norm stabilizes to some fixed value (left). This is simulated in <code class="docutils literal notranslate"><span class="pre">18_iterated_maps.py</span></code>. Observe some oscillation because two of the eigenvalues of <span class="math notranslate nohighlight">\(\bold A\)</span> are <span class="math notranslate nohighlight">\(3\)</span> and ~<span class="math notranslate nohighlight">\(3.16\)</span> are close to each other, i.e. <span class="math notranslate nohighlight">\(\frac{|\lambda_1|}{|\lambda_2|} \to 0\)</span> at a slower rate. See equations (9) and (10) in this <a class="reference external" href="https://andrewcharlesjones.github.io/posts/2021/01/power-iteration/">blog post on power iteration</a> which gives a proof of this behavior of iterated maps. It is assumed that <span class="math notranslate nohighlight">\(\bold A\)</span> is diagonalizable.</p>
+  <br>
+  <p align='center'>
+  <img src="img/18_iterated_maps.png"
+      width=600 />
+  </p>
+</li>
+</ul>
+<br></div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Ron Medina. Powered by <a href="https://jupyterbook.org">Jupyter Book</a>.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

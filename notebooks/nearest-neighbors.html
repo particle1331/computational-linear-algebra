@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nearest Neighbors &#8212; computational-linear-algebra</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/loss_surface.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/loss_surface.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">computational-linear-algebra</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  FUNDAMENTALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notes/vectors-and-matrices.html">
+   Vectors and matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notes/svd.html">
+   Singular value decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notes/mm-norms.html">
+   Matrix multiplication and norms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notes/rank.html">
+   Rank and dimension
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notes/four-subspaces.html">
+   Four fundamental subspaces
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/nearest-neighbors.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/particle1331/machine-learning-collection"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/particle1331/machine-learning-collection/issues/new?title=Issue%20on%20page%20%2Fnotebooks/nearest-neighbors.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/particle1331/machine-learning-collection/master?urlpath=tree/docs/notebooks/nearest-neighbors.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nearest-neighbors-in-context">
+     Nearest neighbors in context
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#common-use-cases">
+     Common use cases
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nearest-neighbors-algorithm">
+   Nearest Neighbors Algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nearest-neighbor-decision-boundary">
+   Nearest Neighbor Decision Boundary
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="nearest-neighbors">
+<h1>Nearest Neighbors<a class="headerlink" href="#nearest-neighbors" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-attribution admonition">
+<p class="admonition-title">Attribution</p>
+<p>This notebook is based on <a class="reference external" href="https://github.com/rasbt/stat451-machine-learning-fs20/tree/master/L02">Lecture 2</a> of <a class="reference external" href="http://pages.stat.wisc.edu/~sraschka/">Sebastian Raschka</a>’s <a class="reference external" href="http://pages.stat.wisc.edu/~sraschka/teaching/stat451-fs2020/">STAT 451: Intro to Machine Learning &#64; UW-Madison (Fall 2020)</a>.</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>While KNN is a universal function approximator under certain conditions, the underlying
+concept is relatively simple.</p>
+<ol class="simple">
+<li><p>lazy learner, i.e. all processing of training examples occurs during inference. training = just store data.</p></li>
+<li><p>computing m(q) on a trained knn model m just looks for the k nearest neighbors of a query point q and uses properties of those k train examples to compute a class label — or a continuous target, in the case of regression.</p></li>
+</ol>
+<p>the overall idea is that instead of approximating a function globally during a prediction, m approximates the target function locally.</p>
+<p>put image knn-query.png</p>
+<p>Illustration of the nearest neighbor classification algorithm in two dimensions (features
+x1 and x2). In the left subpanel, the training examples are shown as blue dots, and a query point
+that we want to classify is shown as a question mark. In the right subpanel, the class labels are
+annotated via blue squares and red triangle symbols. The dashed line indicates the nearest neighbor
+of the query point, assuming a Euclidean distance metric. The predicted class label is the class
+label of the closest data point in the training set (here: class 0, i.e., blue square).</p>
+<div class="section" id="nearest-neighbors-in-context">
+<h3>Nearest neighbors in context<a class="headerlink" href="#nearest-neighbors-in-context" title="Permalink to this headline">¶</a></h3>
+<p>Since the prediction is based on a
+comparison of a query point with data points in the training set (rather than a global
+model), kNN is also categorized as instance-based (or “memory-based”) method. In contrast, SVM is an eager instance-based learning algorithm. Lastly, because we do not make any assumption about the functional form of the kNN
+algorithm, a kNN model is also considered a nonparametric model.</p>
+<p>Under certain assumptions, we can estimate the conditional probability that a given data
+point belongs to a given class as well as the marginal probability for a feature given a training
+dataset (more details are provided in the section on “kNN from a Bayesian Perspective”
+later). However, since kNN does not explicitly try to model the data generating process
+but models the posterior probabilities, p(f(x) = i|x), directly, kNN is usually considered a
+discriminative model.</p>
+</div>
+<div class="section" id="common-use-cases">
+<h3>Common use cases<a class="headerlink" href="#common-use-cases" title="Permalink to this headline">¶</a></h3>
+<p>While neural networks are gaining popularity in the computer vision and pattern recognition
+field, one area where k-nearest neighbors models are still commonly and successfully being
+used is in the intersection between computer vision, pattern classification, and biometrics
+(e.g., to make predictions based on extracted geometrical features2).
+Other common use cases include recommender systems (via collaborative filtering3) and
+outlier detection4.</p>
+</div>
+</div>
+<div class="section" id="nearest-neighbors-algorithm">
+<h2>Nearest Neighbors Algorithm<a class="headerlink" href="#nearest-neighbors-algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">class</span> <span class="nc">NearestNeighbor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Implementing the Nearest Neighbor algorithm.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;Euclidean&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;Euclidean&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fit the model. Here X is a 2d numpy array and y is array-like.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_point</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Predict label of query point.&quot;&quot;&quot;</span>
+
+        <span class="n">query_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">query_point</span><span class="p">)</span>
+        <span class="n">t_min</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">min_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">targets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">query_point</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">min_distance</span><span class="p">:</span>
+                <span class="n">min_distance</span> <span class="o">=</span> <span class="n">distance</span>
+                <span class="n">t_min</span> <span class="o">=</span> <span class="n">t</span>
+
+        <span class="k">return</span> <span class="n">t_min</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Testing with a simple dataset and query point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate fake dataset</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Initialize NN model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">NearestNeighbor</span><span class="p">()</span>
+
+<span class="c1"># Fit and make inference</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<p>The default distance for KNN algorithm is the Euclidean distance</p>
+<div class="math notranslate nohighlight">
+\[d(\mathbf{x}, \mathbf{y}) = \sqrt{ \sum_{j=1}^m {\left(x_j - y_j\right)}^2 }.\]</div>
+</div>
+<div class="section" id="nearest-neighbor-decision-boundary">
+<h2>Nearest Neighbor Decision Boundary<a class="headerlink" href="#nearest-neighbor-decision-boundary" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Ron Medina. Powered by <a href="https://jupyterbook.org">Jupyter Book</a>.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
