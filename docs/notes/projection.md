@@ -106,7 +106,7 @@
 
 * (8.9) **Gram-Schmidt process.** Given the columns of $\bold A,$ we want to construct an orthonormal basis for $\mathsf{C}(\bold A).$ To do this, we can perform what is called the Gram-Schmidt process. Let $\boldsymbol a_1, \ldots, \boldsymbol a_n$ be the columns of $\bold A.$ Then an ONB $\boldsymbol u_1, \ldots, \boldsymbol u_r$ for $\mathsf{C}(\bold A)$ can be constructed as follows:
   1. $\boldsymbol u_1 = \dfrac{\boldsymbol a_1}{\lVert \boldsymbol a_1 \rVert}.$
-  2. $\boldsymbol u_k =  \dfrac{ {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} }{\lVert {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} \rVert} = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert {\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}\rVert}.$ 
+  2. $\boldsymbol u_k =  \dfrac{{\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k}}{\lVert {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} \rVert} = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert {\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}\rVert}.$ 
   
   where $\bold U_{k-1} = [\boldsymbol u_1 | \ldots | \boldsymbol u_{k-1}].$ That is we remove the component of $\boldsymbol a_k$ projected in the space already spanned by the earlier vectors. The resulting vector is $\boldsymbol u_k$ orthogonal to $\mathsf{C}(\bold U_{k-1}).$
 

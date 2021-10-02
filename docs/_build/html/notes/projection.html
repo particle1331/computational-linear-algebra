@@ -43,6 +43,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -304,7 +306,7 @@ $<span class="math notranslate nohighlight">\(
 <li><p>(8.9) <strong>Gram-Schmidt process.</strong> Given the columns of <span class="math notranslate nohighlight">\(\bold A,\)</span> we want to construct an orthonormal basis for <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A).\)</span> To do this, we can perform what is called the Gram-Schmidt process. Let <span class="math notranslate nohighlight">\(\boldsymbol a_1, \ldots, \boldsymbol a_n\)</span> be the columns of <span class="math notranslate nohighlight">\(\bold A.\)</span> Then an ONB <span class="math notranslate nohighlight">\(\boldsymbol u_1, \ldots, \boldsymbol u_r\)</span> for <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A)\)</span> can be constructed as follows:</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(\boldsymbol u_1 = \dfrac{\boldsymbol a_1}{\lVert \boldsymbol a_1 \rVert}.\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\boldsymbol u_k =  \dfrac{ {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} }{\lVert {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} \rVert} = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert {\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}\rVert}.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol u_k =  \dfrac{{\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k}}{\lVert {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} \rVert} = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert {\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}\rVert}.\)</span></p></li>
 </ol>
 <p>where <span class="math notranslate nohighlight">\(\bold U_{k-1} = [\boldsymbol u_1 | \ldots | \boldsymbol u_{k-1}].\)</span> That is we remove the component of <span class="math notranslate nohighlight">\(\boldsymbol a_k\)</span> projected in the space already spanned by the earlier vectors. The resulting vector is <span class="math notranslate nohighlight">\(\boldsymbol u_k\)</span> orthogonal to <span class="math notranslate nohighlight">\(\mathsf{C}(\bold U_{k-1}).\)</span></p>
 </li>
