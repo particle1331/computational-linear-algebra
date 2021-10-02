@@ -1,0 +1,32 @@
+title: computational-linear-algebra
+author: Ron Medina. Powered by <a href="https://jupyterbook.org">Jupyter Book</a>.
+logo: img/loss_surface.png
+
+execute:
+  execute_notebooks: "off"
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+bibtex_bibfiles:
+  - references.bib
+
+repository:
+  url: https://github.com/particle1331/machine-learning-collection
+  path_to_book: docs  # Path to book relative to repository root
+  branch: master      # Branch of repo to use when creating links
+
+html:
+  home_page_in_navbar: false
+  use_issues_button: true
+  use_repository_button: true
+  extra_navbar: ""
+  favicon: "img/loss_surface.png"
+
+sphinx:
+  config:
+    html_js_files:
+    # For plotly plots to show, we need to load require.js
+    # https://jupyterbook.org/interactive/interactive.html
+    - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js

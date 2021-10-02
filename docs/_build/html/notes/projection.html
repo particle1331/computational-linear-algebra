@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projection and orthogonalization &#8212; computational-linear-algebra</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/loss_surface.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/loss_surface.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">computational-linear-algebra</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  FUNDAMENTALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="vectors-and-matrices.html">
+   Vectors and matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="svd.html">
+   Singular value decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mm-norms.html">
+   Matrix multiplication and norms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rank.html">
+   Rank and dimension
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="four-subspaces.html">
+   Four fundamental subspaces
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notes/projection.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/particle1331/machine-learning-collection"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/particle1331/machine-learning-collection/issues/new?title=Issue%20on%20page%20%2Fnotes/projection.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="projection-and-orthogonalization">
+<h1>Projection and orthogonalization<a class="headerlink" href="#projection-and-orthogonalization" title="Permalink to this headline">¶</a></h1>
+<br>
+<ul>
+<li><p>(8.1) <strong>Orthogonal projection: definition and uniqueness.</strong>
+The projection of <span class="math notranslate nohighlight">\(\bold y\)</span> onto <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A)\)</span> is the unique vector <span class="math notranslate nohighlight">\(\hat\bold y\)</span> such that (1) <span class="math notranslate nohighlight">\(\hat\bold y \in \mathsf{C}(\bold A)\)</span>, and (2) <span class="math notranslate nohighlight">\((\bold y - \hat\bold y) \perp \mathsf{C}(\bold A).\)</span> To show uniqueness, suppose <span class="math notranslate nohighlight">\(\hat\bold y_1\)</span> and <span class="math notranslate nohighlight">\(\hat\bold y_2\)</span> are two orthogonal vectors to <span class="math notranslate nohighlight">\(\bold y.\)</span> Then,
+$<span class="math notranslate nohighlight">\(\lVert\bold y - \hat\bold y_2 \rVert^2 = \lVert\bold y - \hat\bold y_1 \rVert^2 + \lVert\hat\bold y_1 - \hat\bold y_2 \rVert^2 \geq \lVert\bold y - \hat\bold y_1 \rVert^2.\)</span>$</p>
+<p>By symmetry, <span class="math notranslate nohighlight">\(\lVert\bold y - \hat\bold y_1 \rVert^2  = \lVert\bold y - \hat\bold y_2 \rVert^2.\)</span> Thus, <span class="math notranslate nohighlight">\(\lVert\hat\bold y_2 - \hat\bold y_1 \rVert^2 = 0\)</span> which implies <span class="math notranslate nohighlight">\(\hat\bold y_1 = \hat\bold y_2.\)</span> Now that we have shown uniqueness, we proceed with a constructive proof of its existence.</p>
+</li>
+</ul>
+<br>  
+<ul class="simple">
+<li><p>(8.2) <strong>Orthogonal projection: independent columns.</strong> Suppose <span class="math notranslate nohighlight">\(\bold A \in \mathbb R^{m \times n}\)</span> has linearly independent columns and <span class="math notranslate nohighlight">\(\bold y\)</span> be any vector on the output space <span class="math notranslate nohighlight">\(\mathbb R^m.\)</span> To find the projection of <span class="math notranslate nohighlight">\(\bold y\)</span> in <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A),\)</span> we solve for weights <span class="math notranslate nohighlight">\(\bold x\)</span> such that <span class="math notranslate nohighlight">\(\bold A^\top( \bold y - \bold A \bold x ) = \bold 0\)</span> getting <span class="math notranslate nohighlight">\(\bold x = (\bold A^\top \bold A)^{-1} \bold A^\top \bold y = \bold A^+ \bold y.\)</span> Thus, <span class="math notranslate nohighlight">\(\hat\bold y = \bold A \bold A^+ \bold y\)</span> which allows us to define the projection operator onto <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A)\)</span> as
+$<span class="math notranslate nohighlight">\(
+\begin{aligned}
+P_{\bold A} 
+= \bold A (\bold A^\top \bold A)^{-1} \bold A^\top = \bold A \bold A^+.
+\end{aligned}
+\)</span>$</p></li>
+</ul>
+<br>
+<ul>
+<li><p>(8.3) <strong>Orthogonal projection: general case.</strong> Does <span class="math notranslate nohighlight">\(P_{\bold A} = \bold A \bold A^+\)</span> hold in the general case? Recall that the right singular vectors <span class="math notranslate nohighlight">\(\boldsymbol u_1, \ldots, \boldsymbol u_r\)</span> form a basis for <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A).\)</span> It follows that we can decompose <span class="math notranslate nohighlight">\(\bold y\)</span> into two components, one orthogonal and one parallel to the subspace:
+$<span class="math notranslate nohighlight">\(
+  \bold y = \left(\sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y\right) + 
+  \left( \sum_{i=r+1}^{m} \boldsymbol u_i \boldsymbol u_i^\top \bold y \right).
+  \)</span>$</p>
+<p>Then, the orthogonal projection of <span class="math notranslate nohighlight">\(\bold y\)</span> can be constructed as <span class="math notranslate nohighlight">\(\hat\bold y = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top \bold y.\)</span> This is clear from the fact that <span class="math notranslate nohighlight">\((\bold y - \hat\bold y) \perp \mathsf{C}(\bold A)\)</span> and <span class="math notranslate nohighlight">\(\hat\bold y \in \mathsf{C}(\bold A),\)</span> and the uniqueness of such a vector. We now prove the claim that <span class="math notranslate nohighlight">\(\hat\bold y = \bold A \bold A^+ \bold y.\)</span> This is actually pretty trivial:
+$<span class="math notranslate nohighlight">\(
+  \bold A \bold A^+ = {\bold U \bold \Sigma \bold \Sigma}^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top.
+  \)</span>$</p>
+<p>Note that unlike the previous case where the columns of <span class="math notranslate nohighlight">\(\bold A\)</span> are independent, the weights that make up the projection vector is not anymore unique. Discussion of nonuniqueness of weights is continued in the next bullet.</p>
+  <br>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">39</span><span class="p">]:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">40</span><span class="p">]:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">41</span><span class="p">]:</span> <span class="n">A</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">A</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">42</span><span class="p">]:</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">42</span><span class="p">]:</span> 
+<span class="n">array</span><span class="p">([[</span><span class="mf">0.91468654</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">0.11846404</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">2.08741224</span><span class="p">]])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">43</span><span class="p">]:</span> <span class="n">A</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">43</span><span class="p">]:</span> 
+<span class="n">array</span><span class="p">([[</span><span class="mf">0.91468654</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">0.11846404</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">2.08741224</span><span class="p">]])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(8.4) <strong>Moore-Penrose pseudoinverse as left inverse: a wider perspective.</strong>
+Interestingly, the  orthogonal projection involves the Moore-Penrose pseudoinverse <span class="math notranslate nohighlight">\(\bold A^+\)</span> which is a left inverse for <span class="math notranslate nohighlight">\(\bold A\)</span> when the columns of <span class="math notranslate nohighlight">\(\bold A\)</span> are independent.
+This can actually be read off from <span class="math notranslate nohighlight">\(\bold A^+ \bold y = \bold V_r \bold \Sigma^+_r \bold U_r^\top \bold y.\)</span> Note that <span class="math notranslate nohighlight">\(\bold U \bold U^\top \bold y = \bold y\)</span> and <span class="math notranslate nohighlight">\(\bold U_r^\top \bold y\)</span> is the components of the projection of <span class="math notranslate nohighlight">\(\bold y\)</span> onto <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A)\)</span> with respect to the right singular vectors. Since the pseudoinverse <span class="math notranslate nohighlight">\(\bold \Sigma^+\)</span> pads latter columns and rows with zero, we only get to invert that part of the vector that is in the column space of <span class="math notranslate nohighlight">\(\bold A,\)</span> meanwhile the part that is normal to <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A)\)</span> is zeroed out. This is essentially what <span class="math notranslate nohighlight">\(\bold A \bold A^+ = \bold U \bold \Sigma \bold \Sigma^+ \bold U^\top = \sum_{i=1}^r \boldsymbol u_i \boldsymbol u_i^\top\)</span> tells us. If <span class="math notranslate nohighlight">\(\bold y \in \mathsf{C}(\bold A)\)</span>, then <span class="math notranslate nohighlight">\(\bold A^+ \bold y\)</span> gives a left inverse of <span class="math notranslate nohighlight">\(\bold y.\)</span> The bigger picture is that the pseudoinverse gives the weights to reconstruct the projection of <span class="math notranslate nohighlight">\(\bold y\)</span> which, in this case, is itself since it lies in <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A).\)</span></p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(8.5) <strong>First Penrose equation.</strong>
+If <span class="math notranslate nohighlight">\(\bold A\)</span> does not have independent columns, then <span class="math notranslate nohighlight">\(\bold A^+ \bold A \neq \bold I.\)</span> This is a consequence of the non-uniqueness of the weights that reconstructs the projection. Suppose <span class="math notranslate nohighlight">\(\bold y \in \mathsf{C}(\bold A),\)</span> then <span class="math notranslate nohighlight">\(\bold A \bold A^+ \bold A = \bold A\)</span> even if <span class="math notranslate nohighlight">\(\bold A^+ \bold A \neq \bold I\)</span> (from the axioms). That is, we can get <span class="math notranslate nohighlight">\(\bold A^+ (\bold A \bold w_1) = \bold w_2\)</span> where <span class="math notranslate nohighlight">\(\bold w_1 \neq \bold w_2\)</span> and <span class="math notranslate nohighlight">\(\bold A \bold w_1 = \bold A \bold w_2.\)</span> This is exactly what this equation means. The second equation is the same but for right invertibility.</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(8.6) <strong>Projection matrix properties.</strong> (1) <span class="math notranslate nohighlight">\({P_{\bold A}}^2 = P_{\bold A}\)</span> so it reduces to the identity when restricted to <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A)\)</span> and (2) <span class="math notranslate nohighlight">\({P_{\bold A}}^\top = P_{\bold A}\)</span> the projection matrix is orthogonal. The eigenvalues of projection matrices are either zero or one as a consequence of (1).
+In the special case of projecting onto a 1-dimensional subspace of <span class="math notranslate nohighlight">\(\mathbb R^2\)</span> spanned by the vector <span class="math notranslate nohighlight">\(\boldsymbol a,\)</span> we get
+$<span class="math notranslate nohighlight">\(
+  \begin{aligned}
+  P_{\bold A} \bold y 
+  &amp;= \boldsymbol a (\boldsymbol a^\top \boldsymbol a)^{-1} \boldsymbol a^\top \bold y \\
+  &amp;= \boldsymbol a \lVert \boldsymbol a \rVert^{-2} \lVert \boldsymbol a \rVert \lVert \bold y \rVert \cos \theta \\
+  &amp;= \lVert \bold y \rVert \cos \theta\; \hat \boldsymbol a.
+  \end{aligned}
+  \)</span>$</p></li>
+</ul>
+<br>
+<ul>
+<li><p>(8.7) <strong>Code demo:</strong> <code class="docutils literal notranslate"><span class="pre">src/10_projection.py</span></code>. We confirm computationally that <span class="math notranslate nohighlight">\(P_{\bold A} \bold y \perp (\bold y - P_{\bold A} \bold y)\)</span> and plot the resulting vectors. Algebraically, this is equivalent to <span class="math notranslate nohighlight">\({P_{\bold A}}^\top (\bold I - P_{\bold A}).\)</span></p>
+<br>
+<p align="center">
+    <img src="img/10_projection.png" title="drawing" width=60% />
+</p> 
+<br>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Ax</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">@</span> <span class="n">Ax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.3678975447083417e-16</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(8.8) <strong>Projection matrix with orthonormal columns.</strong> Suppose <span class="math notranslate nohighlight">\(\bold U\)</span> be an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix with columns <span class="math notranslate nohighlight">\(\boldsymbol u_1, \ldots, \boldsymbol u_n\)</span> in <span class="math notranslate nohighlight">\(\mathbb R^m\)</span> that are orthonormal in <span class="math notranslate nohighlight">\(\mathbb R^m.\)</span> Then, <span class="math notranslate nohighlight">\(\bold U^\top \bold U = \bold I_n\)</span> so that <span class="math notranslate nohighlight">\(\bold U^+\)</span> reduces to <span class="math notranslate nohighlight">\(\bold U^\top\)</span>. Thus
+$<span class="math notranslate nohighlight">\(
+\boxed{P_{\bold U} = \bold U \bold U^\top = \sum_{i=1}^n \boldsymbol u_j \boldsymbol u_j^\top.}
+\)</span>$</p>
+<p>This makes sense, i.e. we simply project into each unit vector. Since the vectors are orthonormal, there will be no redundancy in the projection. The job of the factor <span class="math notranslate nohighlight">\((\bold A^\top \bold A)^{-1}\)</span> in the general formula is to correct this redundancy.</p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(8.9) <strong>Gram-Schmidt process.</strong> Given the columns of <span class="math notranslate nohighlight">\(\bold A,\)</span> we want to construct an orthonormal basis for <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A).\)</span> To do this, we can perform what is called the Gram-Schmidt process. Let <span class="math notranslate nohighlight">\(\boldsymbol a_1, \ldots, \boldsymbol a_n\)</span> be the columns of <span class="math notranslate nohighlight">\(\bold A.\)</span> Then an ONB <span class="math notranslate nohighlight">\(\boldsymbol u_1, \ldots, \boldsymbol u_r\)</span> for <span class="math notranslate nohighlight">\(\mathsf{C}(\bold A)\)</span> can be constructed as follows:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol u_1 = \dfrac{\boldsymbol a_1}{\lVert \boldsymbol a_1 \rVert}.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol u_k =  \dfrac{{\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k}}{\lVert {\boldsymbol a_k - \sum_{j=1}^{k-1} \boldsymbol u_{j} \boldsymbol u_{j}^\top \boldsymbol a_k} \rVert} = \dfrac{\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}{\lVert {\boldsymbol a_k - \bold U_{k-1} \bold U_{k-1}^\top \boldsymbol a_k}\rVert}.\)</span></p></li>
+</ol>
+<p>where <span class="math notranslate nohighlight">\(\bold U_{k-1} = [\boldsymbol u_1 | \ldots | \boldsymbol u_{k-1}].\)</span> That is we remove the component of <span class="math notranslate nohighlight">\(\boldsymbol a_k\)</span> projected in the space already spanned by the earlier vectors. The resulting vector is <span class="math notranslate nohighlight">\(\boldsymbol u_k\)</span> orthogonal to <span class="math notranslate nohighlight">\(\mathsf{C}(\bold U_{k-1}).\)</span></p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(8.10) <strong>Modified Gram-Schmidt.</strong> We introduce a more numerically stable version of Gram-Schmidt which corrects intermediate errors when projecting. Observe that in the Gram-Schmidt process described above, the vector is projected in the whole space <span class="math notranslate nohighlight">\(\mathsf{C}(\bold U_{k-1}).\)</span> In the modified version, at step <span class="math notranslate nohighlight">\(k\)</span>, we remove all components of later vectors that is in the span of <span class="math notranslate nohighlight">\(\boldsymbol a_k.\)</span></p>
+<ol class="simple">
+<li><p>Copy <span class="math notranslate nohighlight">\(\boldsymbol v_k = \boldsymbol a_k\)</span> for <span class="math notranslate nohighlight">\(k = 1, \ldots, n.\)</span></p></li>
+<li><p>Normalize <span class="math notranslate nohighlight">\(\boldsymbol u_k = \boldsymbol v_k / \lVert \boldsymbol v_k \rVert,\)</span> then update <span class="math notranslate nohighlight">\(\boldsymbol v_j = \boldsymbol v_j -  \boldsymbol u_k \boldsymbol u_k^\top \boldsymbol v_j\)</span> for <span class="math notranslate nohighlight">\(j &gt; k.\)</span></p></li>
+</ol>
+<p>The modification is that instead of projecting the column vector on the whole subspace spanned by earlier vectors, each vector is iteratively projected in the 1-dimensional subspace spanned by earlier vectors. In exact arithmetic, this algorithm returns the same set of orthonormal vectors as the classical GS (use pen and paper to calculate three vectors, i.e. proof by <span class="math notranslate nohighlight">\(n=3\)</span>). However, the modified GS is more numerically stable as we will show experimentally. Perhaps one reason is that errors are projected away in each prior iteration.</p>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(8.11) <strong>Code demo: stability of GS algorithms</strong>. In <code class="docutils literal notranslate"><span class="pre">src/10_stability_gram-schmidt.py</span></code>, we implement the two algorithms and apply it a matrix that almost has identical columns, i.e. the matrix
+$<span class="math notranslate nohighlight">\( \bold A = 
+\begin{bmatrix}
+  1 &amp; 1 &amp; 1 \\
+  \epsilon &amp; 0 &amp; 0 \\
+  0 &amp; \epsilon &amp; 0 \\
+  0 &amp; 0 &amp; \epsilon
+\end{bmatrix}.
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\epsilon = 10^{-8}.<span class="math notranslate nohighlight">\( We compute how close the results is to being orthonormal, i.e. calculate the L1 error \)</span>\lVert \bold U^\top \bold U - \bold I_m \rVert_1$:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">78</span><span class="p">]:</span> <span class="o">%</span><span class="n">run</span> <span class="mi">10</span><span class="n">_stability_gram</span><span class="o">-</span><span class="n">schmidt</span><span class="o">.</span><span class="n">py</span>
+<span class="n">L1</span> <span class="n">error</span> <span class="p">(</span><span class="n">classical</span> <span class="n">GS</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.010203694116029399</span>
+<span class="n">L1</span> <span class="n">error</span> <span class="p">(</span><span class="n">modified</span> <span class="n">GS</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.5250564655067275e-10</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(8.12) <strong>QR decomposition.</strong>
+We can write <span class="math notranslate nohighlight">\(\bold A = \bold Q \bold R\)</span> where <span class="math notranslate nohighlight">\(\bold Q\)</span> is an <span class="math notranslate nohighlight">\(m \times m\)</span>
+orthogonal matrix obtained by extending the Gram-Schmidt basis to an ONB of <span class="math notranslate nohighlight">\(\mathbb R^m,\)</span> and
+<span class="math notranslate nohighlight">\(\bold R = \bold Q^\top \bold A.\)</span>
+Note that the entries of <span class="math notranslate nohighlight">\(\bold R\)</span> are <span class="math notranslate nohighlight">\(r_{ij} = \boldsymbol q_i^\top \boldsymbol a_j.\)</span> But <span class="math notranslate nohighlight">\(\boldsymbol q_j = \gamma (\boldsymbol a_j - \bold {Q}_{j-1} \bold Q_{j-1}^\top \boldsymbol a_j)\)</span> for some scalar <span class="math notranslate nohighlight">\(\gamma.\)</span> Thus,
+$<span class="math notranslate nohighlight">\(
+  \gamma^{-1}\boldsymbol q_j + \bold {Q}_{j-1} \bold Q_{j-1}^\top \boldsymbol a_j=  \boldsymbol a_j.
+  \)</span><span class="math notranslate nohighlight">\(
+  This means \)</span>\boldsymbol a_j \in \mathsf{C}(\bold Q_{j}).<span class="math notranslate nohighlight">\( But for \)</span>i &gt; j<span class="math notranslate nohighlight">\(, by construction, \)</span>\boldsymbol q_i \perp \mathsf{C}(\bold Q_j)<span class="math notranslate nohighlight">\( which implies \)</span>r_{ij} = {\boldsymbol q_i}^\top \boldsymbol a_j = 0.<span class="math notranslate nohighlight">\( The idea is that later Gram-Schmidt vectors are orthogonal to earlier column vectors &amp;mdash; which are spanned by earlier GS vectors. It follows that \)</span>\bold R$ is upper triangular.</p></li>
+</ul>
+<br>
+<ul>
+<li><p>(8.13) <strong>Computing the Gram-Schmidt in Numpy.</strong> To perfom the Gram-Schmidt algorithm on the columns of a matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> in numpy, simply call <code class="docutils literal notranslate"><span class="pre">Q,</span> <span class="pre">R</span> <span class="pre">=</span> <span class="pre">np.linalg.qr(A)</span></code> to get the orthogonal matrix <code class="docutils literal notranslate"><span class="pre">Q</span></code> having the same colum span as <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">Q</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="go">7.281778314245426e-17</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="go">6.498340689575483e-17</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<br>
+<ul>
+<li><p>(8.14) <strong>Inverse from QR.</strong> The QR decomposition allows for easy computation of the inverse:
+$<span class="math notranslate nohighlight">\(
+\boxed{\phantom{\Big]}\bold A^{-1} = \bold R^{-1} \bold Q^\top.\phantom{\Big]}}
+\)</span>$</p>
+<p>The inverse of <span class="math notranslate nohighlight">\(\bold R\)</span> is faster to compute since it is upper triangular. An experiment for this is done in <code class="docutils literal notranslate"><span class="pre">src/10_solve_triangular.py</span></code> with the ff. results:</p>
+<br>
+<p align="center">
+<img src="img/10_solve_triangular.png" title="drawing"/>
+<p><b>Figure.</b> Wall time for computing the inverse of a full (blue) and upper triangular (orange) randomly generated n-by-n matrix.</p>
+</p> 
+</li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>(8.15) <strong>Sherman-Morrison inverse.</strong> From <a class="reference external" href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">(24)</a>, <span class="math notranslate nohighlight">\(\det( \bold I + \boldsymbol u \boldsymbol v^\top) = 1 + \boldsymbol v^\top \boldsymbol u.\)</span> Thus, the identity perturbed by a rank <span class="math notranslate nohighlight">\(1\)</span> matrix is invertible if and only if <span class="math notranslate nohighlight">\(1 + \boldsymbol v^\top \boldsymbol u \neq 0.\)</span> In this case the we have a formula for the inverse:
+$<span class="math notranslate nohighlight">\(
+\boxed{\left(\bold I + \boldsymbol u \boldsymbol v^\top\right)^{-1} = \bold I - \dfrac{\boldsymbol u \boldsymbol v^\top}{1 + \boldsymbol v^\top \boldsymbol u}.}
+\)</span>$</p></li>
+</ul>
+<br></div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Ron Medina. Powered by <a href="https://jupyterbook.org">Jupyter Book</a>.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
