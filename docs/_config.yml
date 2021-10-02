@@ -30,4 +30,3 @@ sphinx:
     # For plotly plots to show, we need to load require.js
     # https://jupyterbook.org/interactive/interactive.html
     - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
-
