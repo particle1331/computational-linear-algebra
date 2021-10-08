@@ -6,7 +6,7 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
   * An extensive discussion of the Moore-Penrose pseudoinverse
   * Stability of the Gram-Schmidt algorithm
   * Characterizing the loss surface of a linear regression problem
-  * Characterizing quadratic forms using the principal axes theorem.
+  * Characterizing quadratic forms using the principal axes theorem
 
 <br>
 
