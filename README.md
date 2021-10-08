@@ -1,6 +1,6 @@
 # Computational Linear Algebra
 
-**Note:** You might need to install an extension such as [Github Math Dislay](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda) to display mathematical formulae in the browser.
+**Note:** You might need to install an extension such as [Github Math Dislay](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda) to display mathematical formulae.
 
 <br>
 
