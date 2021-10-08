@@ -1,9 +1,5 @@
 # Computational Linear Algebra
 
-**Note:** You might need to install an extension such as [Github Math Dislay](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda) to display mathematical formulae.
-
-<br>
-
 Notes and code experiments for linear algebra in code. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertbility, to parametrizing the loss surface of a linear regression model. Some of the interesting stuff that are covered:
   * Proof of the real spectral theorem, and a code demo
   * Proof of the singular value decomposition (SVD)
@@ -31,6 +27,9 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 <br>
 
 ## Contents
+
+***Note:** You might need to install an extension such as [Github Math Dislay](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda) to display mathematical formulae.*
+
 
 1. [Vectors and matrices](https://github.com/particle1331/computational-linear-algebra/blob/master/vectors-and-matrices.md)
 2. [Singular value decomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/svd.md)
