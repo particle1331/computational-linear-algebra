@@ -30,8 +30,6 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 
 ## Contents
 
-***Note:** You might need to install an extension such as [Github Math Dislay](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda) to display mathematical formulae.*
-
 
 1. [Vectors and matrices](https://github.com/particle1331/computational-linear-algebra/blob/master/vectors-and-matrices.md)
 2. [Singular value decomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/svd.md)
