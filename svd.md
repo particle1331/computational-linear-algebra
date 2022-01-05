@@ -50,7 +50,7 @@ We can interpret $\mathbf V$ and $\mathbf V^\top$ as change of basis matrices, i
 
 <br>
 
-* (2.5) See `src/4_svd_from_scratch.py` for a construction of the (compact) SVD in code following the proof. The result looks great:
+* (2.5) See `src/4_svd_from_scratch.py` for a construction of the (compact) SVD that follows the proof in code. The result looks great:
     <br>
 
   ```python
