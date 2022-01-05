@@ -25,7 +25,7 @@
 <br>
 
   - (1.6) **Shifting a matrix away from degeneracy:**
-  $\mathbf A + \lambda \mathbf I = \tilde\mathbf A.$ 
+  $\mathbf{A} + \lambda \mathbf{I} = \tilde \mathbf{A}.$ 
   Geometric interpretation: inflate a matrix from a degenerate plane towards being a sphere. This is a form of regularization. 
 
 <br>
