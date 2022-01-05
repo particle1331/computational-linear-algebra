@@ -40,7 +40,7 @@ We can interpret $\mathbf V$ and $\mathbf V^\top$ as change of basis matrices, i
     \mathbf u_i^\top \mathbf u_j = \frac{1}{\sigma_i\sigma_j}\mathbf v_i^\top\mathbf A^\top \mathbf A \mathbf v_j = \frac{1}{\sigma_i\sigma_j}\mathbf v_i^\top {\sigma_j}^2 \mathbf v_j = \delta_{ij} \frac{{\sigma_j}^2}{\sigma_i\sigma_j} = \delta_{ij}.
     $$
 
-    Thus, $\mathbf u_1, \ldots \mathbf u_r$ is an orthonormal basis for the image of $\mathbf A$ in $\mathbb R^m.$ From here we can already obtain the **compact SVD** which already contains all necessary information: $\mathbf A = \sum_{k=1}^r \sigma_k \mathbf  u_k \mathbf v_k^\top$ or $\mathbf A = \mathbf U_r \mathbf \Sigma_r \mathbf V_r^\top$ (bottom of Figure 10.1 below with $r = n$) where $\mathbf U_r = [\mathbf u_1, \ldots, \mathbf u_r] \in \mathbb R^{m \times r},$ $\mathbf\Sigma_r = \mathbf\Sigma[:r, :r],$ and $\mathbf V^\top_r = \mathbf V[:, :r]^\top.$ To get the **full SVD**, we extend $\mathbf U_r$ to an orthonormal basis of $\mathbb R^m$ by Gram-Schmidt obtaining $\mathbf U = [\mathbf U_r | \mathbf U_{m-r}] \in \mathbb R^{m \times m}.$ For $\mathbf\Sigma$, we either pad ($m > n$) or remove zero rows ($m < n$) to get an $m \times n$ diagonal matrix. Finally, with these matrices, we can write $\mathbf A \mathbf V = \mathbf U \mathbf \Sigma$ so that $\mathbf A = \mathbf U \mathbf \Sigma \mathbf V^\top$ where the factors have the properties stated in the SVD. And we're done! $\square$
+    Thus, $\mathbf u_1, \ldots \mathbf u_r$ is an orthonormal basis for the image of $\mathbf A$ in $\mathbb R^m.$ From here we can already obtain the **compact SVD** which already contains all necessary information: $\mathbf A = \sum_{k=1}^r \sigma_k \mathbf  u_k \mathbf v_k^\top$ or $\mathbf A = \mathbf U_r \mathbf \Sigma_r \mathbf V_r^\top$ (bottom of Figure 10.1 below with $r = n$) where $\mathbf U_r = [\mathbf u_1, \ldots, \mathbf u_r] \in \mathbb R^{m \times r},$ $\mathbf\Sigma_r = \mathbf\Sigma[:r, :r],$ and $\mathbf V^\top_r = \mathbf V[:, :r]^\top.$ To get the **full SVD**, we extend $\mathbf U_r$ to an orthonormal basis of $\mathbb R^m$ by Gram-Schmidt obtaining $\mathbf U = [\mathbf U_r | \mathbf U_{m-r}] \in \mathbb R^{m \times m}.$ For $\mathbf\Sigma$, we either pad ($m > n$) or remove zero rows ($m < n$) to get an $m \times n$ diagonal matrix. Finally, with these matrices, we can write $\mathbf A \mathbf V = \mathbf U \mathbf \Sigma$ so that $\mathbf A = \mathbf U \mathbf \Sigma \mathbf V^\top$ where the factors have the properties stated in the SVD. And we're done! **QED**
 
 <br>
   <p align="center">
@@ -172,7 +172,7 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
   \end{aligned}
   $$
   Observe that (1) allowed a coordinate representation $\mathbf A = \mathbf V \mathbf \Omega \mathbf V^\top$ where $\mathbf V$ is orthogonal, and (2) guaranteed that $\mathbf \Omega$ is diagonal. 
-  This completes the proof! $\square$ 
+  This completes the proof! **QED** 
   
 <br>
 
@@ -303,6 +303,6 @@ A key property of symmetric matrices used in the proof is that if $V$ is a subsp
     \|\mathbf A-\mathbf B\|^{2} \geq\|(\mathbf A-\mathbf B) \mathbf u\|^{2}=\|\mathbf A \mathbf u \|^{2}=\sum_{i=1}^{k+1} {c_i}^2 {\sigma_{i}}^{2} \geq \sigma_{k+1}^{2} \sum_{i=1}^{k+1}{c_i}^2 = \sigma_{k+1}^{2}.
     $$
 
-    We know that $\|\mathbf A-\mathbf A_k\| = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\mathbf A-\mathbf B\| \geq \|\mathbf A-\mathbf A_k\|.$ $\square$
+    We know that $\|\mathbf A-\mathbf A_k\| = \sigma_{k+1}$ since this is just the matrix obtained by replacing the first singular values by zero, i.e. flattening the first $k$ axes of the ellipse. It follows that $\|\mathbf A-\mathbf B\| \geq \|\mathbf A-\mathbf A_k\|.$ **QED**
 
 <br>
