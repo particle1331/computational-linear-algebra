@@ -1,6 +1,6 @@
 # Computational Linear Algebra
 
-**Note**: To view the math install the [MathJax Plugin for GitHub](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related).
+<i>**Note**: To view the math you need to install the [MathJax Plugin for GitHub](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related).</i>
 
 Notes and code experiments for linear algebra in code. The idea is to construct the SVD as soon as possible, then use it for everything else &mdash; from characterizing invertibility, to parametrizing the loss surface of a linear regression model. Some of the interesting stuff that are covered:
   * Proof of the real spectral theorem, and a code demo
