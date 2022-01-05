@@ -7,7 +7,7 @@
 <br>
   
   - (1.2) **Complexity of checking independence**.
-  Suppose $n \leq m.$ What is the time complexity of showing n vectors in $\mathbb R^m$ are linearly independent? i.e. solving for nonzero solutions to $\bold A\bold x = \bold 0$. For instance, we have $\mathcal{O}(\frac{2}{3} mn^2)$ using Gaussian elimination assuming $\mathcal{O}(1)$ arithmetic which is a naive assumption as careless implementation can easily create numbers that can be [exponentially large](https://cstheory.stackexchange.com/questions/3921/what-is-the-actual-time-complexity-of-gaussian-elimination)! In practice, the best way to compute the rank of $\bold A$ is through its SVD. This is, for example, how `numpy.linalg.matrix_rank` is implemented.
+  Suppose $n \leq m.$ What is the time complexity of showing n vectors in $\mathbb R^m$ are linearly independent? i.e. solving for nonzero solutions to $\mathbf A\mathbf x = \mathbf 0$. For instance, we have $\mathcal{O}(\frac{2}{3} mn^2)$ using Gaussian elimination assuming $\mathcal{O}(1)$ arithmetic which is a naive assumption as careless implementation can easily create numbers that can be [exponentially large](https://cstheory.stackexchange.com/questions/3921/what-is-the-actual-time-complexity-of-gaussian-elimination)! In practice, the best way to compute the rank of $\mathbf A$ is through its SVD. This is, for example, how `numpy.linalg.matrix_rank` is implemented.
 
 <br>
 
@@ -16,16 +16,16 @@
   
 <br>
 
-  * (1.4) **Orthogonal matrices are precisely the linear isometries of $\mathbb R^n$.** A matrix $\bold A \in \mathbb R^n$ is an isometry if $\lVert \bold A \bold x\rVert^2 = \lVert \bold x \rVert^2$ for all $\bold x \in \mathbb R^n$. Note that $\lVert \bold A \bold x \rVert^2 = \bold x^\top\bold A^\top \bold A \bold x$ and $\lVert \bold x \rVert^2 = \bold x^\top \bold x$. So orthogonal matrices are isometries. Conversely, if a matrix $\bold A$ is an isometry, we can let $\bold x = \bold e_i - \bold e_j$ to get $\bold e_i^\top (\bold A^\top \bold A) \bold e_j = (\bold A^\top \bold A)_ {ij} = \delta_ {ij}$ where $\delta_{ij}$ is the Kronecker delta or $\bold A^\top\bold A = \bold I$. This tells us that length preserving matrices in $\mathbb R^n$ are necessarily orthogonal. Orthogonal matrices in $\mathbb R^2$ are either rotations or reflections &mdash; both of these are length preserving. The more surprising result is that these are the only length preserving matrices in $\mathbb R^2$!
+  * (1.4) **Orthogonal matrices are precisely the linear isometries of $\mathbb R^n$.** A matrix $\mathbf A \in \mathbb R^n$ is an isometry if $\lVert \mathbf A \mathbf x\rVert^2 = \lVert \mathbf x \rVert^2$ for all $\mathbf x \in \mathbb R^n$. Note that $\lVert \mathbf A \mathbf x \rVert^2 = \mathbf x^\top\mathbf A^\top \mathbf A \mathbf x$ and $\lVert \mathbf x \rVert^2 = \mathbf x^\top \mathbf x$. So orthogonal matrices are isometries. Conversely, if a matrix $\mathbf A$ is an isometry, we can let $\mathbf x = \mathbf e_i - \mathbf e_j$ to get $\mathbf e_i^\top (\mathbf A^\top \mathbf A) \mathbf e_j = (\mathbf A^\top \mathbf A)_ {ij} = \delta_ {ij}$ where $\delta_{ij}$ is the Kronecker delta or $\mathbf A^\top\mathbf A = \mathbf I$. This tells us that length preserving matrices in $\mathbb R^n$ are necessarily orthogonal. Orthogonal matrices in $\mathbb R^2$ are either rotations or reflections &mdash; both of these are length preserving. The more surprising result is that these are the only length preserving matrices in $\mathbb R^2$!
 
 <br>
 
-  - (1.5) **Orthogonal matrices as projections.** An orthogonal matrix $\bold U$ is defined as a matrix with orthonormal vectors in its column. It follows $\bold U^\top \bold U = \bold I.$ Since $\bold U$ is invertible, we can use uniqueness of inverse to get $\bold U \bold U^\top = \bold I.$ However, we can obtain this latter identity geometrically. Let $\bold x$ be a vector, then $\bold x = \sum_i \bold u_i \bold u_i^\top \bold x.$ This is true by uniqueness of components in a basis. Thus, $\bold U \bold U^\top \bold x = \bold x$ for any $\bold x,$ or $\bold U \bold U^\top  = \bold I.$ 
+  - (1.5) **Orthogonal matrices as projections.** An orthogonal matrix $\mathbf U$ is defined as a matrix with orthonormal vectors in its column. It follows $\mathbf U^\top \mathbf U = \mathbf I.$ Since $\mathbf U$ is invertible, we can use uniqueness of inverse to get $\mathbf U \mathbf U^\top = \mathbf I.$ However, we can obtain this latter identity geometrically. Let $\mathbf x$ be a vector, then $\mathbf x = \sum_i \mathbf u_i \mathbf u_i^\top \mathbf x.$ This is true by uniqueness of components in a basis. Thus, $\mathbf U \mathbf U^\top \mathbf x = \mathbf x$ for any $\mathbf x,$ or $\mathbf U \mathbf U^\top  = \mathbf I.$ 
   
 <br>
 
   - (1.6) **Shifting a matrix away from degeneracy:**
-  $\bold A + \lambda \bold I = \tilde\bold A.$ 
+  $\mathbf A + \lambda \mathbf I = \tilde\mathbf A.$ 
   Geometric interpretation: inflate a matrix from a degenerate plane towards being a sphere. This is a form of regularization. 
 
 <br>

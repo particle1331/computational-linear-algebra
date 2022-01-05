@@ -2,14 +2,14 @@
 
 <br>
 
-* (7.1) **Full rank iff. invertible.** Let $\bold A \in \mathbb R^{n \times n}.$ TFAE
-  1. $\text{rank }\bold A = n.$
-  2. $\bold A$ is one-to-one.
-  3. $\bold A$ is onto.
-  4. $\bold A$ is invertible.
-  5. $\bold A$ is nonsingular.
+* (7.1) **Full rank iff. invertible.** Let $\mathbf A \in \mathbb R^{n \times n}.$ TFAE
+  1. $\text{rank }\mathbf A = n.$
+  2. $\mathbf A$ is one-to-one.
+  3. $\mathbf A$ is onto.
+  4. $\mathbf A$ is invertible.
+  5. $\mathbf A$ is nonsingular.
 
-  This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. The latter is then equivalent to $\bold A$ being one-to-one, while the former to $\bold A$ being onto. This proves (1-4). A matrix is nonsingular if it has no nonzero singular value so that the image of the unit sphere under $\bold A$ is non-degenerate. Note that $\bold A$ is invertible if and only if $\bold \Sigma$ is invertible (since $\bold U$ and $\bold V$ are invertible). But $\bold \Sigma$ is invertible if and only if $r = n,$ and we can take ${\bold\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ Thus, a matrix is invertible if and only if it is nonsingular. This proves (5) $\iff$ (4).
+  This can be proved using the rank-nullity theorem which constrains rank to be $n$ if and only if the dimension of the null space is zero. The latter is then equivalent to $\mathbf A$ being one-to-one, while the former to $\mathbf A$ being onto. This proves (1-4). A matrix is nonsingular if it has no nonzero singular value so that the image of the unit sphere under $\mathbf A$ is non-degenerate. Note that $\mathbf A$ is invertible if and only if $\mathbf \Sigma$ is invertible (since $\mathbf U$ and $\mathbf V$ are invertible). But $\mathbf \Sigma$ is invertible if and only if $r = n,$ and we can take ${\mathbf\Sigma^{-1}}_ {ii} = \sigma_i^{-1}$ for $i = 1, \ldots, n.$ Thus, a matrix is invertible if and only if it is nonsingular. This proves (5) $\iff$ (4).
 
 <br>
 
@@ -22,43 +22,43 @@
 
 <br>
 
-* (7.3) **Existence of left and right inverses.** Let $\bold A \in \mathbb R^{m\times n}.$ TFAE 
-  1. $\text{rank }\bold A = n.$
-  2. $\bold A$ is 1-1.
-  3. $\bold A$ is left invertible.
-  4. $\bold A$ has $n$ nonzero singular values.
+* (7.3) **Existence of left and right inverses.** Let $\mathbf A \in \mathbb R^{m\times n}.$ TFAE 
+  1. $\text{rank }\mathbf A = n.$
+  2. $\mathbf A$ is 1-1.
+  3. $\mathbf A$ is left invertible.
+  4. $\mathbf A$ has $n$ nonzero singular values.
 
-  It's easy to see that (1-3) are equivalent and (1) $\implies$  (4). We prove (3) $\impliedby$ (4). Suppose $\bold A$ has $n$ nonzero singular values, then we can construct a left inverse using the SVD $\bold A = \bold U \bold \Sigma \bold V^\top$ which allows us to write
+  It's easy to see that (1-3) are equivalent and (1) $\implies$  (4). We prove (3) $\impliedby$ (4). Suppose $\mathbf A$ has $n$ nonzero singular values, then we can construct a left inverse using the SVD $\mathbf A = \mathbf U \mathbf \Sigma \mathbf V^\top$ which allows us to write
   $
-  \bold A^\top \bold A = \bold V \bold \Sigma^\top \bold \Sigma \bold V^\top.
+  \mathbf A^\top \mathbf A = \mathbf V \mathbf \Sigma^\top \mathbf \Sigma \mathbf V^\top.
   $ 
-  This is invertible since $r = n,$ i.e. $\bold\Sigma^\top \bold \Sigma$ is $n \times n$ with nonzero entries on its diagonal. Moreover, the inverse can be efficiently computed using $(\bold A^\top \bold A)^{-1} = \bold V (\bold\Sigma^\top \bold \Sigma)^{-1} \bold V^\top$ where $(\bold\Sigma^\top \bold \Sigma)^{-1} = \bold \Sigma_n^{-2}$ is the diagonal matrix with entries $\sigma_j^{-2}$ for $j=1,\ldots, n.$ Then, a left inverse for $\bold A$ is
+  This is invertible since $r = n,$ i.e. $\mathbf\Sigma^\top \mathbf \Sigma$ is $n \times n$ with nonzero entries on its diagonal. Moreover, the inverse can be efficiently computed using $(\mathbf A^\top \mathbf A)^{-1} = \mathbf V (\mathbf\Sigma^\top \mathbf \Sigma)^{-1} \mathbf V^\top$ where $(\mathbf\Sigma^\top \mathbf \Sigma)^{-1} = \mathbf \Sigma_n^{-2}$ is the diagonal matrix with entries $\sigma_j^{-2}$ for $j=1,\ldots, n.$ Then, a left inverse for $\mathbf A$ is
     $$
-    (\bold A^\top \bold A)^{-1} \bold A^\top.
+    (\mathbf A^\top \mathbf A)^{-1} \mathbf A^\top.
     $$ 
 
-  We have corresponding dual equivalences about the rows of $\bold A.$ In this case, $\bold A$ is onto, and we have a wide matrix with maximal rows. A right inverse of $\bold A$ can be constructed as
+  We have corresponding dual equivalences about the rows of $\mathbf A.$ In this case, $\mathbf A$ is onto, and we have a wide matrix with maximal rows. A right inverse of $\mathbf A$ can be constructed as
   $$
-  \bold A^\top (\bold A \bold A^\top)^{-1}
+  \mathbf A^\top (\mathbf A \mathbf A^\top)^{-1}
   $$
-  where $(\bold A \bold A^\top)^{-1} = \bold U (\bold \Sigma \bold \Sigma^\top)^{-1} \bold U^\top$ can be efficiently computed as in the left inverse with $(\bold \Sigma \bold \Sigma^\top)^{-1} = \bold \Sigma_m^{-2}.$
+  where $(\mathbf A \mathbf A^\top)^{-1} = \mathbf U (\mathbf \Sigma \mathbf \Sigma^\top)^{-1} \mathbf U^\top$ can be efficiently computed as in the left inverse with $(\mathbf \Sigma \mathbf \Sigma^\top)^{-1} = \mathbf \Sigma_m^{-2}.$
 
 <br>
 
-* (7.4) **Moore-Penrose Pseudo-inverse.** Now that we know how to compute the one sided inverse from rectangular matrices, assuming they have full column rank or full row rank, the big missing piece is what to do with a reduced rank matrix. It turns out that it is possible to find another matrix that is not formally an inverse, but is some kind of a good approximation of what the inverse element should be in a least squares sense (later), i.e. what is called a pseudo-inverse. The **Moore-Penrose pseudo-inverse** for a matrix $\bold A \in \mathbb R^{m \times n}$ is defined as the unique matrix $\bold A^+ \in \mathbb R^{n \times m}$ that satisfies the four Penrose equations:
+* (7.4) **Moore-Penrose Pseudo-inverse.** Now that we know how to compute the one sided inverse from rectangular matrices, assuming they have full column rank or full row rank, the big missing piece is what to do with a reduced rank matrix. It turns out that it is possible to find another matrix that is not formally an inverse, but is some kind of a good approximation of what the inverse element should be in a least squares sense (later), i.e. what is called a pseudo-inverse. The **Moore-Penrose pseudo-inverse** for a matrix $\mathbf A \in \mathbb R^{m \times n}$ is defined as the unique matrix $\mathbf A^+ \in \mathbb R^{n \times m}$ that satisfies the four Penrose equations:
 
-  1. $\bold A \bold A^+ \bold A = \bold A$
-  2. $\bold A^+ \bold A \bold A^+ = \bold A^+$
-  3. $\bold A \bold A^+$ is symmetric.
-  4. $\bold A^+ \bold A$ is symmetric.
+  1. $\mathbf A \mathbf A^+ \mathbf A = \mathbf A$
+  2. $\mathbf A^+ \mathbf A \mathbf A^+ = \mathbf A^+$
+  3. $\mathbf A \mathbf A^+$ is symmetric.
+  4. $\mathbf A^+ \mathbf A$ is symmetric.
 
-  These properties make $\bold A^+$ look like an inverse of $\bold A$. In fact, if $\bold A$ is invertible, then $\bold A^{-1}$ trivially satisfies the equations (also see below for left and right inverses). The Moore-Penrose pseudo-inverse exists (from the SVD below) and is [unique](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse) for every rectangular matrix even rank deficient ones.
+  These properties make $\mathbf A^+$ look like an inverse of $\mathbf A$. In fact, if $\mathbf A$ is invertible, then $\mathbf A^{-1}$ trivially satisfies the equations (also see below for left and right inverses). The Moore-Penrose pseudo-inverse exists (from the SVD below) and is [unique](https://en.wikipedia.org/wiki/Proofs_involving_the_Moore%E2%80%93Penrose_inverse) for every rectangular matrix even rank deficient ones.
   <br><br>
-  **Existence.** Consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top,$ we naturally take
+  **Existence.** Consider the SVD $\mathbf A = \mathbf U \mathbf \Sigma \mathbf V^\top,$ we naturally take
   $$
-    \bold A^{+} = \bold V \bold \Sigma^+ \bold U^\top
+    \mathbf A^{+} = \mathbf V \mathbf \Sigma^+ \mathbf U^\top
   $$
-  where $\bold \Sigma^+$ is the unique matrix that satisfies the Penrose equations for $\bold \Sigma.$ This turns out to be  the diagonal matrix of shape $n \times m$ that is a block matrix with the upper left block $\bold \Sigma_r^{-1}$ and zero blocks elsewhere. That is, $\bold\Sigma^+\bold \Sigma$ and  $\bold\Sigma\bold \Sigma^+$ with $\bold I_r$ on the upper left block and zero blocks elsewhere are symmetric, then $\bold \Sigma \bold\Sigma^+\bold \Sigma = \bold \Sigma$ and $\bold \Sigma^+ \bold \Sigma \bold \Sigma^+ = \bold \Sigma^+.$ It follows that $\bold A^+$ is the Moore-Penrose pseudo-inverse for $\bold A,$ e.g.  $\bold A \bold A^+ = \bold U_r\; {\bold U_r}^\top$ and $\bold A^+ \bold A = \bold V_r\; {\bold V_r}^\top$ are symmetric, and the first two Penrose equations follows from the same two equations for $\bold \Sigma^+.$ This is precisely how `np.linalg.pinv` calculates the pseudo-inverse $\bold A^+$:
+  where $\mathbf \Sigma^+$ is the unique matrix that satisfies the Penrose equations for $\mathbf \Sigma.$ This turns out to be  the diagonal matrix of shape $n \times m$ that is a block matrix with the upper left block $\mathbf \Sigma_r^{-1}$ and zero blocks elsewhere. That is, $\mathbf\Sigma^+\mathbf \Sigma$ and  $\mathbf\Sigma\mathbf \Sigma^+$ with $\mathbf I_r$ on the upper left block and zero blocks elsewhere are symmetric, then $\mathbf \Sigma \mathbf\Sigma^+\mathbf \Sigma = \mathbf \Sigma$ and $\mathbf \Sigma^+ \mathbf \Sigma \mathbf \Sigma^+ = \mathbf \Sigma^+.$ It follows that $\mathbf A^+$ is the Moore-Penrose pseudo-inverse for $\mathbf A,$ e.g.  $\mathbf A \mathbf A^+ = \mathbf U_r\; {\mathbf U_r}^\top$ and $\mathbf A^+ \mathbf A = \mathbf V_r\; {\mathbf V_r}^\top$ are symmetric, and the first two Penrose equations follows from the same two equations for $\mathbf \Sigma^+.$ This is precisely how `np.linalg.pinv` calculates the pseudo-inverse $\mathbf A^+$:
   <br>
     ```python
     In [1]: import numpy as np
@@ -89,11 +89,11 @@
 
 <br>
 
-* (7.5) **Moore-Penrose pseudo-inverse as left and right inverse.** Let $\bold A \in \mathbb R^{m \times n}$ with maximal rank. It turns out the left and right inverses we constructed above is the Moore-Penrose pseudo-inverse of $\bold A$ in each case:
+* (7.5) **Moore-Penrose pseudo-inverse as left and right inverse.** Let $\mathbf A \in \mathbb R^{m \times n}$ with maximal rank. It turns out the left and right inverses we constructed above is the Moore-Penrose pseudo-inverse of $\mathbf A$ in each case:
 
-  * $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ (tall)
+  * $\mathbf A^+ = (\mathbf A^\top \mathbf A)^{-1} \mathbf A^\top$ (tall)
   
-  * $\bold A^+ = \bold A^\top(\bold A \bold A^\top)^{-1}$ (wide) 
+  * $\mathbf A^+ = \mathbf A^\top(\mathbf A \mathbf A^\top)^{-1}$ (wide) 
 
   This follows from uniqueness and the fact that the left and right inverses each satisfies the Penrose equations. Any left or right inverse will trivially satisfy the first two equations, but not both the third and fourth! For example:
   <br>
@@ -115,11 +115,11 @@
 
 <br>
   
-* (7.6) **An exercise on consistency.** Recall that $\bold A^+ = \bold V \bold \Sigma^+ \bold U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula $\bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top$ which is true for matrices with linearly independent columns. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
+* (7.6) **An exercise on consistency.** Recall that $\mathbf A^+ = \mathbf V \mathbf \Sigma^+ \mathbf U^\top$ uniquely. As an exercise, we want to show that this is consistent with the formula $\mathbf A^+ = (\mathbf A^\top \mathbf A)^{-1} \mathbf A^\top$ which is true for matrices with linearly independent columns. We do this for the tall case $m > n$, the case where the matrix is wide is analogous. Then 
     $$
-    \bold A^+ = (\bold A^\top \bold A)^{-1} \bold A^\top
-    = \bold V (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top \bold U^\top.
+    \mathbf A^+ = (\mathbf A^\top \mathbf A)^{-1} \mathbf A^\top
+    = \mathbf V (\mathbf \Sigma^\top \mathbf \Sigma)^{-1} \mathbf \Sigma^\top \mathbf U^\top.
     $$
-    Since $\bold \Sigma$ is a tall matrix having linearly independent columns, we have $\bold \Sigma^+ = (\bold \Sigma^\top \bold \Sigma)^{-1} \bold \Sigma^\top.$ Thus, $(\bold A^\top \bold A)^{-1} \bold A^\top = \bold V \bold \Sigma^+\bold U^\top.$ We get the same agreement when $\bold A$ is right invertible. This completes the exercise.
+    Since $\mathbf \Sigma$ is a tall matrix having linearly independent columns, we have $\mathbf \Sigma^+ = (\mathbf \Sigma^\top \mathbf \Sigma)^{-1} \mathbf \Sigma^\top.$ Thus, $(\mathbf A^\top \mathbf A)^{-1} \mathbf A^\top = \mathbf V \mathbf \Sigma^+\mathbf U^\top.$ We get the same agreement when $\mathbf A$ is right invertible. This completes the exercise.
 
 <br>

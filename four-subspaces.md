@@ -2,21 +2,21 @@
 
 <br>
 
-* (5.1) **Four Fundamental Subspaces.** The so-called four fundamental subspaces of matrix $\bold A \in \mathbb R^{m \times n}$ are subspaces form an orthogonal direct sum decomposition of its input space $\mathbb R^n$ and its output spaces $\mathbb R^m.$ Namely:
+* (5.1) **Four Fundamental Subspaces.** The so-called four fundamental subspaces of matrix $\mathbf A \in \mathbb R^{m \times n}$ are subspaces form an orthogonal direct sum decomposition of its input space $\mathbb R^n$ and its output spaces $\mathbb R^m.$ Namely:
 
-  * $\mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A) =\, \mathbb R^n \;\; \text{s.t.} \;\; \mathsf{C}(\bold A^\top) \perp \mathsf{N}(\bold A)$
+  * $\mathsf{C}(\mathbf A^\top) \oplus \mathsf{N}(\mathbf A) =\, \mathbb R^n \;\; \text{s.t.} \;\; \mathsf{C}(\mathbf A^\top) \perp \mathsf{N}(\mathbf A)$
 
-  * $\mathsf{C}(\bold A) \oplus \mathsf{N}(\bold A^\top) =\, \mathbb R^m \;\; \text{s.t.} \;\; \mathsf{C}(\bold A) \perp \mathsf{N}(\bold A^\top)$ 
+  * $\mathsf{C}(\mathbf A) \oplus \mathsf{N}(\mathbf A^\top) =\, \mathbb R^m \;\; \text{s.t.} \;\; \mathsf{C}(\mathbf A) \perp \mathsf{N}(\mathbf A^\top)$ 
   
   <br>
 
-  **Proof.** Suppose $\bold x \in \mathbb R^m$ and consider the SVD $\bold A = \bold U \bold \Sigma \bold V^\top.$ Let $\tilde \bold x = \bold x - \bold U \bold U^\top \bold x.$ Note that $\bold U\bold U^\top \bold x \in \mathsf{C}(\bold A)$ since the columns of $\bold U$ are $\bold u_i = \bold A \bold v_i$ for $i = 1, \ldots, r$ where $r = \text{rank }\bold A,$ and the singular vectors $\bold u_i$ and $\bold v_j$ are, resp., ONBs of $\mathbb R^m$ and $\mathbb R^n.$ Then
+  **Proof.** Suppose $\mathbf x \in \mathbb R^m$ and consider the SVD $\mathbf A = \mathbf U \mathbf \Sigma \mathbf V^\top.$ Let $\tilde \mathbf x = \mathbf x - \mathbf U \mathbf U^\top \mathbf x.$ Note that $\mathbf U\mathbf U^\top \mathbf x \in \mathsf{C}(\mathbf A)$ since the columns of $\mathbf U$ are $\mathbf u_i = \mathbf A \mathbf v_i$ for $i = 1, \ldots, r$ where $r = \text{rank }\mathbf A,$ and the singular vectors $\mathbf u_i$ and $\mathbf v_j$ are, resp., ONBs of $\mathbb R^m$ and $\mathbb R^n.$ Then
 
   $$
-  \bold A^\top \tilde \bold x = {\bold V} {\bold \Sigma} {\bold U}^\top \left( \bold x - \bold U \bold U^\top \bold x \right) = \bold 0.
+  \mathbf A^\top \tilde \mathbf x = {\mathbf V} {\mathbf \Sigma} {\mathbf U}^\top \left( \mathbf x - \mathbf U \mathbf U^\top \mathbf x \right) = \mathbf 0.
   $$
 
-  It follows that $\mathbb R^m = \mathsf{N}(\bold A^\top) + \mathsf{C}(\bold A).$ To complete the proof, we show the intersection is zero. Suppose $\bold y \in  {\mathsf{N}(\bold A^\top)} \cap {\mathsf{C}(\bold A)}.$ Then, $\bold A^\top\bold y = \bold 0$ and $\bold y = \bold A \bold x$ for some $\bold x \in \mathbb R^n.$ Thus, $\bold A^\top \bold A \bold x = \bold 0$ which implies $\bold A \bold x = \bold 0.$ In other words, $\bold y = \bold 0.$ This proves the direct sum decomposition. To prove orthogonality, observe that $\bold A \bold x = \bold 0$ implies $\bold x \perp \mathsf{C}(\bold A^\top)$ since it is orthogonal to each vector that spans it. The other follows  by duality. $\square$ 
+  It follows that $\mathbb R^m = \mathsf{N}(\mathbf A^\top) + \mathsf{C}(\mathbf A).$ To complete the proof, we show the intersection is zero. Suppose $\mathbf y \in  {\mathsf{N}(\mathbf A^\top)} \cap {\mathsf{C}(\mathbf A)}.$ Then, $\mathbf A^\top\mathbf y = \mathbf 0$ and $\mathbf y = \mathbf A \mathbf x$ for some $\mathbf x \in \mathbb R^n.$ Thus, $\mathbf A^\top \mathbf A \mathbf x = \mathbf 0$ which implies $\mathbf A \mathbf x = \mathbf 0.$ In other words, $\mathbf y = \mathbf 0.$ This proves the direct sum decomposition. To prove orthogonality, observe that $\mathbf A \mathbf x = \mathbf 0$ implies $\mathbf x \perp \mathsf{C}(\mathbf A^\top)$ since it is orthogonal to each vector that spans it. The other follows  by duality. $\square$ 
   
   <br>
 
@@ -27,20 +27,20 @@
 <br>
 
 * (5.2) **Basis for fundamental subspaces.** 
-  Basis for the fundamental subspaces can be obtained from the SVD. We can write $\bold A^\top = \bold V\bold \Sigma \bold U^\top$ so that $\bold A^\top \bold u_i = \sigma_i \bold v_i$ or for $i = 1, \ldots, r = \text{rank }\bold A.$ Thus, $\bold v_1, \ldots, \bold v_r$ forms a basis for $\mathsf{C}(\bold A).$ Moreover, $\bold v_{r+1}, \ldots, \bold v_{n}$ are $n - r$ vectors in $\mathsf{N}(\bold A),$ hence a basis by counting. Applying the same argument for the output space, we get the ff. table: 
+  Basis for the fundamental subspaces can be obtained from the SVD. We can write $\mathbf A^\top = \mathbf V\mathbf \Sigma \mathbf U^\top$ so that $\mathbf A^\top \mathbf u_i = \sigma_i \mathbf v_i$ or for $i = 1, \ldots, r = \text{rank }\mathbf A.$ Thus, $\mathbf v_1, \ldots, \mathbf v_r$ forms a basis for $\mathsf{C}(\mathbf A).$ Moreover, $\mathbf v_{r+1}, \ldots, \mathbf v_{n}$ are $n - r$ vectors in $\mathsf{N}(\mathbf A),$ hence a basis by counting. Applying the same argument for the output space, we get the ff. table: 
 
   <center>
 
   Subspace | Basis | Subspace | Basis
   ------ | ------ | ------ | ------
-  $\mathsf{C}(\bold A^\top)$ | $\bold v_1, \ldots, \bold v_r$ | $\mathsf{C}(\bold A)$ | $\bold u_1, \ldots, \bold u_r$
-  $\mathsf{N}(\bold A)$ | $\bold v_{r+1}, \ldots, \bold v_n$ | $\mathsf{N}(\bold A^\top)$ | $\bold u_{r+1}, \ldots, \bold u_n$ 
+  $\mathsf{C}(\mathbf A^\top)$ | $\mathbf v_1, \ldots, \mathbf v_r$ | $\mathsf{C}(\mathbf A)$ | $\mathbf u_1, \ldots, \mathbf u_r$
+  $\mathsf{N}(\mathbf A)$ | $\mathbf v_{r+1}, \ldots, \mathbf v_n$ | $\mathsf{N}(\mathbf A^\top)$ | $\mathbf u_{r+1}, \ldots, \mathbf u_n$ 
 
   </center>
 
   <br>
     
-  **Remark.** Observe that from these bases, we obtain $\mathbb R^n = \mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A)$ the orthogonality of these subspaces for free! 
+  **Remark.** Observe that from these bases, we obtain $\mathbb R^n = \mathsf{C}(\mathbf A^\top) \oplus \mathsf{N}(\mathbf A)$ the orthogonality of these subspaces for free! 
 
 <br>
 
@@ -51,14 +51,14 @@
 
 <br>
 
-* (5.3) **Solutions to linear equations.** Consider the linear system $\bold A \bold x = \bold y.$ Then, because $\mathbb R^n = \mathsf{C}(\bold A^\top) \oplus \mathsf{N}(\bold A)$, the solution set for this system is given by
-  $$\bold x = \bold h + \sum_{k=1}^r c_k\bold v_k$$
+* (5.3) **Solutions to linear equations.** Consider the linear system $\mathbf A \mathbf x = \mathbf y.$ Then, because $\mathbb R^n = \mathsf{C}(\mathbf A^\top) \oplus \mathsf{N}(\mathbf A)$, the solution set for this system is given by
+  $$\mathbf x = \mathbf h + \sum_{k=1}^r c_k\mathbf v_k$$
 
-  where $\bold h \in \mathsf{N}(\bold A)$ and $c_1, \ldots, c_r \in \mathbb R.$ The parameters $c_k$ are sometimes called free variables and $\bold h$ a solution to the homogeneous system $\bold A \bold x = \bold 0.$ 
+  where $\mathbf h \in \mathsf{N}(\mathbf A)$ and $c_1, \ldots, c_r \in \mathbb R.$ The parameters $c_k$ are sometimes called free variables and $\mathbf h$ a solution to the homogeneous system $\mathbf A \mathbf x = \mathbf 0.$ 
 
 <br>
 
 * (5.4) **Understanding the direct sum decomposition.** 
-  Geometrically, the whole subspace $\mathsf{N}(\bold A)$ gets collapsed to the zero of the output space, while the orthogonal subspace, which turns out to be $\mathsf{C}(\bold A^\top)$, gets mapped to $\mathsf{C}(\bold A).$ Come to think of it, it's not surprising that the row space is spanned by the left singular vectors $\bold v_k$ for $k = 1, \ldots, r$ that is orthogonal to the null space. Consider the operation $\bold y^\top \bold A$ which is a linear combination of the row vectors. This turns out to be $\bold y^\top \bold U \bold \Sigma \bold V^\top$ which is a linear combination of the first $r$ row vectors of $\bold V.$
+  Geometrically, the whole subspace $\mathsf{N}(\mathbf A)$ gets collapsed to the zero of the output space, while the orthogonal subspace, which turns out to be $\mathsf{C}(\mathbf A^\top)$, gets mapped to $\mathsf{C}(\mathbf A).$ Come to think of it, it's not surprising that the row space is spanned by the left singular vectors $\mathbf v_k$ for $k = 1, \ldots, r$ that is orthogonal to the null space. Consider the operation $\mathbf y^\top \mathbf A$ which is a linear combination of the row vectors. This turns out to be $\mathbf y^\top \mathbf U \mathbf \Sigma \mathbf V^\top$ which is a linear combination of the first $r$ row vectors of $\mathbf V.$
 
 <br>
