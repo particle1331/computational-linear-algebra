@@ -31,8 +31,8 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 ## Contents
 
 
-1. [Vectors and matrices](https://github.com/particle1331/computational-linear-algebra/blob/master/vectors-and-matrices.md)
-2. [Singular value decomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/svd.md)
+1. [Vectors and matrices](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/01-vectors.ipynb)
+2. [Singular value decomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/02-svd.ipynb)
 3. [Matrix multiplication and norms](https://github.com/particle1331/computational-linear-algebra/blob/master/mm-norms.md)
 4. [Rank and dimension](https://github.com/particle1331/computational-linear-algebra/blob/master/rank.md)
 5. [Four fundamental subspaces](https://github.com/particle1331/computational-linear-algebra/blob/master/four-subspaces.md)
