@@ -35,7 +35,7 @@ def plot_svd_scree(A, save=False, filename=''):
     plt.title(f'$V^\intercal$')
 
     ax = plt.subplot(gs[1, :]) # row 1, span all columns
-    plt.scatter(range(len(s)), s, marker='o', facecolors='white', edgecolors='k')
+    plt.scatter(range(len(s)), s, marker='o', facecolors='white', edgecolors='k', zorder=3)
     plt.plot(range(len(s)), s, linestyle='--', c='red', linewidth=0.8)
     plt.xlim(-0.5, int(0.5*len(s)) + 0.5)
     plt.ylabel(f'$\sigma$')
