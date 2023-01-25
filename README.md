@@ -37,10 +37,10 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 5. [Four fundamental subspaces](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/05-four-subspaces.ipynb)
 6. [Determinant](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/06-det.ipynb)
 7. [Matrix inverse and pseudoinverse](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/07-inverse.ipynb)
-8. [Projection and orthogonalization](https://github.com/particle1331/computational-linear-algebra/blob/master/08-projection.ipynb)
-9. [Least squares for model fitting](https://github.com/particle1331/computational-linear-algebra/blob/master/09-least-squares.ipynb)
-10. [Eigendecomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/10-eigendecomp.ipynb)
-11. [Quadratic form and definiteness](https://github.com/particle1331/computational-linear-algebra/blob/master/11-quadratic.ipynb)
+8. [Projection and orthogonalization](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/08-projection.ipynb)
+9. [Least squares for model fitting](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/09-least-squares.ipynb)
+10. [Eigendecomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/10-eigendecomp.ipynb)
+11. [Quadratic form and definiteness](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/11-quadratic.ipynb)
 
 <br>
 
