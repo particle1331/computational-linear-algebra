@@ -12,7 +12,7 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 <br>
 
 <p align="center">
-    <img src='img/13_kde.png'>
+    <img src='img/kde-decomp.png'>
     <br>
     <b>Figure.</b> SVD of a sum of Gaussians. Only the first few vectors are meaningful, the rest model noise. 
 </p>
