@@ -34,13 +34,13 @@ Notes and code experiments for linear algebra in code. The idea is to construct 
 2. [Singular value decomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/02-svd.ipynb)
 3. [Matrix multiplication and norms](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/03-norms.ipynb)
 4. [Rank and dimension](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/04-rank.ipynb)
-5. [Four fundamental subspaces](https://github.com/particle1331/computational-linear-algebra/blob/master/four-subspaces.md)
-6. [Determinant](https://github.com/particle1331/computational-linear-algebra/blob/master/det.md)
-7. [Matrix inverse and pseudoinverse](https://github.com/particle1331/computational-linear-algebra/blob/master/inverse.md)
-8. [Projection and orthogonalization](https://github.com/particle1331/computational-linear-algebra/blob/master/projection.md)
-9. [Least squares for model fitting](https://github.com/particle1331/computational-linear-algebra/blob/master/least-squares.md)
-10. [Eigendecomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/eigendecomp.md)
-11. [Quadratic form and definiteness](https://github.com/particle1331/computational-linear-algebra/blob/master/quadratic.md)
+5. [Four fundamental subspaces](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/05-four-subspaces.ipynb)
+6. [Determinant](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/06-det.ipynb)
+7. [Matrix inverse and pseudoinverse](https://github.com/particle1331/computational-linear-algebra/blob/master/chapters/07-inverse.ipynb)
+8. [Projection and orthogonalization](https://github.com/particle1331/computational-linear-algebra/blob/master/08-projection.ipynb)
+9. [Least squares for model fitting](https://github.com/particle1331/computational-linear-algebra/blob/master/09-least-squares.ipynb)
+10. [Eigendecomposition](https://github.com/particle1331/computational-linear-algebra/blob/master/10-eigendecomp.ipynb)
+11. [Quadratic form and definiteness](https://github.com/particle1331/computational-linear-algebra/blob/master/11-quadratic.ipynb)
 
 <br>
 
